@@ -2,7 +2,7 @@ package com.example.springboot.model;
 
 import java.time.LocalDate;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,12 +15,27 @@ public class paciente {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idPaciente;
+
+    @Column(nullable = false, length =50)
     private String nome;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name="data_nascimento", columnDefinition = "DATE")
     private LocalDate dataNascimento;
+
+    @Column(length = 11)
     private String cpf;
+
+    @Column(length = 15)
     private String telefone;
+
+    @Column(length = 50)
     private String email;
+
+    @Column(length = 100)
     private String endereco;
+    
+    @Column(length = 500)
     private String historicoClinico;
 
     
