@@ -1,37 +1,38 @@
 package com.example.springboot.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class consulta {
-    private String idConsulta;
-    private String idPaciente;
-    private String idProfissional;
-    private Date dataConsulta;
+    private Long idConsulta;
+    private Long idPaciente;
+    private Long idProfissional;
+    private LocalDate dataConsulta;
     private String horaConsulta;
     private String descricaoConsulta;
 
-    public String getIdConsulta() {
+    public Long getIdConsulta() {
         return idConsulta;
     }
-    public void setIdConsulta(String idConsulta) {
+    public void setIdConsulta(Long idConsulta) {
         this.idConsulta = idConsulta;
     }
-    public String getIdPaciente() {
+    public Long getIdPaciente() {
         return idPaciente;
     }
-    public void setIdPaciente(String idPaciente) {
+    public void setIdPaciente(Long idPaciente) {
         this.idPaciente = idPaciente;
     }
-    public String getIdProfissional() {
+    public Long getIdProfissional() {
         return idProfissional;
     }
-    public void setIdProfissional(String idProfissional) {
+    public void setIdProfissional(Long idProfissional) {
         this.idProfissional = idProfissional;
     }
-    public Date getDataConsulta() {
+    public LocalDate getDataConsulta() {
         return dataConsulta;
     }
-    public void setDataConsulta(Date dataConsulta) {
+    public void setDataConsulta(LocalDate dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
     public String getHoraConsulta() {

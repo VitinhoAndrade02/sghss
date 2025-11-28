@@ -1,7 +1,7 @@
 package com.example.springboot.model;
 
-import java.util.Date;
-import java.util.UUID;
+import java.time.LocalDate;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,20 +14,20 @@ import jakarta.persistence.Table;
 public class paciente {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private UUID idPaciente;
+    private Long idPaciente;
     private String nome;
-    private Date dataNascimento;
-    private Number cpf;
+    private LocalDate dataNascimento;
+    private String cpf;
     private String telefone;
     private String email;
     private String endereco;
     private String historicoClinico;
 
     
-      public UUID getIdPaciente() {
+      public Long getIdPaciente() {
         return idPaciente;
     }
-    public void setIdPaciente(UUID idPaciente) {
+    public void setIdPaciente(Long idPaciente) {
         this.idPaciente = idPaciente;
     }
 
@@ -38,16 +38,16 @@ public class paciente {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-    public Number getCpf() {
+    public String getCpf() {
         return cpf;
     }
-    public void setCpf(Number cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     public String getTelefone() {

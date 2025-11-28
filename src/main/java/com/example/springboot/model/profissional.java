@@ -1,22 +1,22 @@
 package com.example.springboot.model;
 
-import java.util.UUID;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class profissional {
-    private UUID idProfissional;
+    private Long idProfissional;
     private String nome;
     private String especialidade;
     private String crm;
-    private Date dataNascimento;
-    private Number telefone;
+    private LocalDate dataNascimento;
+    private String telefone;
     private String email;
     private String endereco;
 
-    public UUID getIdProfissional() {
+    public Long getIdProfissional() {
         return idProfissional;
     }
-    public void setIdProfissional(UUID idProfissional) {
+    public void setIdProfissional(Long idProfissional) {
         this.idProfissional = idProfissional;
     }
     public String getNome() {
@@ -37,16 +37,16 @@ public class profissional {
     public void setCrm(String crm) {
         this.crm = crm;
     }
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-    public Number getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
-    public void setTelefone(Number telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
     public String getEmail() {

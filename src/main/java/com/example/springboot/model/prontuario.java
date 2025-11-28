@@ -1,30 +1,30 @@
 package com.example.springboot.model;
 
-import java.util.Date;
-import java.util.UUID;
+import java.time.LocalDate;
+
 
 public class prontuario {
-    private UUID idProntuario;
-    private UUID idPaciente;
-    private Date dataConsulta;
+    private Long idProntuario;
+    private Long idPaciente;
+    private LocalDate dataConsulta;
     private String descricao;   
     
-    public UUID getIdProntuario() {
+    public Long getIdProntuario() {
         return idProntuario;
     }   
-    public void setIdProntuario(UUID idProntuario) {
+    public void setIdProntuario(Long idProntuario) {
         this.idProntuario = idProntuario;
     }
-    public UUID getIdPaciente() {
+    public Long getIdPaciente() {
         return idPaciente;
     }
-    public void setIdPaciente(UUID idPaciente) {
+    public void setIdPaciente(Long idPaciente) {
         this.idPaciente = idPaciente;
     }
-    public Date getDataConsulta() {
+    public LocalDate getDataConsulta() {
         return dataConsulta;
     }
-    public void setDataConsulta(Date dataConsulta) {
+    public void setDataConsulta(LocalDate dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
     public String getDescricao() {
@@ -33,7 +33,7 @@ public class prontuario {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
 
 
 }
