@@ -1,7 +1,8 @@
 package com.example.springboot.model;
 
-import java.time.LocalDate;
 
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +35,7 @@ public class paciente {
 
     @Column(length = 100)
     private String endereco;
-    
+
     @Column(length = 500)
     private String historicoClinico;
 
