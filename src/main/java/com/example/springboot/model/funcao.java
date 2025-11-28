@@ -5,7 +5,7 @@ public enum funcao {
     PROFISSIONAL("Profissional"),
     ADMINISTRADOR("Administrador");
 
-    private String descricao;
+    private final String descricao;
 
     funcao(String descricao) {
         this.descricao = descricao;
