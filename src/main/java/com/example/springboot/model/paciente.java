@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "pacientes")
 public class paciente {
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idPaciente;
@@ -40,7 +41,7 @@ public class paciente {
     private String historicoClinico;
 
     
-      public Long getIdPaciente() {
+    public Long getIdPaciente() {
         return idPaciente;
     }
     public void setIdPaciente(Long idPaciente) {
