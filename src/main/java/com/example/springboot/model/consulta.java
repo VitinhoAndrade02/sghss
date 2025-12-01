@@ -1,16 +1,39 @@
 package com.example.springboot.model;
 
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-
+@Entity
+@Table(name = "consultas")
 public class consulta {
-    private Long idConsulta;
-    private Long idPaciente;
-    private Long idProfissional;
-    private LocalDate dataConsulta;
-    private String horaConsulta;
-    private String descricaoConsulta;
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long idConsulta;
+
+    @Column(nullable = false)
+    private Long idPaciente;
+
+    @Column(nullable = false)
+    private Long idProfissional;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name="data_consulta", columnDefinition = "DATE")
+    private LocalDate dataConsulta;
+
+    @Column(name="hora_consulta", length = 5)   
+    private String horaConsulta;
+
+    @Column(name="descricao_consulta")
+    private String descricaoConsulta;
+    
+    
     public Long getIdConsulta() {
         return idConsulta;
     }
