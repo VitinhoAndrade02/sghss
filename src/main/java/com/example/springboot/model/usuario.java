@@ -3,11 +3,11 @@ package com.example.springboot.model;
 import java.util.UUID;
 
 
-public class usuario {
+public class Usuario {
     private UUID id;
     private String login;
     private String senha;
-    private funcao funcao;
+    private Funcao funcao;
 
     public UUID getId() {
         return id;
@@ -27,10 +27,10 @@ public class usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    public funcao getFuncao() {
+    public Funcao getFuncao() {
         return funcao;
     }
-    public void setFuncao(funcao funcao) {
+    public void setFuncao(Funcao funcao) {
         this.funcao = funcao;
     }
 

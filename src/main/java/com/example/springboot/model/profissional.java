@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "profissionais")
-public class profissional {
+public class Profissional {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

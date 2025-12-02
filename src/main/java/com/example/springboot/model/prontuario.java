@@ -3,7 +3,7 @@ package com.example.springboot.model;
 import java.time.LocalDate;
 
 
-public class prontuario {
+public class Prontuario {
     private Long idProntuario;
     private Long idPaciente;
     private LocalDate dataConsulta;
