@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.example.springboot.model.Paciente;
-import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 
@@ -21,7 +21,7 @@ private EntityManager entityManager;
 
     @Override
     public List<Paciente> lista() {
-        Query query = entityManager.createQuery("SELECT p FROM Paciente p");
+        TypedQuery<Paciente> query = entityManager.createQuery("SELECT p FROM Paciente p", Paciente.class);
         return (List<Paciente>) query.getResultList();
     }
 
