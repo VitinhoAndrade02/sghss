@@ -1,13 +1,13 @@
 package com.example.springboot.model;
 
-public enum Funcao {
+public enum FuncaoUsuario {
     PACIENTE("Paciente"),
     PROFISSIONAL("Profissional"),
     ADMINISTRADOR("Administrador");
 
     private final String descricao;
 
-    Funcao(String descricao) {
+    FuncaoUsuario(String descricao) {
         this.descricao = descricao;
     }
     public String getDescricao() {

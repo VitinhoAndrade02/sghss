@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class ConsultaBO implements CRUD<Consulta, Long> {
+    
 @Autowired
     private ConsultaDAO dao;
 

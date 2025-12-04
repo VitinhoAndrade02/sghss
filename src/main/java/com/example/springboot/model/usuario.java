@@ -25,7 +25,7 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private Funcao funcao;
+    private FuncaoUsuario funcao;
 
     public Long getId() {
         return id;
@@ -45,10 +45,10 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    public Funcao getFuncao() {
+    public FuncaoUsuario getFuncao() {
         return funcao;
     }
-    public void setFuncao(Funcao funcao) {
+    public void setFuncao(FuncaoUsuario funcao) {
         this.funcao = funcao;
     }
 
