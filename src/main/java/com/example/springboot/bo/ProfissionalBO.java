@@ -1,0 +1,39 @@
+package com.example.springboot.bo;
+import org.springframework.stereotype.Service;
+import com.example.springboot.dao.ProfissionalDAO;
+import com.example.springboot.model.Profissional;
+import com.example.springboot.dao.CRUD;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
+
+@Service
+public class ProfissionalBO implements CRUD<Profissional, Long> {
+@Autowired
+    private ProfissionalDAO dao;
+
+    @Override
+    public Profissional pesquisarPeloId(Long id) {
+        return dao.pesquisarPeloId(id);
+    }        
+
+    @Override
+    public List<Profissional> lista() {
+        return dao.lista();
+    }
+
+    @Override
+    public void create(Profissional profissional) {
+        dao.create(profissional);
+    }
+
+    @Override
+    public void update(Profissional profissional) {
+        dao.update(profissional);
+    }
+    
+    @Override
+    public void delete(Long id) {
+        dao.delete(id);
+    }
+}
