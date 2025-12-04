@@ -1,4 +1,4 @@
-package com.example.springboot.model;
+package com.example.sghss.model;
 
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;

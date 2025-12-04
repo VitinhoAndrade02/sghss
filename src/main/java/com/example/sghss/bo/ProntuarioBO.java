@@ -1,10 +1,12 @@
-package com.example.springboot.bo;
+package com.example.sghss.bo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.springboot.dao.ProntuarioDAO;
-import com.example.springboot.model.Prontuario;
-import com.example.springboot.dao.CRUD;
+
+import com.example.sghss.dao.CRUD;
+import com.example.sghss.dao.ProntuarioDAO;
+import com.example.sghss.model.Prontuario;
+
 import java.util.List;
 
 @Service    

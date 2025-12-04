@@ -1,4 +1,4 @@
-package com.example.springboot.dao;
+package com.example.sghss.dao;
 import java.util.List;
 
 public interface CRUD<T, ID> {

@@ -1,10 +1,12 @@
-package com.example.springboot.dao;
+package com.example.sghss.dao;
 
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import com.example.springboot.model.Profissional;
+
+import com.example.sghss.model.Profissional;
+
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 

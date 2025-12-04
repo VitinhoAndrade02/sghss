@@ -1,8 +1,10 @@
-package com.example.springboot.bo;
+package com.example.sghss.bo;
 import org.springframework.stereotype.Service;
-import com.example.springboot.dao.ConsultaDAO;
-import com.example.springboot.model.Consulta;
-import com.example.springboot.dao.CRUD;
+
+import com.example.sghss.dao.CRUD;
+import com.example.sghss.dao.ConsultaDAO;
+import com.example.sghss.model.Consulta;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 

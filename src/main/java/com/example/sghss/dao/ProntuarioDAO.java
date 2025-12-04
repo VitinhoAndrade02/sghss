@@ -1,11 +1,13 @@
-package com.example.springboot.dao;
+package com.example.sghss.dao;
 import org.springframework.stereotype.Repository;
+
+import com.example.sghss.model.Prontuario;
+
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.util.List;
-import com.example.springboot.model.Prontuario;
 
 @Repository
 public class ProntuarioDAO implements CRUD<Prontuario, Long> {

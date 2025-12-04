@@ -1,10 +1,12 @@
-package com.example.springboot.bo;
+package com.example.sghss.bo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.springboot.dao.UsuarioDAO;
-import com.example.springboot.model.Usuario;
-import com.example.springboot.dao.CRUD;
+
+import com.example.sghss.dao.CRUD;
+import com.example.sghss.dao.UsuarioDAO;
+import com.example.sghss.model.Usuario;
+
 import java.util.List;
 
 @Service
