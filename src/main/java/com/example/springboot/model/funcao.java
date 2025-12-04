@@ -1,7 +1,7 @@
 package com.example.springboot.model;
 
 public enum Funcao {
-    CLIENTE("Cliente"),
+    PACIENTE("Paciente"),
     PROFISSIONAL("Profissional"),
     ADMINISTRADOR("Administrador");
 
