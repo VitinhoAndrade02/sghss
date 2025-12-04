@@ -25,11 +25,13 @@ private EntityManager entityManager;
         return (List<Paciente>) query.getResultList();
     }
 
+    @Transactional
     @Override
     public void create(Paciente paciente) {
         entityManager.persist(paciente);
     }
 
+    @Transactional
     @Override
     public void update(Paciente paciente) {
         entityManager.merge(paciente);
