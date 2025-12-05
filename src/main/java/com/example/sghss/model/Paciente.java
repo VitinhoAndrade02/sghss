@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
 @Table(name = "pacientes")
@@ -24,6 +26,10 @@ public class Paciente {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_nascimento", columnDefinition = "DATE")
     private LocalDate dataNascimento;
+    
+    @Column(length = 10)
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
 
     @Column(length = 11)
     private String cpf;
@@ -60,6 +66,12 @@ public class Paciente {
     }
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+    public Sexo getSexo() {
+        return sexo;
+    }
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
     public String getCpf() {
         return cpf;
