@@ -21,7 +21,7 @@ public class PacienteBOTest {
     @Autowired
     private PacienteBO bo;
 
-    // Armazena o ID do paciente criado para usar nos testes seguintes
+   
     private static Long pacienteId;
 
     @Test
@@ -37,7 +37,7 @@ public class PacienteBOTest {
         paciente.setTelefone("11999999999");
 
         bo.create(paciente);
-        pacienteId = paciente.getIdPaciente(); // pega o ID gerado
+        pacienteId = paciente.getIdPaciente(); 
         System.out.println("Paciente criado com ID: " + pacienteId);
     }
 
@@ -74,7 +74,7 @@ public class PacienteBOTest {
         System.out.println("Paciente deletado com ID: " + pacienteId);
     }
 
-    // Método auxiliar para imprimir os dados do paciente de forma legível
+    
     private String pacienteInfo(Paciente paciente) {
         if (paciente == null) return "Paciente não encontrado";
         return String.format("ID: %d | Nome: %s | CPF: %s | Telefone: %s | Email: %s | Sexo: %s",
