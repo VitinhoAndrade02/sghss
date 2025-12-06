@@ -1,11 +1,11 @@
 package com.example.sghss.dao;
 import java.util.List;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.example.sghss.model.Profissional;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 @Repository
 public class ProfissionalDAO implements CRUD<Profissional, Long> {
