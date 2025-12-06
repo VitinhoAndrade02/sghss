@@ -17,7 +17,6 @@ public class Prontuario {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idProntuario;
 
-    @Id
     private Long idPaciente;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
