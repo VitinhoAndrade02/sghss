@@ -19,6 +19,12 @@ public class ConsultaController {
     @Autowired
     private ConsultaBO bo;
 
+    @Autowired
+    private PacienteBO pacienteBO;  
+
+    @Autowired
+    private ProfissionalBO profissionalBO;  
+
     @GetMapping("/novo")
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("consulta", new Consulta());

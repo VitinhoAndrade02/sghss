@@ -1,3 +1,4 @@
+package com.example.sghss.bo;
 // package com.example.shgss.bo;
 
 // import java.util.Scanner;
