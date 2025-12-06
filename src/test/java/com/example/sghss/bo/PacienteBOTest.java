@@ -3,6 +3,7 @@ package com.example.sghss.bo;
 import com.example.sghss.model.Paciente;
 import com.example.sghss.model.Sexo;
 
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
+@Transactional
 @TestMethodOrder(OrderAnnotation.class)
 public class PacienteBOTest {
 
