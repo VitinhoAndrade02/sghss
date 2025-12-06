@@ -3,9 +3,7 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-
 import com.example.sghss.model.Paciente;
-
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 

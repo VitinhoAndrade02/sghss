@@ -1,8 +1,6 @@
 package com.example.sghss.dao;
 import org.springframework.stereotype.Repository;
-
 import com.example.sghss.model.Prontuario;
-
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;

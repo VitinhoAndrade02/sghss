@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Paciente</title>
+</head>
+<body>
+
+    <div>
+        <h1>Dados do Paciente</h1>
+        <hr>
+
+        <form th:action="@{/pacientes}" th:object="${paciente}" method="POST">
+
+            <!-- ID oculto -->
+            <input type="hidden" th:field="*{idPaciente}"/>
+
+            <div>
+                <label for="nome">Nome:</label>
+                <input id="nome" type="text" th:field="*{nome}" placeholder="Digite o nome"/>
+            </div>
+
+            <div>
+                <label for="dataNascimento">Data de Nascimento:</label>
+                <input id="dataNascimento" type="date" th:field="*{dataNascimento}"/>
+            </div>
+
+            <div>
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" th:field="*{sexo}">
+                    <option value="" disabled selected>Selecione...</option>
+                    <option th:each="s : ${T(com.example.sghss.model.Sexo).values()}"
+                            th:value="${s}"
+                            th:text="${s}">
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label for="cpf">CPF:</label>
+                <input id="cpf" type="text" th:field="*{cpf}" placeholder="Digite o CPF"/>
+            </div>
+
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input id="telefone" type="text" th:field="*{telefone}" placeholder="Digite o telefone"/>
+            </div>
+
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" type="email" th:field="*{email}" placeholder="Digite o email"/>
+            </div>
+
+            <div>
+                <label for="endereco">Endereço:</label>
+                <input id="endereco" type="text" th:field="*{endereco}" placeholder="Digite o endereço"/>
+            </div>
+
+            <div>
+                <label for="historicoClinico">Histórico Clínico:</label>
+                <textarea id="historicoClinico" th:field="*{historicoClinico}" placeholder="Digite o histórico"></textarea>
+            </div>
+
+            <div>
+                <button type="submit">Salvar</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

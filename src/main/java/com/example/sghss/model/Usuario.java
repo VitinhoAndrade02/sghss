@@ -20,7 +20,7 @@ public class Usuario {
     @Column(nullable = false, unique = true, length = 50)
     private String login;
 
-    @Column(nullable = false, length = 12)
+    @Column(nullable = false, length = 20)
     private String senha;
 
     @Enumerated(EnumType.STRING)

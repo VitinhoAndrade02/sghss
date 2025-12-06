@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Paciente</title>
+</head>
+<body>
+
+    <h1>Dados do Paciente</h1>
+    <hr>
+
+    <form th:action="@{/pacientes/novo}" th:object="${paciente}" method="POST">
+
+        <input type="hidden" th:field="*{idPaciente}"/>
+
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome}" placeholder="Digite o nome" />
+        </div>
+
+        <div>
+            <label>Data de Nascimento:</label>
+            <input type="date" th:field="*{dataNascimento}" />
+        </div>
+
+        <div>
+            <label>Sexo:</label>
+            <select th:field="*{sexo}">
+                <option value="">Selecione</option>
+                <option th:each="s : ${sexos}"
+                        th:value="${s}"
+                        th:text="${s}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label>CPF:</label>
+            <input type="text" th:field="*{cpf}" placeholder="Digite o CPF"/>
+        </div>
+
+        <div>
+            <label>Telefone:</label>
+            <input type="text" th:field="*{telefone}" placeholder="Digite o telefone"/>
+        </div>
+
+        <div>
+            <label>Email:</label>
+            <input type="email" th:field="*{email}" placeholder="Digite o email"/>
+        </div>
+
+        <div>
+            <label>Endereço:</label>
+            <input type="text" th:field="*{endereco}" placeholder="Digite o endereço"/>
+        </div>
+
+        <div>
+            <label>Histórico Clínico:</label>
+            <textarea th:field="*{historicoClinico}" placeholder="Descreva o histórico"></textarea>
+        </div>
+
+        <button type="submit">Salvar</button>
+
+    </form>
+
+</body>
+</html>
