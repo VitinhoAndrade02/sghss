@@ -1,16 +1,16 @@
 package com.example.sghss.model;
 
-
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+// CORREÇÃO: Alterar todos os 'javax.persistence' para 'jakarta.persistence'
+import jakarta.persistence.Column; 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
 @Table(name = "pacientes")
@@ -31,7 +31,7 @@ public class Paciente {
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
-    @Column(length = 11)
+    @Column(length = 14)
     private String cpf;
 
     @Column(length = 15)
@@ -103,5 +103,5 @@ public class Paciente {
     public void setHistoricoClinico(String historicoClinico) {
         this.historicoClinico = historicoClinico;
     }
-  
+ 
 }

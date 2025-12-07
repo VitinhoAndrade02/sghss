@@ -28,11 +28,9 @@
             <div>
                 <label for="sexo">Sexo:</label>
                 <select id="sexo" th:field="*{sexo}">
-                    <option value="" disabled selected>Selecione...</option>
-                    <option th:each="s : ${T(com.example.sghss.model.Sexo).values()}"
-                            th:value="${s}"
-                            th:text="${s}">
-                    </option>
+                    <option value="Selecione" disabled selected>Selecione</option>
+                    <option value="MASCULINO">Masculino</option>
+                    <option value="FEMININO">Feminino</option>
                 </select>
             </div>
 
