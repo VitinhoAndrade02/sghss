@@ -1,16 +1,17 @@
 package com.example.sghss.model;
 
 import java.time.LocalDate;
-import org.springframework.format.annotation.DateTimeFormat;
-// CORREÇÃO: Alterar todos os 'javax.persistence' para 'jakarta.persistence'
-import jakarta.persistence.Column; 
+
+import org.springframework.format.annotation.DateTimeFormat; 
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 @Entity
 @Table(name = "pacientes")

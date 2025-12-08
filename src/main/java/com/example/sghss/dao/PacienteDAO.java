@@ -1,43 +1,43 @@
 package com.example.sghss.dao;
 
-import com.example.sghss.model.Paciente;
-import org.springframework.stereotype.Repository; 
-import org.springframework.transaction.annotation.Transactional;
-
-import jakarta.persistence.EntityManager; 
-import jakarta.persistence.PersistenceContext; 
-import jakarta.persistence.TypedQuery; // Necessário para a consulta lista()
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+import com.example.sghss.model.Paciente;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+
 @Repository 
-public class PacienteDAO {
+public class PacienteDAO implements CRUD<Paciente, Long> {
 
     @PersistenceContext 
     private EntityManager entityManager;
 
+    @Override
     public Paciente pesquisarPeloId(Long id) {
         return entityManager.find(Paciente.class, id); 
     }
 
-    @Transactional
+    @Override
     public void create(Paciente paciente) {
         entityManager.persist(paciente);
     }
     
-    @Transactional
-    public Paciente update(Paciente paciente) {
-        // Usa merge para atualizar a entidade
-        return entityManager.merge(paciente);
+    @Override
+    public void update(Paciente paciente) {
+        entityManager.merge(paciente);
     }
 
-    @Transactional
+    @Override
     public List<Paciente> lista() { 
-        // Cria a consulta JPQL para buscar todos os pacientes
         TypedQuery<Paciente> query = entityManager.createQuery("SELECT p FROM Paciente p", Paciente.class);
         return query.getResultList();
     }
 
-    @Transactional
+    @Override
     public void delete(Long id) { 
         Paciente paciente = entityManager.find(Paciente.class, id);
         if (paciente != null) {
