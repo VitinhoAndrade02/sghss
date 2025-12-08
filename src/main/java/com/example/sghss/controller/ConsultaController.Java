@@ -25,27 +25,27 @@ public class ConsultaController {
     @Autowired
     private ProfissionalBO profissionalBO;  
 
-    @GetMapping("/novo")
+    @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("consulta", new Consulta());
         model.addAttribute("pacientes", pacienteBO.lista());
         model.addAttribute("profissionais", profissionalBO.lista());
-        return new ModelAndView("consulta/formulario", model);
+        return new ModelAndView("/consulta/formulario", model);
     }
 
-    @PostMapping("/novo")
+    @RequestMapping(value = "/novo", method = RequestMethod.POST)
     public String salvar(@ModelAttribute Consulta consulta) {
         bo.create(consulta);
         return "redirect:/consultas/lista";
     }
 
-    @GetMapping("/lista")
+    @RequestMapping(value= "/lista", method= RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("consultas", bo.lista());
         return new ModelAndView("consulta/lista", model);
     }
 
-    @GetMapping("/editar/{id}")
+    @RequestMapping(value= "/editar/{id}", method= RequestMethod.GET)
     public ModelAndView editar(@PathVariable Long id, ModelMap model) {
         model.addAttribute("consulta", bo.pesquisarPeloId(id));
         model.addAttribute("pacientes", pacienteBO.lista());
@@ -53,7 +53,7 @@ public class ConsultaController {
         return new ModelAndView("consulta/formulario", model);
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
     public String delete(@PathVariable Long id) {
         bo.delete(id);
         return "redirect:/consultas/lista";
