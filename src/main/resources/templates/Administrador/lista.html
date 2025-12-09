@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Administradores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+    <h1>Administradores</h1>
+    <hr>
+    </div>
+    <div>
+        <a class="btn btn-primary" th:href="@{/administradores/novo}">Novo </a>
+    </div>
+    <hr>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td><b>ID</b></td>
+                <td><b>Nome</b></td>
+                <td><b>Ativo</b></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="administrador : ${administradores}">
+            <td th:text="${administrador.idAdministrador}"></td>
+            <td th:text="${administrador.nome}"></td>
+            <td th:text="${administrador.ativo}"></td>
+            <td>
+                <a class="btn btn-secondary"
+                 th:href="${/administradores/edita/{id}(id=${administrador.id})}">Editar</a>
+            </td>
+            <td>
+                <a th:href="${/administradores/ativa/{id}(id=${administrador.id})}"
+                 class="btn btn-secondary"
+                 th:if="${administrador.ativo == false}" >Ativar</a>
+                
+                <a th:href="${/administradores/inativa/{id}(id=${administrador.id})}"
+                 class="btn btn-secondary" 
+                 th:unless="${administrador.ativo == false}" >Inativar</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
