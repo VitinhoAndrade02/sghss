@@ -22,7 +22,7 @@ public class AdministradorBOTest {
 
     @Test
     @Order(1)
-    public void insere(){
+    public void create(){
         Administrador administrador = new Administrador();
         administrador.setNome("Administrador Teste"); 
         administrador.setAtivo(true);  

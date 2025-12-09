@@ -29,7 +29,7 @@ public class AdministradorDAO implements CRUD<Administrador, Long> {
         entityManager.persist(entity);
     }
 
-     @Override
+    @Override
     public List<Administrador> lista() { 
         TypedQuery<Administrador> query = entityManager.createQuery("SELECT a FROM Administrador a", Administrador.class);
         return query.getResultList();

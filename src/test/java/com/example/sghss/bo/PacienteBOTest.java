@@ -40,17 +40,32 @@ public class PacienteBOTest {
 
     @Test
     @Order(2)
-    
     public void pesquisarPeloId() {
         Paciente paciente = bo.pesquisarPeloId(1L);
         System.out.println(paciente);
     }
     
+    @Test
+    @Order(3)
     public void update() {
         Paciente paciente = bo.pesquisarPeloId(1L);
-        paciente.setTelefone("11999999999");
+        paciente.setEndereco("Rua silva, 456");
         bo.update(paciente);
         
+    }
+
+    @Test
+    @Order(4)
+    public void lista() {
+        for (Paciente paciente : bo.lista()) {
+            System.out.println(paciente);
+        }
+    }
+
+    @Test
+    @Order(5)
+    public void delete() {
+        bo.delete(1L);
     }
 
 }       
