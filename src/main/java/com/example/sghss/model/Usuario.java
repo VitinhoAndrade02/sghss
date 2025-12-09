@@ -2,12 +2,12 @@ package com.example.sghss.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
@@ -26,6 +26,9 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private FuncaoUsuario funcao;
+    
+    @Column(nullable = false)
+    private boolean ativo = true;
 
     public Long getId() {
         return id;
@@ -50,6 +53,14 @@ public class Usuario {
     }
     public void setFuncao(FuncaoUsuario funcao) {
         this.funcao = funcao;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }   
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     

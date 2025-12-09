@@ -1,13 +1,13 @@
 package com.example.sghss.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sghss.dao.CRUD;
 import com.example.sghss.dao.ProntuarioDAO;
 import com.example.sghss.model.Prontuario;
-
-import java.util.List;
 
 @Service    
 public class ProntuarioBO implements CRUD<Prontuario, Long> {
@@ -37,6 +37,16 @@ public class ProntuarioBO implements CRUD<Prontuario, Long> {
     @Override
     public void delete(Long id) {
         prontuarioDAO.delete(id);
+    }
+
+    public void inativa(Prontuario prontuario) {
+        prontuario.setAtivo(false);
+        prontuarioDAO.update(prontuario);
+    }
+
+    public void ativa(Prontuario prontuario) {
+        prontuario.setAtivo(true);
+        prontuarioDAO.update(prontuario);
     }
 
 }

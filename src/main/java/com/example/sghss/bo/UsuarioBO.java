@@ -1,13 +1,13 @@
 package com.example.sghss.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sghss.dao.CRUD;
 import com.example.sghss.dao.UsuarioDAO;
 import com.example.sghss.model.Usuario;
-
-import java.util.List;
 
 @Service
 public class UsuarioBO implements CRUD<Usuario, Long> {
@@ -36,6 +36,16 @@ public class UsuarioBO implements CRUD<Usuario, Long> {
     @Override
     public void delete(Long id) {
         usuarioDAO.delete(id);
+    }
+
+    public void inativa(Usuario usuario) {
+        usuario.setAtivo(false);
+        usuarioDAO.update(usuario);
+    }
+
+    public void ativa(Usuario usuario) {
+        usuario.setAtivo(true);
+        usuarioDAO.update(usuario);
     }
 
 }

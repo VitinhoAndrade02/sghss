@@ -1,17 +1,18 @@
 package com.example.sghss.bo;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sghss.dao.CRUD;
 import com.example.sghss.dao.ProfissionalDAO;
 import com.example.sghss.model.Profissional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-
 
 @Service
 public class ProfissionalBO implements CRUD<Profissional, Long> {
-@Autowired
+
+    @Autowired
     private ProfissionalDAO dao;
 
     @Override
@@ -37,5 +38,15 @@ public class ProfissionalBO implements CRUD<Profissional, Long> {
     @Override
     public void delete(Long id) {
         dao.delete(id);
+    }
+
+    public void inativa(Profissional profissional) {
+        profissional.setAtivo(false);
+        dao.update(profissional);
+    }
+
+    public void ativa(Profissional profissional) {
+        profissional.setAtivo(true);
+        dao.update(profissional);
     }
 }

@@ -47,6 +47,9 @@ public class Paciente {
     @Column(length = 500)
     private String historicoClinico;
 
+    @Column(nullable = false)
+    private boolean ativo = true;
+
     
     public Long getIdPaciente() {
         return idPaciente;
@@ -104,5 +107,12 @@ public class Paciente {
     public void setHistoricoClinico(String historicoClinico) {
         this.historicoClinico = historicoClinico;
     }
- 
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }

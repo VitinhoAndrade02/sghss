@@ -4,36 +4,38 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.example.sghss.dao.CRUD;
 import com.example.sghss.dao.PacienteDAO;
-import com.example.sghss.model.Paciente; 
+import com.example.sghss.model.Paciente;
 
 @Service
-public class PacienteBO {
+public class PacienteBO implements CRUD<Paciente, Long> {
 
     @Autowired
     private PacienteDAO dao; 
-
-    @Transactional
-    public void create(Paciente paciente) {
-        dao.create(paciente);
-    }
     
+    @Override
     public Paciente pesquisarPeloId(Long id) {
         return dao.pesquisarPeloId(id);
     }
 
+    @Override
+    public void create(Paciente paciente) {
+        dao.create(paciente);
+    }
+
+    @Override
     public List<Paciente> lista() {
         return dao.lista();
     }
     
-    @Transactional
+    @Override
     public void update(Paciente paciente) {
         dao.update(paciente);
     }
     
-    @Transactional
+    @Override
     public void delete(Long id) {
         
         dao.delete(id);

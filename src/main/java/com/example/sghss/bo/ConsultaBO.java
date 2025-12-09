@@ -1,12 +1,12 @@
 package com.example.sghss.bo;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sghss.dao.CRUD;
 import com.example.sghss.dao.ConsultaDAO;
 import com.example.sghss.model.Consulta;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
 
 
 @Service
@@ -38,5 +38,15 @@ public class ConsultaBO implements CRUD<Consulta, Long> {
     @Override
     public void delete(Long id) {
         dao.delete(id);
+    }
+    
+    public void inativa(Consulta consulta) {
+        consulta.setAtivo(false);
+        dao.update(consulta);
+    }
+
+    public void ativa(Consulta consulta) {
+        consulta.setAtivo(true);
+        dao.update(consulta);
     }
 }

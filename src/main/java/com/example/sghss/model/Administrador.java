@@ -18,7 +18,10 @@ public class Administrador {
     @Column(nullable = false, length =50)
     private String nome;
 
-    
+    @Column(nullable = false)
+    private boolean ativo = true;
+
+
     public Long getIdAdministrador() {
         return idAdministrador;
     }
@@ -35,6 +38,12 @@ public class Administrador {
         this.nome = nome;
     }
 
-    
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 
 }
