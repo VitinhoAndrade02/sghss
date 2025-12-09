@@ -9,8 +9,10 @@ import com.example.sghss.model.Paciente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @Repository 
+@Transactional
 public class PacienteDAO implements CRUD<Paciente, Long> {
 
     @PersistenceContext 
