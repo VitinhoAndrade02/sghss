@@ -1,16 +1,17 @@
 package com.example.sghss.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.sghss.bo.ConsultaBO;
-import com.example.sghss.model.Consulta;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.example.sghss.bo.ConsultaBO;
+import com.example.sghss.bo.PacienteBO;
+import com.example.sghss.bo.ProfissionalBO;
+import com.example.sghss.model.Consulta;
 
 @Controller
 @RequestMapping("/consultas")
