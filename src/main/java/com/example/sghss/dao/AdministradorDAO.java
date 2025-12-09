@@ -9,9 +9,11 @@ import com.example.sghss.model.Administrador;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 
 @Repository
+@Transactional
 public class AdministradorDAO implements CRUD<Administrador, Long> {
     
     @PersistenceContext
