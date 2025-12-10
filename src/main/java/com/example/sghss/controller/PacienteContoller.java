@@ -39,12 +39,15 @@ public class PacienteContoller {
 
         if (paciente.getIdPaciente() == null) {
             bo.create(paciente);
+            attr.addFlashAttribute("feedback", "Paciente foi cadastrado com sucesso");
         } 
 
         else {
             bo.update(paciente);
+            attr.addFlashAttribute("feedback", "Paciente foi atualizado com sucesso");
+
         }
-        return "redirect:/pacientes"; 
+        return "redirect:/pacientes/lista"; 
     }
 
     @RequestMapping(value= "/lista", method= RequestMethod.GET)
@@ -53,11 +56,14 @@ public class PacienteContoller {
         return new ModelAndView("paciente/lista", model);
     }
 
-    @RequestMapping(value= "/editar/{id}", method= RequestMethod.GET)
-    public ModelAndView editar(@PathVariable Long id, ModelMap model) {
-        model.addAttribute("paciente", bo.pesquisarPeloId(id));
-        model.addAttribute("sexos", Sexo.values());
-        return new ModelAndView("paciente/formulario", model);
+    @RequestMapping(value= "/edita/{id}", method= RequestMethod.GET)
+    public ModelAndView edita(@PathVariable ("id") Long id, ModelMap model) {
+        try{
+            model.addAttribute("paciente", bo.pesquisarPeloId(id));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }       
+        return new ModelAndView("/paciente/formulario", model);
     }
 
     @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
@@ -65,4 +71,34 @@ public class PacienteContoller {
         bo.delete(id);
         return "redirect:/pacientes/lista";
     }
+
+    @RequestMapping(value="/inativa/{id}", method= RequestMethod.GET)
+    public String inativa(@PathVariable("id") Long id, RedirectAttributes attr) {
+    System.out.println(id);
+    try {
+        Paciente paciente = bo.pesquisarPeloId(id);
+        bo.inativa(paciente);
+        attr.addFlashAttribute("feedback", "Paciente foi inativdo com sucesso");
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }
+    return "redirect:/pacientes/lista";
+    }
+
+    @RequestMapping(value="/ativa/{id}", method= RequestMethod.GET)
+    public String ativa(@PathVariable("id") Long id, RedirectAttributes attr) {
+    System.out.println(id);
+    try {
+        Paciente paciente = bo.pesquisarPeloId(id);
+        bo.ativa(paciente);
+        attr.addFlashAttribute("feedback", "Paciente foi ativdo com sucesso");
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }
+    return "redirect:/pacientes/lista";
+    }
+
+
 }

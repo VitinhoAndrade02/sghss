@@ -40,7 +40,7 @@ public class Paciente {
     @NotNull(message = "Informe o sexo")
     private Sexo sexo;
 
-    @Column(length = 11)
+    @Column(length = 14)
     @CPF(message="CPF inválido")
     private String cpf;
 
