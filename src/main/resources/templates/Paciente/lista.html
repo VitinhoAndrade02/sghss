@@ -7,51 +7,62 @@
     <title>Lista dos Pacientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+        <style>
+         body {
+           padding-top: 4.5rem;
+         }
+      </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Dados do Paciente</h1>
-        <hr>
-        <div>
-            <a class="btn btn-primary" th:href="@{/pacientes/novo}">Novo</a>
-        </div>
-        <hr>
-        <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">
-            <span th:text="${feedback}"></span>
-        </div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <td><b>Nome</b></td>
-                    <td><b>Data de Nascimento</b></td>
-                    <td><b>Sexo</b></td>
-                    <td><b>CPF</b></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="paciente : ${pacientes}">
-                    <td th:text="${paciente.nome}"></td>
-                    <td th:text="${paciente.dataNascimento}"></td>
-                    <td th:text="${paciente.sexo}"></td>
-                    <td th:text="${paciente.cpf}"></td>
-                    <td>
-                        <a class="btn btn-sm btn-secondary"
-                           th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}">Editar</a>
-                    </td>
-                    <td>
-                        <a th:href="@{/pacientes/ativa/{id}(id=${paciente.idPaciente})}" class="btn btn-sm btn-secondary"
-                           th:if="${paciente.ativo == false}">Ativar</a>
+    <div th:replace="fragments/menu :: menu"></div>
 
-                        <a th:href="@{/pacientes/inativa/{id}(id=${paciente.idPaciente})}" class="btn btn-sm btn-secondary"
-                           th:unless="${paciente.ativo == false}">Inativar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>Dados do Paciente</h1>
+            <hr>
+            <div>
+                <a class="btn btn-primary" th:href="@{/pacientes/novo}">Novo</a>
+            </div>
+            <hr>
+            <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">
+                <span th:text="${feedback}"></span>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td><b>Nome</b></td>
+                        <td><b>Data de Nascimento</b></td>
+                        <td><b>Sexo</b></td>
+                        <td><b>CPF</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="paciente : ${pacientes}">
+                        <td th:text="${paciente.nome}"></td>
+                        <td th:text="${paciente.dataNascimento}"></td>
+                        <td th:text="${paciente.sexo}"></td>
+                        <td th:text="${paciente.cpf}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-secondary"
+                                th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}">Editar</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/pacientes/ativa/{id}(id=${paciente.idPaciente})}"
+                                class="btn btn-sm btn-secondary" th:if="${paciente.ativo == false}">Ativar</a>
+
+                            <a th:href="@{/pacientes/inativa/{id}(id=${paciente.idPaciente})}"
+                                class="btn btn-sm btn-secondary" th:unless="${paciente.ativo == false}">Inativar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </body>
 
 </html>

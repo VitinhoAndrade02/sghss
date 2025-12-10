@@ -23,20 +23,20 @@ public class PacienteDAO implements CRUD<Paciente, Long> {
         return entityManager.find(Paciente.class, id); 
     }
 
-    @Override
-    public void create(Paciente entity) {
-        entityManager.persist(entity);
-    }
-    
      @Override
     public List<Paciente> lista() { 
         TypedQuery<Paciente> query = entityManager.createQuery("SELECT p FROM Paciente p", Paciente.class);
         return query.getResultList();
     }
 
+      @Override
+    public void create(Paciente paciente) {
+        entityManager.persist(paciente);
+    }
+
     @Override
-    public void update(Paciente entity) {
-        entityManager.merge(entity);
+    public void update(Paciente paciente) {
+        entityManager.merge(paciente);
     }
 
     @Override

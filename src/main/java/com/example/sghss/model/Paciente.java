@@ -24,7 +24,7 @@ public class Paciente {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long idPaciente;
+    private Long id;
 
     @Column(nullable = false, length =50)
     @NotBlank(message = "Informe o nome")
@@ -62,10 +62,10 @@ public class Paciente {
 
     
     public Long getIdPaciente() {
-        return idPaciente;
+        return id;
     }
     public void setIdPaciente(Long idPaciente) {
-        this.idPaciente = idPaciente;
+        this.id = idPaciente;
     }
 
     public String getNome() {
