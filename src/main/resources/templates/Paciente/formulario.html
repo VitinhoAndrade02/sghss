@@ -15,9 +15,9 @@
         <h1>Dados do Paciente</h1>
         <hr>
         <div>
-            <form th:action="@{/pacientes}" th:object="${paciente}" method="POST">
+            <form th:action="@{/pacientes/novo}" th:object="${paciente}" method="POST">
 
-                <input id="ativo" type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{idPaciente}" />
                 <div class="mb-3 form-check form-switch">
                     <input class="form-check-input" role="switch" id="ativo" type="checkbox" th:field="*{ativo}">
                     <label class="form-check-label" for="ativo">Registro Ativo</label>
@@ -60,7 +60,7 @@
 
                 <div class="row">
                     <div class="col-4 mb-3">
-                        <label class="form-label" for="telefone">Telefone:</label>
+                        <label class="form-label" for="telefone">Celular:</label>
                         <input class="form-control" id="telefone" type="text" th:field="*{telefone}" />
                     </div>
 
@@ -94,7 +94,19 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
 
-        <script crossorigin="anonymous" referrerpolicy="no-referrer" src=""></script>
+        <script crossorigin="anonymous" referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+        <script crossorigin="anonymous" referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"
+            integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw=="></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#cpf').mask('999.999.999-99');
+                $('#telefone').mask('(99)9999-9999');
+            }); 
+        </script>
+
 </body>
 
 </html>
