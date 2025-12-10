@@ -1,4 +1,5 @@
 package com.example.sghss.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -7,10 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.example.sghss.bo.PacienteBO;
 import com.example.sghss.model.Paciente;
 import com.example.sghss.model.Sexo;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/pacientes")
@@ -27,9 +33,19 @@ public class PacienteContoller {
     }
 
     @RequestMapping(value= "/novo", method= RequestMethod.POST)
-    public String salvar(@ModelAttribute Paciente paciente) {
-        bo.create(paciente);
-        return "redirect:/pacientes/lista";
+    public String salvar(@Valid @ModelAttribute Paciente paciente, BindingResult result,RedirectAttributes attr) {
+        if (result.hasErrors()) {
+            return "paciente/formulario";
+        }
+
+        if (paciente.getIdPaciente() != null) {
+            bo.create(paciente);
+        } 
+
+        else {
+            bo.update(paciente);
+        }
+        return "redirect:/pacientes"; 
     }
 
     @RequestMapping(value= "/lista", method= RequestMethod.GET)

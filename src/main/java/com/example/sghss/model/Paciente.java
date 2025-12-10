@@ -2,6 +2,7 @@ package com.example.sghss.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat; 
 
 import jakarta.persistence.Column;
@@ -12,6 +13,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pacientes")
@@ -22,23 +27,28 @@ public class Paciente {
     private Long idPaciente;
 
     @Column(nullable = false, length =50)
+    @NotBlank(message = "Informe o nome")
+    @Size(min = 3, max = 50)
     private String nome;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_nascimento", columnDefinition = "DATE")
+    @NotNull(message = "Informe a data de nascimento")
     private LocalDate dataNascimento;
     
-    @Column(length = 10)
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Informe o sexo")
     private Sexo sexo;
 
-    @Column(length = 14)
+    @Column(length = 11)
+    @CPF(message="CPF inválido")
     private String cpf;
 
     @Column(length = 15)
     private String telefone;
 
     @Column(length = 50)
+    @Email
     private String email;
 
     @Column(length = 100)

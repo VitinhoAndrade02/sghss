@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "administradores")
@@ -16,6 +18,8 @@ public class Administrador {
     private Long idAdministrador;
     
     @Column(nullable = false, length =50)
+    @NotBlank(message = "Informe o nome")
+    @Size(min = 3, max = 50)
     private String nome;
 
     @Column(nullable = false)
