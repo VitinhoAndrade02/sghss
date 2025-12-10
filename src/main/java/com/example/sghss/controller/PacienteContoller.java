@@ -27,15 +27,17 @@ public class PacienteContoller {
     @RequestMapping(value= "/novo", method= RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("paciente", new Paciente());
-        model.addAttribute("sexos", Sexo.values());
-        return new ModelAndView("paciente/formulario", model);
+        model.addAttribute("sexos", Sexo.values()); //posso remover
+        return new ModelAndView("/paciente/formulario", model);
     }
 
     @RequestMapping(value= "/novo", method= RequestMethod.POST)
-    public String salvar(@Valid @ModelAttribute Paciente paciente, BindingResult result,RedirectAttributes attr) {
-        if (result.hasErrors()) {
+    public String salva(@Valid @ModelAttribute Paciente paciente, 
+        BindingResult result,
+        RedirectAttributes attr) {
+        if (result.hasErrors()) 
             return "paciente/formulario";
-        }
+        
 
         if (paciente.getIdPaciente() == null) {
             bo.create(paciente);
@@ -47,13 +49,13 @@ public class PacienteContoller {
             attr.addFlashAttribute("feedback", "Paciente foi atualizado com sucesso");
 
         }
-        return "redirect:/pacientes/lista"; 
+        return "redirect:/pacientes"; 
     }
 
-    @RequestMapping(value= "/lista", method= RequestMethod.GET)
+    @RequestMapping(value= "", method= RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("pacientes", bo.lista());
-        return new ModelAndView("paciente/lista", model);
+        return new ModelAndView("/paciente/lista", model);
     }
 
     @RequestMapping(value= "/edita/{id}", method= RequestMethod.GET)
@@ -64,12 +66,6 @@ public class PacienteContoller {
             e.printStackTrace();
         }       
         return new ModelAndView("/paciente/formulario", model);
-    }
-
-    @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
-        bo.delete(id);
-        return "redirect:/pacientes/lista";
     }
 
     @RequestMapping(value="/inativa/{id}", method= RequestMethod.GET)
@@ -83,7 +79,7 @@ public class PacienteContoller {
     catch (Exception e) {
         e.printStackTrace();
     }
-    return "redirect:/pacientes/lista";
+    return "redirect:/pacientes";
     }
 
     @RequestMapping(value="/ativa/{id}", method= RequestMethod.GET)
@@ -97,7 +93,7 @@ public class PacienteContoller {
     catch (Exception e) {
         e.printStackTrace();
     }
-    return "redirect:/pacientes/lista";
+    return "redirect:/pacientes";
     }
 
 
