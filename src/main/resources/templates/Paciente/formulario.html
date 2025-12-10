@@ -24,7 +24,7 @@
             <h1>Dados do Paciente</h1>
             <hr>
             <div>
-                <form th:action="@{/pacientes/novo}" th:object="${paciente}" method="POST">
+                <form th:action="@{/pacientes}" th:object="${paciente}" method="POST">
 
                     <input type="hidden" th:field="*{idPaciente}" />
                     <div class="mb-3 form-check form-switch">

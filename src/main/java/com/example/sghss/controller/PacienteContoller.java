@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.PacienteBO;
 import com.example.sghss.model.Paciente;
-import com.example.sghss.model.Sexo;
 
 import jakarta.validation.Valid;
 
@@ -27,7 +26,6 @@ public class PacienteContoller {
     @RequestMapping(value= "/novo", method= RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("paciente", new Paciente());
-        model.addAttribute("sexos", Sexo.values()); //posso remover
         return new ModelAndView("/paciente/formulario", model);
     }
 
