@@ -6,10 +6,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "profissionais")
@@ -22,8 +25,9 @@ public class Profissional {
     @Column(nullable = false, length =50)    
     private String nome;
 
-    @Column(length = 15)
-    private String especialidade;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Informe a especialidade")
+    private Especialidade especialidade;
 
     @Column(length = 20)
     private String crm;
@@ -31,6 +35,10 @@ public class Profissional {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_nascimento", columnDefinition = "DATE")
     private LocalDate dataNascimento;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Informe o sexo")
+    private Sexo sexo;
 
     @Column(length = 15)
     private String telefone;
@@ -57,10 +65,10 @@ public class Profissional {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public String getEspecialidade() {
-        return especialidade;
+    public Sexo getEspecialidade() {
+        return sexo;
     }
-    public void setEspecialidade(String especialidade) {
+    public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
     public String getCrm() {
@@ -74,6 +82,12 @@ public class Profissional {
     }
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+    public Sexo getSexo() {
+        return sexo;
+    }
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
     public String getTelefone() {
         return telefone;
