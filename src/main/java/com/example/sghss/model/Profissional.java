@@ -12,7 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "profissionais")
@@ -20,9 +22,11 @@ public class Profissional {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long idProfissional;
+    private Long id;
 
     @Column(nullable = false, length =50)    
+    @NotBlank(message = "Informe o nome")
+    @Size(min = 3, max = 50)
     private String nome;
 
     @Enumerated(EnumType.STRING)
@@ -34,6 +38,7 @@ public class Profissional {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_nascimento", columnDefinition = "DATE")
+    @NotNull(message = "Informe a data de nascimento")
     private LocalDate dataNascimento;
 
     @Enumerated(EnumType.STRING)
@@ -49,15 +54,13 @@ public class Profissional {
     @Column(length = 100)
     private String endereco;
 
-    @Column(nullable = false)
-    private boolean ativo = true;
 
 
     public Long getIdProfissional() {
-        return idProfissional;
+        return id;
     }
     public void setIdProfissional(Long idProfissional) {
-        this.idProfissional = idProfissional;
+        this.id = idProfissional;
     }
     public String getNome() {
         return nome;
@@ -65,8 +68,8 @@ public class Profissional {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public Sexo getEspecialidade() {
-        return sexo;
+    public Especialidade getEspecialidade() {
+        return especialidade;
     }
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
@@ -108,12 +111,5 @@ public class Profissional {
         this.endereco = endereco;
     }
 
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
 
 }

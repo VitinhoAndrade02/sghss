@@ -40,13 +40,5 @@ public class ProfissionalBO implements CRUD<Profissional, Long> {
         dao.delete(id);
     }
 
-    public void inativa(Profissional profissional) {
-        profissional.setAtivo(false);
-        dao.update(profissional);
-    }
-
-    public void ativa(Profissional profissional) {
-        profissional.setAtivo(true);
-        dao.update(profissional);
-    }
+    
 }

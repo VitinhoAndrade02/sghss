@@ -29,7 +29,7 @@ public class PacienteDAO implements CRUD<Paciente, Long> {
         return query.getResultList();
     }
 
-      @Override
+    @Override
     public void create(Paciente paciente) {
         entityManager.persist(paciente);
     }

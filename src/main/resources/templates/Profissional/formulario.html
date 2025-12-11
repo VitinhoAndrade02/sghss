@@ -24,7 +24,7 @@
             <h1>Dados do Profissional</h1>
             <hr>
             <div>
-                <form th:action="@{/profissionais}" th:object="${profissional}" method="POST">
+                <form th:action="@{/profissionais/novo}" th:object="${profissional}" method="POST">
 
                     
 
@@ -68,7 +68,7 @@
                             <label class="form-label" for="especialidade">Especialidade:</label>
                             <select class="form-select" id="especialidade" th:field="*{especialidade}">
                                 <option value="" disabled selected>Selecione</option>
-                                <option value="CLINICO GERAL">Clínico geral</option>
+                                <option value="CLINICO_GERAL">Clínico geral</option>
                                 <option value="CARDIOLOGIA">Cardiologia</option>
                                 <option value="ORTOPEDIA">Ortopedia</option>
                                 <option value="PEDIATRIA">Pediatria</option>
@@ -77,7 +77,7 @@
                                 
 
                             </select>
-                            <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
+                            <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}"></span>
                         </div>
 
                         <div class="col-4 mb-3">
@@ -95,7 +95,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="endereco">Endereço:</label>
                         <input class="form-control" id="endereco" type="text" th:field="*{endereco}"
-                            placeholder="Digite o endereço" />
+                            placeholder="Digite o endereço"/>
                     </div>
 
                     <div class="mb-3">
@@ -118,7 +118,6 @@
             integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw=="></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#cpf').mask('999.999.999-99');
                 $('#telefone').mask('(99)9999-9999');
             }); 
         </script>
