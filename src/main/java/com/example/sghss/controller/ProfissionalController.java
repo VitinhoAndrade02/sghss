@@ -25,15 +25,15 @@ public class ProfissionalController {
     }
 
     @RequestMapping(value = "/novo", method = RequestMethod.POST)
-    public String salvar(@ModelAttribute Profissional profissional) {
+    public String salva(@ModelAttribute Profissional profissional) {
         bo.create(profissional);
-        return "redirect:/profissionais/lista";
+        return "redirect:/profissionais";
     }
 
     @RequestMapping(value= "/lista", method= RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("profissionais", bo.lista());
-        return new ModelAndView("profissional/lista", model);
+        return new ModelAndView("profissional", model);
     }
 
     @RequestMapping(value= "/editar/{id}", method= RequestMethod.GET)
@@ -45,6 +45,6 @@ public class ProfissionalController {
     @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
     public String delete(@PathVariable Long id) {
         bo.delete(id);
-        return "redirect:/profissionais/lista";
+        return "redirect:/profissionais";
     }
 }
