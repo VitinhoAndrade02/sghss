@@ -34,7 +34,6 @@ public class PacienteBOTest {
         paciente.setDataNascimento(LocalDate.of(1990, 1, 1));
         paciente.setEndereco("Rua dos joao, 123");
         paciente.setHistoricoClinico("Sem histórico.");
-        paciente.setAtivo(true);
         bo.create(paciente);
     }
 

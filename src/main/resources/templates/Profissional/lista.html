@@ -23,7 +23,7 @@
             <h1>Dados do Profissional</h1>
             <hr>
             <div>
-                <a class="btn btn-primary" th:href="@{/profissional/novo}">Novo</a>
+                <a class="btn btn-primary" th:href="@{/profissionais/novo}">Novo</a>
             </div>
             <hr>
             <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">
@@ -44,16 +44,13 @@
                         <td th:text="${profissional.nome}"></td>
                         <td th:text="${profissional.crm}"></td>
                         <td th:text="${profissional.especialidade}"></td>
+
                         <td>
                             <a class="btn btn-sm btn-secondary"
-                                th:href="@{/profissionais/editar/{id}(id=${profissional.idProfissional})}">Editar</a>
-                        </td>
-                        <td>
-                            <a th:href="@{/profissionais/ativa/{id}(id=${profissional.idProfissional})}"
-                                class="btn btn-sm btn-secondary" th:if="${profissional.ativo == false}">Ativar</a>
-
-                            <a th:href="@{/profissionais/inativa/{id}(id=${profissional.idProfissional})}"
-                                class="btn btn-sm btn-secondary" th:unless="${profissional.ativo == false}">Inativar</a>
+                                th:href="@{/profissionais/edita/{id}(id=${profissional.idProfissional})}">Editar</a>
+                           
+                                <a th:href="@{/profissionais/delete/{id}(id=${profissional.idProfissional})}"
+                                class="btn btn-sm btn-secondary">Deletar</a>
                         </td>
                     </tr>
                 </tbody>

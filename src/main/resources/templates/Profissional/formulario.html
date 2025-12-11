@@ -26,12 +26,7 @@
             <div>
                 <form th:action="@{/profissionais}" th:object="${profissional}" method="POST">
 
-                    <input type="hidden" th:field="*{idProfissional}" />
-                    <div class="mb-3 form-check form-switch">
-                        <input class="form-check-input" role="switch" id="ativo" type="checkbox" th:field="*{ativo}">
-                        <label class="form-check-label" for="ativo">Registro Ativo</label>
-
-                    </div>
+                    
 
                     <div class="mb-6">
                         <label class="form-label" for="nome">Nome:</label>
@@ -68,12 +63,29 @@
 
 
                     <div class="row">
+
+                         <div class="col-4 mb-3">
+                            <label class="form-label" for="especialidade">Especialidade:</label>
+                            <select class="form-select" id="sexo" th:field="*{sexo}">
+                                <option value="Selecione" disabled selected>Selecione</option>
+                                <option value="CLINICO GERAL">Clínico geral</option>
+                                <option value="FEMININO">Cardiologia</option>
+                                <option value="FEMININO">Ortopedia</option>
+                                <option value="FEMININO">Pediatria</option>
+                                <option value="FEMININO">Neurologia</option>
+                                <option value="FEMININO">Psiquiatria</option>
+                                
+
+                            </select>
+                            <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
+                        </div>
+
                         <div class="col-4 mb-3">
                             <label class="form-label" for="telefone">Celular:</label>
                             <input class="form-control" id="telefone" type="text" th:field="*{telefone}" />
                         </div>
 
-                        <div class="col-8 mb-3">
+                        <div class="col-4 mb-3">
                             <label class="form-label" for="email">Email:</label>
                             <input class="form-control" id="email" type="email" th:field="*{email}" />
                             <span style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
@@ -84,12 +96,6 @@
                         <label class="form-label" for="endereco">Endereço:</label>
                         <input class="form-control" id="endereco" type="text" th:field="*{endereco}"
                             placeholder="Digite o endereço" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="historicoClinico">Histórico Clínico:</label>
-                        <textarea class="form-control" id="historicoClinico" th:field="*{historicoClinico}"
-                            placeholder="Digite o histórico"></textarea>
                     </div>
 
                     <div class="mb-3">

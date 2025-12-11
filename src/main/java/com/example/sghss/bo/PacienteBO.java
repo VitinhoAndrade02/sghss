@@ -41,13 +41,5 @@ public class PacienteBO implements CRUD<Paciente, Long> {
         dao.delete(id);
     }
 
-    public void inativa(Paciente paciente) {
-        paciente.setAtivo(false);
-        dao.update(paciente);
-    }
-
-    public void ativa(Paciente paciente) {
-        paciente.setAtivo(true);
-        dao.update(paciente);
-    }
+   
 }

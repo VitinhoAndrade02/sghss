@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Paciente</title>
+    <title>Cadastro do Paciente</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
@@ -26,12 +26,7 @@
             <div>
                 <form th:action="@{/pacientes}" th:object="${paciente}" method="POST">
 
-                    <input type="hidden" th:field="*{idPaciente}" />
-                    <div class="mb-3 form-check form-switch">
-                        <input class="form-check-input" role="switch" id="ativo" type="checkbox" th:field="*{ativo}">
-                        <label class="form-check-label" for="ativo">Registro Ativo</label>
-
-                    </div>
+                    
 
                     <div class="mb-6">
                         <label class="form-label" for="nome">Nome:</label>

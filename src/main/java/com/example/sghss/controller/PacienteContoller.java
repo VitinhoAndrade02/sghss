@@ -66,32 +66,10 @@ public class PacienteContoller {
         return new ModelAndView("/paciente/formulario", model);
     }
 
-    @RequestMapping(value="/inativa/{id}", method= RequestMethod.GET)
-    public String inativa(@PathVariable("id") Long id, RedirectAttributes attr) {
-    System.out.println(id);
-    try {
-        Paciente paciente = bo.pesquisarPeloId(id);
-        bo.inativa(paciente);
-        attr.addFlashAttribute("feedback", "Paciente foi inativdo com sucesso");
-    }
-    catch (Exception e) {
-        e.printStackTrace();
-    }
-    return "redirect:/pacientes";
-    }
-
-    @RequestMapping(value="/ativa/{id}", method= RequestMethod.GET)
-    public String ativa(@PathVariable("id") Long id, RedirectAttributes attr) {
-    System.out.println(id);
-    try {
-        Paciente paciente = bo.pesquisarPeloId(id);
-        bo.ativa(paciente);
-        attr.addFlashAttribute("feedback", "Paciente foi ativdo com sucesso");
-    }
-    catch (Exception e) {
-        e.printStackTrace();
-    }
-    return "redirect:/pacientes";
+   @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
+    public String delete(@PathVariable Long id) {
+        bo.delete(id);
+        return "redirect:/pacientes";
     }
 
 

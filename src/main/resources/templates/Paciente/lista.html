@@ -46,16 +46,12 @@
                         <td th:text="${paciente.dataNascimento}"></td>
                         <td th:text="${paciente.sexo}"></td>
                         <td th:text="${paciente.cpf}"></td>
-                        <td>
+                         <td>
                             <a class="btn btn-sm btn-secondary"
-                                th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}">Editar</a>
-                        </td>
-                        <td>
-                            <a th:href="@{/pacientes/ativa/{id}(id=${paciente.idPaciente})}"
-                                class="btn btn-sm btn-secondary" th:if="${paciente.ativo == false}">Ativar</a>
-
-                            <a th:href="@{/pacientes/inativa/{id}(id=${paciente.idPaciente})}"
-                                class="btn btn-sm btn-secondary" th:unless="${paciente.ativo == false}">Inativar</a>
+                                th:href="@{/pacientes/edita/{id}(id=${paciente.idPaciente})}">Editar</a>
+                           
+                                <a th:href="@{/pacientes/delete/{id}(id=${paciente.idPaciente})}"
+                                class="btn btn-sm btn-secondary">Deletar</a>
                         </td>
                     </tr>
                 </tbody>
