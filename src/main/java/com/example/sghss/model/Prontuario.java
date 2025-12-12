@@ -1,7 +1,6 @@
 package com.example.sghss.model;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "prontuarios")
@@ -27,18 +28,15 @@ public class Prontuario {
     private Paciente paciente;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Column(nullable=false, name="data_consulta", columnDefinition = "DATE")
-    private LocalDate dataConsulta;
-
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @Column(nullable=false, name="hora_consulta", columnDefinition = "TIME")
-    private LocalTime horaConsulta;
+    @Column(name="data_registro", columnDefinition = "DATE")
+    @NotNull(message = "Informe a data do registro")
+    private LocalDate dataRegistro;
 
     @Column(length = 100)
     private String descricao;   
 
     
-    public Long getId() {
+    public Long getIdProntuario() {
         return id;
     }   
     
@@ -46,7 +44,7 @@ public class Prontuario {
         this.id = idProntuario;
     }
 
-    public Paciente paciente() {
+    public Paciente getpaciente() {
         return paciente;
     }
 
@@ -54,21 +52,12 @@ public class Prontuario {
         this.paciente = paciente;
     }
 
-    public LocalDate getDataConsulta() {
-        return dataConsulta;
+    public LocalDate getDataRegistro() { 
+        return dataRegistro; 
     }
-
-    public void setDataConsulta(LocalDate dataConsulta) {
-        this.dataConsulta = dataConsulta;
+    public void setDataRegistro(LocalDate dataRegistro) { 
+        this.dataRegistro = dataRegistro; 
     }
-     public LocalDate gethoraConsulta() {
-        return dataConsulta;
-    }
-
-    public void setHoraConsulta(LocalTime horaConsulta) {
-        this.horaConsulta = horaConsulta;
-    }
-
     public String getDescricao() {
         return descricao;
     }

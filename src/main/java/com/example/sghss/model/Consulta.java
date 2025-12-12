@@ -11,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,8 +24,15 @@ public class Consulta {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long idPaciente;
+    @ManyToOne
+    @JoinColumn(name = "paciente_id", nullable = false)
+    @NotNull(message = "Informe o paciente")
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "profissional_id", nullable = false)
+    @NotNull(message = "Informe o profissional")
+    private Profissional profissional;
     
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Informe a especialidade")
@@ -33,13 +42,16 @@ public class Consulta {
     @Column(name="data_consulta", columnDefinition = "DATE")
     private LocalDate dataConsulta;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     @Column(name="hora_consulta", length = 5)   
-    private String horaConsulta;
+    private LocalDate horaConsulta;
 
     @Column(name="descricao_consulta")
     private String descricaoConsulta;
     
-    
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Informe o status")
+    private StatusConsulta statusConsulta;
     
     public Long getIdConsulta() {
         return id;
@@ -47,11 +59,17 @@ public class Consulta {
     public void setIdConsulta(Long idConsulta) {
         this.id = idConsulta;
     }
-    public Long getIdPaciente() {
-        return idPaciente;
+    public Paciente getPaciente() { 
+        return paciente; 
     }
-    public void setIdPaciente(Long idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setPaciente(Paciente paciente) { 
+        this.paciente = paciente; 
+    }
+    public Profissional getProfissional() { 
+        return profissional; 
+    }
+    public void setProfissional(Profissional profissional) { 
+        this.profissional = profissional;
     }
     public Especialidade getEspecialidade() {
         return especialidade;
@@ -66,11 +84,10 @@ public class Consulta {
         this.dataConsulta = dataConsulta;
     }
 
-    public String getHoraConsulta() {
-        return horaConsulta;
+    public LocalDate getHoraConsulta() {
+        return dataConsulta;
     }
-
-    public void setHoraConsulta(String horaConsulta) {
+    public void setHoraConsulta(LocalDate horaConsulta) {
         this.horaConsulta = horaConsulta;
     }
 
@@ -82,5 +99,11 @@ public class Consulta {
         this.descricaoConsulta = descricaoConsulta;
     }
 
+    public StatusConsulta getStatusConsulta() {
+        return statusConsulta;
+    }
+    public void setStatusConsulta(StatusConsulta statusConsulta) {
+        this.statusConsulta = statusConsulta;
+    }
 
 }

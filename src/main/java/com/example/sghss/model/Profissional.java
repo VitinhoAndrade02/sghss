@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -53,8 +54,10 @@ public class Profissional {
 
     @Column(length = 100)
     private String endereco;
-
-
+     
+    @OneToMany(mappedBy = "profissional")
+    private java.util.List<Consulta> consultas;
+    
 
     public Long getIdProfissional() {
         return id;
@@ -110,6 +113,11 @@ public class Profissional {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-
+    public java.util.List<Consulta> getConsultas() {
+        return consultas; 
+    }
+    public void setConsultas(java.util.List<Consulta> consultas) {
+        this.consultas = consultas; 
+    }
 
 }

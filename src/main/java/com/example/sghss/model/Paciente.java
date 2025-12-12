@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -57,7 +58,13 @@ public class Paciente {
     @Column(length = 500)
     private String historicoClinico;
 
+    @OneToMany(mappedBy = "paciente")
+    private java.util.List<Consulta> consultas;
+
+    @OneToMany(mappedBy = "paciente")
+    private java.util.List<Prontuario> prontuarios;
     
+
     public Long getIdPaciente() {
         return id;
     }
@@ -114,6 +121,18 @@ public class Paciente {
     public void setHistoricoClinico(String historicoClinico) {
         this.historicoClinico = historicoClinico;
     }
+    public java.util.List<Consulta> getConsultas() {
+        return consultas; 
+    }
+    public void setConsultas(java.util.List<Consulta> consultas) {
+        this.consultas = consultas; 
+    }
 
+    public java.util.List<Prontuario> getProntuarios() { 
+        return prontuarios; 
+    }
+    public void setProntuarios(java.util.List<Prontuario> prontuarios) { 
+        this.prontuarios = prontuarios; 
+    }
 
 }
