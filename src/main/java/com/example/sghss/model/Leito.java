@@ -26,11 +26,11 @@ public class Leito {
     //status do leito
 
 
-    public Long getIdLeito() { 
+    public Long getId() { 
         return id; 
     }
-    public void setIdLeito(Long idLeito) { 
-        this.id = idLeito; 
+    public void setId(Long id) { 
+        this.id = id; 
     }
 
     public TipoLeito getTipoLeito() { 

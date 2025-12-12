@@ -29,11 +29,11 @@ public class Prescricao {
     @Column(length = 500)
     private String observacao;
 
-    public Long getIdPrescricao() { 
+    public Long getId() { 
         return id;
     }
-    public void setIdPrescricao(Long idPrescricao) { 
-        this.id = idPrescricao; 
+    public void setId(Long id) { 
+        this.id = id; 
     }
 
     public Paciente getPaciente() { 

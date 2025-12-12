@@ -32,11 +32,11 @@ public class Teleconsulta {
     private String descricao;
 
 
-    public Long getIdTeleconsulta() { 
+    public Long getId() { 
         return id; 
     }
-    public void setIdTeleconsulta(Long idTeleconsulta) { 
-        this.id = idTeleconsulta; 
+    public void setId(Long id) { 
+        this.id = id; 
     }
 
     public Paciente getPaciente() { 

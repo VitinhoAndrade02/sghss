@@ -1,4 +1,6 @@
 package com.example.sghss.dao;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -44,5 +46,14 @@ public class ConsultaDAO implements CRUD<Consulta, Long> {
         if (consulta != null) {
             entityManager.remove(consulta);
         }
+    }
+    
+    public List<LocalTime> horariosOcupados(LocalDate data) {
+        TypedQuery<LocalTime> query = entityManager.createQuery(
+            "SELECT c.horaConsulta FROM Consulta c WHERE c.dataConsulta = :data",
+            LocalTime.class);
+
+        query.setParameter("data", data);
+        return query.getResultList();
     }
 }

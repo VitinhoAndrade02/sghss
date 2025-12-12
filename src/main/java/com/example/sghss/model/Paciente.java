@@ -65,11 +65,11 @@ public class Paciente {
     private java.util.List<Prontuario> prontuarios;
     
 
-    public Long getIdPaciente() {
+    public Long getId() {
         return id;
     }
-    public void setIdPaciente(Long idPaciente) {
-        this.id = idPaciente;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {

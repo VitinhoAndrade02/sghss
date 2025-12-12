@@ -36,15 +36,15 @@ public class Prontuario {
     private String descricao;   
 
     
-    public Long getIdProntuario() {
+    public Long getId() {
         return id;
     }   
     
-    public void setIdProntuario(Long idProntuario) {
-        this.id = idProntuario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Paciente getpaciente() {
+    public Paciente getPaciente() {
         return paciente;
     }
 
@@ -55,9 +55,11 @@ public class Prontuario {
     public LocalDate getDataRegistro() { 
         return dataRegistro; 
     }
+
     public void setDataRegistro(LocalDate dataRegistro) { 
         this.dataRegistro = dataRegistro; 
     }
+
     public String getDescricao() {
         return descricao;
     }

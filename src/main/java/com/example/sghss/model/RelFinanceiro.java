@@ -31,11 +31,11 @@ public class RelFinanceiro {
     @JoinColumn(name="unidade_id", nullable=false)
     private Unidade unidade;
 
-    public Long getIdRelFinanceiro() { 
+    public Long getId() { 
         return id; 
     }
-    public void setIdRelFinanceiro(Long idRelFinanceiro) { 
-        this.id = idRelFinanceiro; 
+    public void setId(Long id) { 
+        this.id = id; 
     }
 
     public TipoTransacao getTipoTransacao() { 

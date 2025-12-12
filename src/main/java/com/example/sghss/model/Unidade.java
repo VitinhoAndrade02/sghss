@@ -30,11 +30,11 @@ public class Unidade {
     private List<Leito> leitos;
 
 
-    public Long getIdUnidade() { 
+    public Long getId() { 
         return id; 
     }
-    public void setIdUnidade(Long idUnidade) { 
-        this.id = idUnidade; 
+    public void setId(Long id) { 
+        this.id = id; 
     }
 
     public String getNome() { 

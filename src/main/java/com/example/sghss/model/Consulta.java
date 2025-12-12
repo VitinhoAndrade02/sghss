@@ -1,6 +1,7 @@
 package com.example.sghss.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,8 +44,8 @@ public class Consulta {
     private LocalDate dataConsulta;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @Column(name="hora_consulta", length = 5)   
-    private LocalDate horaConsulta;
+    @Column(name="hora_consulta", columnDefinition = "DATE")   
+    private LocalTime horaConsulta;
 
     @Column(name="descricao_consulta")
     private String descricaoConsulta;
@@ -53,11 +54,11 @@ public class Consulta {
     @NotNull(message = "Informe o status")
     private StatusConsulta statusConsulta;
     
-    public Long getIdConsulta() {
+    public Long getId() {
         return id;
     }
-    public void setIdConsulta(Long idConsulta) {
-        this.id = idConsulta;
+    public void setId(Long id) {
+        this.id = id;
     }
     public Paciente getPaciente() { 
         return paciente; 
@@ -84,10 +85,10 @@ public class Consulta {
         this.dataConsulta = dataConsulta;
     }
 
-    public LocalDate getHoraConsulta() {
-        return dataConsulta;
+    public LocalTime getHoraConsulta() {
+        return horaConsulta;
     }
-    public void setHoraConsulta(LocalDate horaConsulta) {
+    public void setHoraConsulta(LocalTime horaConsulta) {
         this.horaConsulta = horaConsulta;
     }
 

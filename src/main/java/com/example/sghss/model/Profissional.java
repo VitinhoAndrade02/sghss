@@ -59,11 +59,11 @@ public class Profissional {
     private java.util.List<Consulta> consultas;
     
 
-    public Long getIdProfissional() {
+    public Long getId() {
         return id;
     }
-    public void setIdProfissional(Long idProfissional) {
-        this.id = idProfissional;
+    public void setId(Long id) {
+        this.id = id;
     }
     public String getNome() {
         return nome;

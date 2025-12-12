@@ -33,11 +33,11 @@ public class LogAuditoria {
     @JoinColumn(name="profissional_id")
     private Profissional profissional;
 
-    public Long getIdLogAuditoria() { 
+    public Long getId() { 
         return id; 
     }
-    public void setIdLogAuditoria(Long idLogAuditoria) { 
-        this.id = idLogAuditoria; 
+    public void setId(Long id) { 
+        this.id = id; 
     }
 
     public String getUsuario() { 
