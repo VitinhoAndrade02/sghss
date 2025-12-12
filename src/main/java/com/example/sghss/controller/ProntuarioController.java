@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.PacienteBO;
-import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.bo.ProntuarioBO;
 import com.example.sghss.model.Prontuario;
 
@@ -29,20 +28,23 @@ public class ProntuarioController {
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
+        Long pacienteId= null;
+        model.addAttribute("pacienteId", pacienteId);
         model.addAttribute("prontuario", new Prontuario());
         model.addAttribute("pacientes", pacienteBO.lista());
         return new ModelAndView("prontuario/formulario", model);
     }
+    //Daqui para baixo pode ser que apague
 
     @RequestMapping(value = "/novo", method = RequestMethod.POST)
     public String salva(@ModelAttribute Prontuario prontuario,
         BindingResult result,
         RedirectAttributes attr) {
         if (result.hasErrors()) 
-            return "profissional/formulario";
+            return "prontuario/formulario";
         
 
-        if (prontuario.getIdProntuario() == null) {
+        if (prontuario.getId() == null) {
             bo.create(prontuario);
             attr.addFlashAttribute("feedback", "Prontuario foi cadastrado com sucesso");
         } 

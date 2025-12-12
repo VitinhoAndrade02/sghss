@@ -7,21 +7,31 @@
     <title>Agendamento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 4.5rem;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Agendamento de consulta</h1>
-        <hr>
-        
+    <div th:replace="fragments/menu :: menu"></div>
 
-                <div class="mb-6">
-                    <label class="form-label" for="nome">Nome:</label>
-                    <input class="form-control" id="nome" type="text" th:field="*{nome}"
-                        placeholder="Digite o nome completo" />
-                    <span style="color:red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-                </div>
-                 <div class="row">
+    <div class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>Agendamento de Consulta</h1>
+            <hr>
+
+            <div>
+                <form th:action="@{/consultas}" th:object="${consulta}" method="POST">
+                    
+                    <div class="mb-6">
+                        <label class="form-label" for="nome">Nome:</label>
+                        <input class="form-control" id="nome" type="text" th:field="*{nome}"
+                            placeholder="Digite o nome completo" />
+                        <span style="color:red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                    </div>
+                    <div class="row">
 
                         <div class="col-4 mb-3">
                             <label class="form-label" for="especialidade">Especialidade:</label>
@@ -39,7 +49,7 @@
                             <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}"
                                 th:errors="*{especialidade}"></span>
                         </div>
-                        
+
                         <div class="col-4 mb-3">
                             <label class="form-label" for="dataConsulta">Data :</label>
                             <input class="form-control" id="dataConsulta" type="date" th:field="*{dataConsulta}" />
@@ -48,29 +58,32 @@
 
                         </div>
 
-                         <div class="col-4 mb-3">
+                        <div class="col-4 mb-3">
                             <label class="form-label" for="horaConsulta">Horario :</label>
                             <input class="form-control" id="horaConsulta" type="time" th:field="*{horaConsulta}" />
                             <span style="color:red;" th:if="${#fields.hasErrors('horaConsulta')}"
                                 th:errors="*{horaConsulta}"></span>
 
                         </div>
-                    </div>    
-                        <div class="mb-6">
-                            <label class="form-label" for="nome">Nome:</label>
-                            <input class="form-control" id="nome" type="checkbox" th:field="*{nome}"/>
-                                
-                            
-                        </div>                  
-                        
+                    </div>
+                    <div class="mb-6">
+                        <label class="form-label" for="descricaoConsulta">Descrição da Consulta:</label>
+                        <textarea class="form-control" id="descricaoConsulta" type=""
+                            th:field="*{descricaoConsulta}"></textarea>
 
-                <br><br>
-                <div class="mb-3">
-                    <input class="btn btn-primary" type="submit" value="Agendar">
-                </div>
-                
-            </form>
+
+                    </div>
+
+
+                    <br><br>
+                    <div class="mb-3">
+                        <input class="btn btn-primary" type="submit" value="Agendar">
+                    </div>
+
+                </form>
+            </div>
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>

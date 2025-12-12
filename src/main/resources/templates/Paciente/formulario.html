@@ -25,9 +25,7 @@
             <hr>
             <div>
                 <form th:action="@{/pacientes}" th:object="${paciente}" method="POST">
-
-
-
+                    
                     <div class="mb-6">
                         <label class="form-label" for="nome">Nome:</label>
                         <input class="form-control" id="nome" type="text" th:field="*{nome}" />

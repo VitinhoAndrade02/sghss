@@ -40,6 +40,7 @@ public class Consulta {
     private String descricaoConsulta;
     
     
+    
     public Long getIdConsulta() {
         return id;
     }
