@@ -12,7 +12,7 @@ import com.example.sghss.model.Consulta;
 @Service
 public class ConsultaBO implements CRUD<Consulta, Long> {
     
-@Autowired
+    @Autowired  
     private ConsultaDAO dao;
 
     @Override
@@ -40,13 +40,4 @@ public class ConsultaBO implements CRUD<Consulta, Long> {
         dao.delete(id);
     }
     
-    public void inativa(Consulta consulta) {
-        consulta.setAtivo(false);
-        dao.update(consulta);
-    }
-
-    public void ativa(Consulta consulta) {
-        consulta.setAtivo(true);
-        dao.update(consulta);
-    }
 }

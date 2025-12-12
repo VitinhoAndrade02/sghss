@@ -8,10 +8,11 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class ProntuarioDAO implements CRUD<Prontuario, Long> {
 
-@PersistenceContext
-private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Prontuario pesquisarPeloId(Long id) {
@@ -21,22 +22,19 @@ private EntityManager entityManager;
     @Override
     public List<Prontuario> lista() {
         TypedQuery<Prontuario> query = entityManager.createQuery("SELECT pr FROM Prontuario pr", Prontuario.class);
-        return (List<Prontuario>) query.getResultList();
+        return query.getResultList();
     }
 
-    @Transactional
     @Override
     public void create(Prontuario prontuario) {
         entityManager.persist(prontuario);
     }
 
-    @Transactional
     @Override
     public void update(Prontuario prontuario) {
         entityManager.merge(prontuario);
     }
 
-    @Transactional
     @Override
     public void delete(Long id) {
         Prontuario prontuario = pesquisarPeloId(id);

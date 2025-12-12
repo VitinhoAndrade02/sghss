@@ -14,6 +14,7 @@ public class ProntuarioBO implements CRUD<Prontuario, Long> {
 
     @Autowired
     private ProntuarioDAO prontuarioDAO;
+   
     @Override
     public Prontuario pesquisarPeloId(Long id) {
         return prontuarioDAO.pesquisarPeloId(id);
@@ -37,16 +38,6 @@ public class ProntuarioBO implements CRUD<Prontuario, Long> {
     @Override
     public void delete(Long id) {
         prontuarioDAO.delete(id);
-    }
-
-    public void inativa(Prontuario prontuario) {
-        prontuario.setAtivo(false);
-        prontuarioDAO.update(prontuario);
-    }
-
-    public void ativa(Prontuario prontuario) {
-        prontuario.setAtivo(true);
-        prontuarioDAO.update(prontuario);
     }
 
 }

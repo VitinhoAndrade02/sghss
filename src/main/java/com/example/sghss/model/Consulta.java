@@ -6,10 +6,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "consultas")
@@ -17,13 +20,14 @@ public class Consulta {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long idConsulta;
+    private Long id;
 
     @Column(nullable = false)
     private Long idPaciente;
-
-    @Column(nullable = false)
-    private Long idProfissional;
+    
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Informe a especialidade")
+    private Especialidade especialidade;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_consulta", columnDefinition = "DATE")
@@ -35,16 +39,12 @@ public class Consulta {
     @Column(name="descricao_consulta")
     private String descricaoConsulta;
     
-    @Column(nullable = false)
-    private boolean ativo = true;
-
-    
     
     public Long getIdConsulta() {
-        return idConsulta;
+        return id;
     }
     public void setIdConsulta(Long idConsulta) {
-        this.idConsulta = idConsulta;
+        this.id = idConsulta;
     }
     public Long getIdPaciente() {
         return idPaciente;
@@ -52,11 +52,11 @@ public class Consulta {
     public void setIdPaciente(Long idPaciente) {
         this.idPaciente = idPaciente;
     }
-    public Long getIdProfissional() {
-        return idProfissional;
+    public Especialidade getEspecialidade() {
+        return especialidade;
     }
-    public void setIdProfissional(Long idProfissional) {
-        this.idProfissional = idProfissional;
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
     }
     public LocalDate getDataConsulta() {
         return dataConsulta;
@@ -81,12 +81,5 @@ public class Consulta {
         this.descricaoConsulta = descricaoConsulta;
     }
 
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
 
 }

@@ -1,4 +1,6 @@
 package com.example.sghss.controller;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,8 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.ConsultaBO;
 import com.example.sghss.bo.PacienteBO;
-import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Consulta;
+import com.example.sghss.model.Especialidade;
 
 import jakarta.validation.Valid;
 
@@ -27,18 +29,17 @@ public class ConsultaController {
     @Autowired
     private PacienteBO pacienteBO;  
 
-    @Autowired
-    private ProfissionalBO profissionalBO;  
+      
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("consulta", new Consulta());
         model.addAttribute("pacientes", pacienteBO.lista());
-        model.addAttribute("profissionais", profissionalBO.lista());
+        model.addAttribute("especialidade", Arrays.asList(Especialidade.values()));
         return new ModelAndView("/consulta/formulario", model);
     }
 
-   @RequestMapping(value= "/novo", method= RequestMethod.POST)
+   @RequestMapping(value= "", method= RequestMethod.POST)
     public String salva(@Valid @ModelAttribute Consulta consulta, 
         BindingResult result,
         RedirectAttributes attr) {
@@ -48,7 +49,7 @@ public class ConsultaController {
 
         if (consulta.getIdConsulta() == null) {
             bo.create(consulta);
-            attr.addFlashAttribute("feedback", "Consulta foi cadastrado com sucesso");
+            attr.addFlashAttribute("feedback", "Consulta agendada com sucesso");
         } 
 
         else {
@@ -67,10 +68,14 @@ public class ConsultaController {
 
     @RequestMapping(value= "/edita/{id}", method= RequestMethod.GET)
     public ModelAndView editar(@PathVariable Long id, ModelMap model) {
-        model.addAttribute("consulta", bo.pesquisarPeloId(id));
-        model.addAttribute("pacientes", pacienteBO.lista());
-        model.addAttribute("profissionais", profissionalBO.lista());
-        return new ModelAndView("consulta/formulario", model);
+        try{
+            model.addAttribute("consulta", bo.pesquisarPeloId(id));
+            model.addAttribute("pacientes", pacienteBO.lista());
+            model.addAttribute("especialidade", Arrays.asList(Especialidade.values()));
+        } catch(Exception e) {
+                e.printStackTrace();
+        }       
+        return new ModelAndView("/consulta/formulario", model);
     }
 
     @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
