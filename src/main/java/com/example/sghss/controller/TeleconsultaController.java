@@ -47,7 +47,7 @@ public class TeleconsultaController {
         if (result.hasErrors())
             return "teleconsulta/formulario";
 
-        if (teleconsulta.getIdTeleconsulta() == null) {
+        if (teleconsulta.getId() == null) {
             bo.create(teleconsulta);
             attr.addFlashAttribute("feedback", "Teleconsulta cadastrada com sucesso");
         } else {

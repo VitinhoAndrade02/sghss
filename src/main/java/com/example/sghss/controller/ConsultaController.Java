@@ -52,7 +52,7 @@ public class ConsultaController {
             RedirectAttributes attr,
             ModelMap model) {
 
-        if (consulta.getPaciente() == null || consulta.getPaciente().getIdPaciente() == null) {
+        if (consulta.getPaciente() == null || consulta.getPaciente().getId() == null) {
             result.rejectValue("paciente", "required", "Escolha um paciente");
         }
 
@@ -61,10 +61,10 @@ public class ConsultaController {
             return "consulta/formulario";
         }
 
-        Paciente paciente = pacienteBO.pesquisarPeloId(consulta.getPaciente().getIdPaciente());
+        Paciente paciente = pacienteBO.pesquisarPeloId(consulta.getPaciente().getId());
         consulta.setPaciente(paciente);
 
-        if (consulta.getIdConsulta() == null) {
+        if (consulta.getId() == null) {
             bo.create(consulta);
             attr.addFlashAttribute("feedback", "Consulta agendada!");
         } else {

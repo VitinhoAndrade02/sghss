@@ -29,7 +29,7 @@ public class LeitoController {
         BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) return "leito/formulario";
 
-        if (leito.getIdLeito() == null) {
+        if (leito.getId() == null) {
             bo.create(leito);
             attr.addFlashAttribute("feedback", "Leito cadastrado com sucesso");
         } else {

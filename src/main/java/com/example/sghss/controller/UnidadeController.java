@@ -42,7 +42,7 @@ public class UnidadeController {
         if (result.hasErrors())
             return "unidade/formulario";
 
-        if (unidade.getIdUnidade() == null) {
+        if (unidade.getId() == null) {
             bo.create(unidade);
             attr.addFlashAttribute("feedback", "Unidade cadastrada com sucesso");
         } else {

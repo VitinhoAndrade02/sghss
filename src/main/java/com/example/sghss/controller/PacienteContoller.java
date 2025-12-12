@@ -37,7 +37,7 @@ public class PacienteContoller {
             return "paciente/formulario";
         
 
-        if (paciente.getIdPaciente() == null) {
+        if (paciente.getId() == null) {
             bo.create(paciente);
             attr.addFlashAttribute("feedback", "Paciente foi cadastrado com sucesso");
         } 

@@ -47,7 +47,7 @@ public class PrescricaoController {
         if (result.hasErrors())
             return "prescricao/formulario";
 
-        if (prescricao.getIdPrescricao() == null) {
+        if (prescricao.getId() == null) {
             bo.create(prescricao);
             attr.addFlashAttribute("feedback", "Prescrição cadastrada com sucesso");
         } else {

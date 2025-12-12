@@ -36,7 +36,7 @@ public class ProfissionalController {
             return "profissional/formulario";
         
 
-        if (profissional.getIdProfissional() == null) {
+        if (profissional.getId() == null) {
             bo.create(profissional);
             attr.addFlashAttribute("feedback", "Profissional foi cadastrado com sucesso");
         } 

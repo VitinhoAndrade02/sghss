@@ -42,7 +42,7 @@ public class RelFinanceiroController {
         if (result.hasErrors())
             return "financeiro/formulario";
 
-        if (relatorio.getIdRelFinanceiro() == null) {
+        if (relatorio.getId() == null) {
             bo.create(relatorio);
             attr.addFlashAttribute("feedback", "Relatório cadastrado com sucesso");
         } else {
