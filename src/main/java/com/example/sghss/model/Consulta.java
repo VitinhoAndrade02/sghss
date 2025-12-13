@@ -44,7 +44,7 @@ public class Consulta {
     private LocalDate dataConsulta;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @Column(name="hora_consulta", columnDefinition = "DATE")   
+    @Column(name="hora_consulta", columnDefinition = "TIME")   
     private LocalTime horaConsulta;
 
     @Column(name="descricao_consulta")
