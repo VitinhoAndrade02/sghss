@@ -1,5 +1,5 @@
 package com.example.sghss.controller;
-//Ajusta o Prontuario
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.sghss.bo.PacienteBO;
 import com.example.sghss.bo.ProntuarioBO;
 import com.example.sghss.model.Prontuario;
@@ -34,7 +35,6 @@ public class ProntuarioController {
         model.addAttribute("pacientes", pacienteBO.lista());
         return new ModelAndView("prontuario/formulario", model);
     }
-    //Daqui para baixo pode ser que apague
 
     @RequestMapping(value = "/novo", method = RequestMethod.POST)
     public String salva(@ModelAttribute Prontuario prontuario,

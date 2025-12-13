@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div th:replace="fragments/menu :: menu"></div>
+    <div th:replace="~{fragments/menu :: menu}"></div>
 
     <div class="container">
         <div class="bg-light p-5 rounded">
@@ -48,9 +48,9 @@
                         <td th:text="${paciente.cpf}"></td>
                         <td>
                             <a class="btn btn-sm btn-secondary"
-                                th:href="@{/pacientes/edita/{id}(id=${paciente.idPaciente})}">Editar</a>
+                                th:href="@{/pacientes/edita/{id}(id=${paciente.id})}">Editar</a>
 
-                            <a th:href="@{/pacientes/delete/{id}(id=${paciente.idPaciente})}"
+                            <a th:href="@{/pacientes/delete/{id}(id=${paciente.id})}"
                                 class="btn btn-sm btn-secondary">Deletar</a>
                         </td>
                     </tr>

@@ -14,7 +14,8 @@
 
 <body>
 
-    <div th:replace="fragments/menu :: menu"></div>
+    <div th:replace="~{fragments/menu :: menu}"></div>
+
 
     <div class="container">
         <div class="bg-light p-5 rounded">
@@ -37,7 +38,7 @@
                         <a th:href="@{/unidades/edita/{id}(id=${u.idUnidade})}"
                             class="btn btn-sm btn-secondary">Editar</a>
                         <a th:href="${/unidades/delete/{id}(id=${unidade.id})}" class="btn  btn-sm btn-secondary"
-                                th:unless="${unidade.delete == false}">Deletar</a>    
+                            th:unless="${unidade.delete == false}">Deletar</a>
                     </td>
                 </tr>
             </table>
