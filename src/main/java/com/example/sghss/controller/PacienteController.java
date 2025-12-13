@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/pacientes")
-public class PacienteContoller {
+public class PacienteController {
 
     @Autowired
     private PacienteBO bo;
