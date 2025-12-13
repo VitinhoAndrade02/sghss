@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Unidade</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 4.5rem
+        }
+    </style>
+</head>
+
+<body>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <div class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>Dados da Unidade</h1>
+            <hr>
+
+            <form th:action="@{/unidades}" th:object="${unidade}" method="POST">
+
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input class="form-control" th:field="*{nome}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Endereço</label>
+                    <input class="form-control" th:field="*{endereco}">
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Salvar">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

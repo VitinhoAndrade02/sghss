@@ -7,45 +7,54 @@
     <title>Lista de Consultas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <style>
+        body {
+            padding-top: 4.5rem;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Consultas</h1>
-        <hr>
-        <div>
-            <a class="btn btn-primary" th:href="@{/consultas/novo}">Novo </a>
+        <div class="bg-light p-4 rounded">
+            
+            <h1>Consultas</h1>
+            <hr>
+            <div>
+                <a class="btn btn-primary" th:href="@{/consultas/novo}">Novo </a>
+            </div>
+            <hr>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td><b>Nome</b></td>
+                        <td><b>Consulta</b></td>
+                        <td><b>Data</b></td>
+                        <td><b>Horário</b></td>
+
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="consulta : ${consultas}">
+                        <td th:text="${consulta.paciente.nome}"></td>
+                        <td th:text="${consulta.especialidade}"></td>
+                        <td th:text="${consulta.data}"></td>
+                        <td th:text="${consulta.horario}"></td>
+                        
+                        <td>
+                            <a class="btn btn-secondary"
+                                th:href="${/consultas/edita/{id}(id=${consulta.id})}">Editar</a>
+
+                            <a th:href="${/consultas/delete/{id}(id=${consulta.id})}" class="btn btn-secondary"
+                                th:unless="${consulta.delete == false}">Deletar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <hr>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <td><b>Nome</b></td>
-                    <td><b>Consulta</b></td>
-					<td><b>Data</b></td>
-					<td><b>Hora</b></td>
-
-                    <td></td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="consulta : ${consultas}">
-                    <td th:text="${consulta.idPaciente}"></td>
-                    <td th:text="${consulta.especialidade}"></td>
-                    <td th:text="${consulta.data}"></td>
-					<td th:text="${consulta.hora}"></td>
-                    
-                    <td>
-                         <a class="btn btn-secondary"
-                            th:href="${/consultas/edita/{id}(id=${consulta.id})}">Mudar</a>
-
-                        <a th:href="${/consultas/delete/{id}(id=${consulta.id})}" class="btn btn-secondary"
-                            th:unless="${consulta.delete == false}">Cancelar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </body>
 

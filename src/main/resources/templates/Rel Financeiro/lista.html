@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios Financeiros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>body { padding-top: 4.5rem; }</style>
+</head>
+
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <div class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>Relatórios Financeiros</h1>
+            <hr>
+            <a class="btn btn-primary mb-3" th:href="@{/relfinanceiros/novo}">Novo Relatório</a>
+
+            <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success">
+                <span th:text="${feedback}"></span>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Unidade</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="r : ${relFinanceiros}">
+                        <td th:text="${r.tipoTransacao}"></td>
+                        <td th:text="${r.valor}"></td>
+                        <td th:text="${#dates.format(r.dataTransacao, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${r.descricao}"></td>
+                        <td th:text="${r.unidade.nome}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-secondary" th:href="@{/relfinanceiros/edita/{id}(id=${r.id})}">Editar</a>
+                            <a class="btn btn-sm btn-secondary" th:href="@{/relfinanceiros/delete/{id}(id=${r.id})}">Deletar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

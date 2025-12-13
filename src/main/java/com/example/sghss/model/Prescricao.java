@@ -1,6 +1,15 @@
 package com.example.sghss.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -22,9 +31,6 @@ public class Prescricao {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Informe o tipo da prescrição")
     private TipoPrescricao tipoPrescricao;
-    
-    //Data da emisssão
-    //Medicamentos
 
     @Column(length = 500)
     private String observacao;
