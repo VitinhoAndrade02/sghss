@@ -29,7 +29,7 @@ public class PacienteController {
         return new ModelAndView("/paciente/formulario", model);
     }
 
-    @RequestMapping(value= "/novo", method= RequestMethod.POST)
+    @RequestMapping(value= "", method= RequestMethod.POST)
     public String salva(@Valid @ModelAttribute Paciente paciente, 
         BindingResult result,
         RedirectAttributes attr) {
