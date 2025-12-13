@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.ConsultaBO;
-import com.example.sghss.model.Consulta;
 import com.example.sghss.bo.PacienteBO;
+import com.example.sghss.model.Consulta;
 import com.example.sghss.model.Paciente;
-
-
 
 import jakarta.validation.Valid;
 
@@ -28,14 +26,21 @@ public class ConsultaController {
     @Autowired
     private PacienteBO pacienteBO;
 
+    @RequestMapping(value= "", method= RequestMethod.GET)
+    public String lista (ModelMap model) {
+        model.addAttribute("consultas", bo.lista());
+        return "consulta/lista";
+    }
+    
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public String novo(ModelMap model) {
-
-        model.addAttribute("consulta", new Consulta());
+        Consulta consulta = new Consulta();
+        consulta.setPaciente(new Paciente()); // evita null
+        model.addAttribute("consulta", consulta);
         model.addAttribute("pacientes", pacienteBO.lista());
-
         return "consulta/formulario";
-    }
+}
+
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String salvar(@Valid @ModelAttribute("consulta") Consulta consulta,
