@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.sghss.bo.TeleconsultaBO;
 import com.example.sghss.bo.PacienteBO;
 import com.example.sghss.bo.ProfissionalBO;
+import com.example.sghss.bo.TeleconsultaBO;
+import com.example.sghss.model.StatusConsulta;
 import com.example.sghss.model.Teleconsulta;
 
 import jakarta.validation.Valid;
@@ -61,7 +64,32 @@ public class TeleconsultaController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("teleconsultas", bo.lista());
+        model.addAttribute("todosStatus", StatusConsulta.values());
         return new ModelAndView("/teleconsulta/lista", model);
+    }
+    
+    @RequestMapping(value="/atualizarStatus", method=RequestMethod.POST)
+    @ResponseBody
+    public String atualizarStatus(@RequestParam("id") Long id, @RequestParam("status") String novoStatus) {
+        try {
+            Teleconsulta teleconsulta = bo.pesquisarPeloId(id);
+
+            if (teleconsulta == null) {
+                throw new Exception("Teleconsulta não encontrada para o ID: " + id);
+            }
+
+            StatusConsulta status = StatusConsulta.valueOf(novoStatus);
+            teleconsulta.setStatus(status);
+            bo.update(teleconsulta);
+
+            return "Status atualizado com sucesso";
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro de conversão do Status: " + e.getMessage());
+            return "Erro: Status inválido fornecido.";
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar o status: " + e.getMessage());
+            return "Erro ao atualizar o status: " + e.getMessage();
+        }
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)

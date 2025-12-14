@@ -2,7 +2,6 @@ package com.example.sghss.model;
 
 public enum StatusConsulta {
     AGENDADA("Agendada"),
-    CONFIRMADA("Confirmada"),
     CANCELADA("Cancelada"),
     CONCLUIDA("Concluida");
     
