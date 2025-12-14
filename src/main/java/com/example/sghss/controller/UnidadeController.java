@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.sghss.bo.UnidadeBO;
 import com.example.sghss.bo.LeitoBO;
+import com.example.sghss.bo.UnidadeBO;
 import com.example.sghss.model.Unidade;
 
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class UnidadeController {
         return new ModelAndView("/unidade/formulario", model);
     }
 
-    @RequestMapping(value = "/novo", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String salva(@Valid @ModelAttribute Unidade unidade,
         BindingResult result,
         RedirectAttributes attr) {
@@ -60,11 +60,13 @@ public class UnidadeController {
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
-    public ModelAndView edita(@PathVariable Long id, ModelMap model) {
-
+    public ModelAndView edita(@PathVariable ("id") Long id, ModelMap model) {
+        try{
         model.addAttribute("unidade", bo.pesquisarPeloId(id));
         model.addAttribute("leitos", leitoBO.lista());
-
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
         return new ModelAndView("/unidade/formulario", model);
     }
 

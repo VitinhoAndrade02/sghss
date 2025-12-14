@@ -21,21 +21,23 @@
         <div class="bg-light p-5 rounded">
             <h1>Dados da Unidade</h1>
             <hr>
+            <div>
+                <form th:action="@{/unidades}" th:object="${unidade}" method="POST">
+                    <input type="hidden" th:field="*{id}" />
 
-            <form th:action="@{/unidades}" th:object="${unidade}" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label" for="nome">Nome</label>
+                        <input class="form-control" id="nome" type="text" th:field="*{nome}">
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Nome</label>
-                    <input class="form-control" th:field="*{nome}">
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="endereco">Endereço</label>
+                        <input class="form-control" id="endereco" type="text" th:field="*{endereco}">
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Endereço</label>
-                    <input class="form-control" th:field="*{endereco}">
-                </div>
-
-                <input class="btn btn-primary" type="submit" value="Salvar">
-            </form>
+                    <input class="btn btn-primary" type="submit" value="Salvar">
+                </form>
+            </div>
         </div>
     </div>
 </body>
