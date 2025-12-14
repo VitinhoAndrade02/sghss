@@ -41,12 +41,19 @@
 
                     <div class="col-6 mb-3">
                         <label class="form-label" for="especialidade">Especialidade:</label>
-                        <select class="form-select" th:field="*{especialidade}">
-                            <option value="" disabled selected>Selecione</option>
-                            <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp}"></option>
-                        </select>
-                        <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}"
-                            th:errors="*{especialidade}"></span>
+                            <select class="form-select" id="especialidade" th:field="*{especialidade}">
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="CLINICO_GERAL">Clínico geral</option>
+                                <option value="CARDIOLOGIA">Cardiologia</option>
+                                <option value="ORTOPEDIA">Ortopedia</option>
+                                <option value="PEDIATRIA">Pediatria</option>
+                                <option value="NEUROLOGIA">Neurologia</option>
+                                <option value="PSIQUIATRIA">Psiquiatria</option>
+
+
+                            </select>
+                            <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}"
+                                th:errors="*{especialidade}"></span>
                     </div>
 
                     <div class="col-6 mb-3">
