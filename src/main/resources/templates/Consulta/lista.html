@@ -43,14 +43,14 @@
                     <tr th:each="consulta : ${consultas}">
                         <td th:text="${consulta.paciente.nome}"></td>
                         <td th:text="${consulta.especialidade}"></td>
-                        <td th:text="${consulta.data}"></td>
-                        <td th:text="${consulta.horario}"></td>
+                        <td th:text="${consulta.dataConsulta}"></td>
+                        <td th:text="${consulta.horaConsulta}"></td>
                         
                         <td>
                             <a class="btn btn-secondary"
-                                th:href="${/consultas/edita/{id}(id=${.id})}">Editar</a>
+                                th:href="${/consultas/edita/{id}(id=${consulta.id})}">Editar</a>
 
-                            <a th:href="${/consultas/delete/{id}(id=${.id})}" class="btn btn-secondary"
+                            <a th:href="${/consultas/delete/{id}(id=${consulta.id})}" class="btn btn-secondary"
                                 th:unless="${consulta.delete == false}">Deletar</a>
                         </td>
                     </tr>
