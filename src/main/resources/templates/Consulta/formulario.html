@@ -26,10 +26,9 @@
             <hr>
 
             <form th:action="@{/consultas}" th:object="${consulta}" method="POST">
-                <div class="row">
 
 
-                    <div class="col-6 mb-3">
+                    <div class=" mb-3">
                         <label class="form-label" for="paciente">Paciente:</label>
                         <select class="form-select" th:field="*{paciente}" disabled>
                             <option th:value="${consulta.paciente?.id}" th:text="${consulta.paciente?.nome}"></option>
@@ -37,6 +36,8 @@
 
                         <input type="hidden" th:field="*{paciente}" />
                     </div>
+
+                <div class="row">
 
                     <div class="col-6 mb-3">
                         <label class="form-label" for="especialidade">Especialidade:</label>
@@ -47,6 +48,14 @@
                         <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}"
                             th:errors="*{especialidade}"></span>
                     </div>
+
+                    <div class="col-6 mb-3">
+                        <label class="form-label">Profissional:</label>
+                        <select id="profissional" name="profissional.id" class="form-select">
+                            <option value="">Selecione</option>
+                        </select>
+                    </div>
+
 
                 </div>
 
@@ -71,13 +80,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="descricao">Descrição:</label>
-                    <textarea class="form-control" th:field="*{descricao}"
+                    <label class="form-label" for="descricaoConsulta">Descrição:</label>
+                    <textarea class="form-control" th:field="*{descricaoConsulta}"
                         placeholder="Detalhes da consulta"></textarea>
                 </div>
 
                 <div class="mt-4">
-                    <input class="btn btn-primary" type="submit" value="Salvar" />
+                    <input class="btn btn-primary" type="submit" value="Agendar" />
                 </div>
             </form>
 
@@ -85,5 +94,19 @@
     </div>
 
 </body>
+<script>
+document.getElementById("especialidade").addEventListener("change", function () {
+  fetch("/profissionais/especialidade/" + this.value)
+    .then(r => r.json())
+    .then(d => {
+      let select = document.getElementById("profissional");
+      select.innerHTML = '<option value="">Selecione</option>';
+      d.forEach(p => {
+        select.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
+      });
+    });
+});
+</script>
+
 
 </html>
