@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.sghss.dao.CRUD;
 import com.example.sghss.dao.ProfissionalDAO;
+import com.example.sghss.model.Especialidade;
 import com.example.sghss.model.Profissional;
+
 
 
 @Service
@@ -39,6 +41,10 @@ public class ProfissionalBO implements CRUD<Profissional, Long> {
     public void delete(Long id) {
         dao.delete(id);
     }
+    
+    public List<Profissional> buscarPorEspecialidade(Especialidade especialidade) {
+    return dao.buscarPorEspecialidade(especialidade);
+}
 
     
 }

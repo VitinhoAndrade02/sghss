@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.sghss.model.Especialidade;
 import com.example.sghss.model.Profissional;
 
 import jakarta.persistence.EntityManager;
@@ -49,4 +50,14 @@ private EntityManager entityManager;
             entityManager.remove(profissional);
         }
     }
+    
+    public List<Profissional> buscarPorEspecialidade(Especialidade especialidade) {
+    return entityManager.createQuery(
+        "SELECT p FROM Profissional p WHERE p.especialidade = :esp",
+        Profissional.class
+    )
+    .setParameter("esp", especialidade)
+    .getResultList();
+    }
+
 }

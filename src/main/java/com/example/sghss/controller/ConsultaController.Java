@@ -36,7 +36,7 @@ public class ConsultaController {
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public String novo(ModelMap model) {
         Consulta consulta = new Consulta();
-        consulta.setPaciente(new Paciente()); // evita null
+        consulta.setPaciente(new Paciente()); 
         model.addAttribute("consulta", consulta);
         model.addAttribute("pacientes", pacienteBO.lista());
         model.addAttribute("especialidades", Especialidade.values());

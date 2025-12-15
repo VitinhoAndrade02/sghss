@@ -71,7 +71,7 @@
                             <select id="especialidade" class="form-select" th:field="*{especialidade}">
                                 <option value="" disabled selected>Selecione</option>
                                 <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp.descricao}"></option>
-                            </select>>
+                            </select>
                             <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}"
                                 th:errors="*{especialidade}"></span>
                         </div>
@@ -114,7 +114,7 @@
             integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw=="></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#telefone').mask('(99)9999-9999');
+                $('#telefone').mask('(99)99999-9999');
             }); 
         </script>
 
