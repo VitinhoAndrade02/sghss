@@ -50,8 +50,8 @@
                             <a class="btn btn-secondary"
                                 th:href="${/consultas/edita/{id}(id=${consulta.id})}">Editar</a>
 
-                            <a th:href="${/consultas/delete/{id}(id=${consulta.id})}" class="btn btn-secondary"
-                                th:unless="${consulta.delete == false}">Deletar</a>
+                            <a th:href="${/consultas/delete/{id}(id=${consulta.id})}" 
+                            class="btn btn-secondary">Deletar</a>
                         </td>
                     </tr>
                 </tbody>

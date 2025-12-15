@@ -29,9 +29,9 @@
 
                 <div class="mb-3">
                     <label class="form-label">Paciente:</label>
-                    <select class="form-select" th:field="*{paciente.id}" required>
+                    <select class="form-select" th:field="*{paciente}" required>
                         <option value="" disabled selected>Selecione</option>
-                        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
+                        <option th:each="p : ${pacientes}" th:value="${p}" th:text="${p.nome}"></option>
                     </select>
                     <span style="color:red;" th:if="${#fields.hasErrors('paciente')}" th:errors="*{paciente}"></span>
                 </div>
@@ -41,8 +41,7 @@
                         <label class="form-label" for="especialidade">Especialidade:</label>
                         <select id="especialidade" class="form-select" th:field="*{especialidade}">
                             <option value="" disabled selected>Selecione</option>
-                            <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp.descricao}">
-                            </option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp}"></option>
                         </select>
                         <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}"
                             th:errors="*{especialidade}"></span>
@@ -50,9 +49,8 @@
 
                     <div class="col-6 mb-3">
                         <label class="form-label">Profissional:</label>
-                        <select class="form-select" th:field="*{profissional.id}" required>
-                            <option value="" disabled selected>Selecione</option>
-                            <option th:each="p: ${profissionais}" th:value="p.id" th:text="${p.nome}"></option>
+                        <select id="profissional" name="profissional.id" class="form-select">
+                            <option value="">Selecione</option>
                         </select>
                     </div>
 
@@ -69,8 +67,11 @@
 
                     <div class="col-6 mb-3">
                         <label class="form-label" for="horaConsulta">Horário:</label>
-                        <input class="form-control" type="time" th:field="*{horaConsulta}">
-                        
+                        <select class="form-select" th:field="*{horaConsulta}">
+                            <option value="" disabled selected>Selecione</option>
+                            <option th:each="h : ${horariosDisponiveis}" th:value="${h}" th:text="${h}">
+                            </option>
+                        </select>
                         <span style="color:red;" th:if="${#fields.hasErrors('horaConsulta')}"
                             th:errors="*{horaConsulta}"></span>
                     </div>
@@ -89,32 +90,21 @@
 
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            document.getElementById("especialidade").addEventListener("change", function () {
-                const especialidade = this.value;
-                const select = document.getElementById("profissional");
-
-                select.innerHTML = '<option value="">Selecione</option>';
-                if (!especialidade) return;
-
-                fetch(`/profissionais/por-especialidade/${especialidade}`)
-                    .then(r => r.json())
-                    .then(data => {
-                        data.forEach(p => {
-                            const opt = document.createElement("option");
-                            opt.value = p.id;
-                            opt.text = p.nome;
-                            select.appendChild(opt);
-                        });
-                    });
-            });
-
-        });
-    </script>
-
 
 </body>
+<script>
+document.getElementById("especialidade").addEventListener("change", function () {
+  fetch("/profissionais/especialidade/" + this.value)
+    .then(r => r.json())
+    .then(d => {
+      let select = document.getElementById("profissional");
+      select.innerHTML = '<option value="">Selecione</option>';
+      d.forEach(p => {
+        select.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
+      });
+    });
+});
+</script>
+
 
 </html>
