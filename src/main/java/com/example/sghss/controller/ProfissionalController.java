@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.ProfissionalBO;
+import com.example.sghss.model.Especialidade;
 import com.example.sghss.model.Profissional;
 
 import jakarta.validation.Valid;
@@ -21,6 +22,11 @@ public class ProfissionalController {
 
     @Autowired
     private ProfissionalBO bo;
+
+    @ModelAttribute("especialidades")
+    public Especialidade[] especialidades() {
+        return Especialidade.values();
+    }
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {

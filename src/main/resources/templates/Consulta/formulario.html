@@ -41,7 +41,7 @@
                         <label class="form-label" for="especialidade">Especialidade:</label>
                         <select id="especialidade" class="form-select" th:field="*{especialidade}">
                             <option value="" disabled selected>Selecione</option>
-                            <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp}"></option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp.descricao}"></option>
                         </select>
                         <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}"
                             th:errors="*{especialidade}"></span>

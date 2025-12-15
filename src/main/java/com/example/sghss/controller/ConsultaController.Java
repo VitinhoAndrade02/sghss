@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.sghss.bo.ConsultaBO;
 import com.example.sghss.bo.PacienteBO;
 import com.example.sghss.model.Consulta;
+import com.example.sghss.model.Especialidade;
 import com.example.sghss.model.Paciente;
 
 import jakarta.validation.Valid;
@@ -38,6 +39,7 @@ public class ConsultaController {
         consulta.setPaciente(new Paciente()); // evita null
         model.addAttribute("consulta", consulta);
         model.addAttribute("pacientes", pacienteBO.lista());
+        model.addAttribute("especialidades", Especialidade.values());
         return "consulta/formulario";
 }
 
@@ -54,6 +56,7 @@ public class ConsultaController {
 
         if (result.hasErrors()) {
             model.addAttribute("pacientes", pacienteBO.lista());
+            model.addAttribute("especialidades", Especialidade.values());
             return "consulta/formulario";
         }
 
