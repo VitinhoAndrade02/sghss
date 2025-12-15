@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.LeitoBO;
 import com.example.sghss.bo.UnidadeBO;
+import com.example.sghss.model.TipoUnidade;
 import com.example.sghss.model.Unidade;
 
 import jakarta.validation.Valid;
@@ -27,6 +28,10 @@ public class UnidadeController {
     @Autowired
     private LeitoBO leitoBO;
 
+    @ModelAttribute("tipoUnidades")
+    public TipoUnidade[] tipoUnidades() {
+        return TipoUnidade.values();
+    }
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("unidade", new Unidade());

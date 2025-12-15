@@ -31,8 +31,9 @@
 
                     <div class="col-4 mb-3">
                         <label class="form-label" for="tipoUnidade">Tipo da Unidade</label>
-                        <select class="form-select" th:field="*{tipoUnidade}" required>
-                            <option th:each="tipo : ${tipoUnidades}" th:value="${tipo}" th:text="${tipo}"></option>
+                        <select id="tipoUnidade" class="form-select" th:field="*{tipoUnidade}" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option th:each="tipo : ${tipoUnidades}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
                         </select>
                     </div>
                 </div>
