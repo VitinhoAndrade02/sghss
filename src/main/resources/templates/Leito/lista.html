@@ -19,9 +19,7 @@
             <h1>Leitos da Unidade: <span th:text="${unidade?.nome}"></span></h1>
             <hr>
 
-            <p>Total de leitos disponíveis: 
-                <span th:text="${#lists.size(#lists.select(unidade.leitos, l -> l.statusLeito.name()=='LIVRE'))}">0</span>
-            </p>
+           
 
             <table class="table table-striped mt-3">
                 <thead>

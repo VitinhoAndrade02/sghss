@@ -32,7 +32,6 @@ public class Leito {
     @JoinColumn(name="unidade_id", nullable=false)
     private Unidade unidade;
 
-    //status do leito
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Informe o status do leito")
     private StatusLeito statusLeito;
