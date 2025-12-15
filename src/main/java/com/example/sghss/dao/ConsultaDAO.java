@@ -54,6 +54,6 @@ public class ConsultaDAO implements CRUD<Consulta, Long> {
             LocalTime.class);
 
         query.setParameter("data", data);
-        return query.getResultList();
+        return query.getResultList();//posso apagar
     }
 }

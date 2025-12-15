@@ -1,5 +1,4 @@
 package com.example.sghss.bo;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +40,4 @@ public class ConsultaBO implements CRUD<Consulta, Long> {
         dao.delete(id);
     }
     
-    public void validarHorario(Consulta c) {
-        List<LocalTime> ocupados = dao.horariosOcupados(c.getDataConsulta());
-
-        if (ocupados.contains(c.getHoraConsulta())) {
-            throw new RuntimeException("Horário já ocupado");
-        }
-    }
 }

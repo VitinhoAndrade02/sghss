@@ -11,9 +11,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.ConsultaBO;
 import com.example.sghss.bo.PacienteBO;
+import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Consulta;
 import com.example.sghss.model.Especialidade;
 import com.example.sghss.model.Paciente;
+import com.example.sghss.model.Profissional;
 
 import jakarta.validation.Valid;
 
@@ -27,6 +29,10 @@ public class ConsultaController {
     @Autowired
     private PacienteBO pacienteBO;
 
+    @Autowired
+    private ProfissionalBO profissionalBO;
+
+
     @RequestMapping(value= "", method= RequestMethod.GET)
     public String lista (ModelMap model) {
         model.addAttribute("consultas", bo.lista());
@@ -39,6 +45,7 @@ public class ConsultaController {
         consulta.setPaciente(new Paciente()); 
         model.addAttribute("consulta", consulta);
         model.addAttribute("pacientes", pacienteBO.lista());
+        model.addAttribute("profissionais", profissionalBO.lista());
         model.addAttribute("especialidades", Especialidade.values());
         return "consulta/formulario";
 }
@@ -56,6 +63,7 @@ public class ConsultaController {
 
         if (result.hasErrors()) {
             model.addAttribute("pacientes", pacienteBO.lista());
+            model.addAttribute("profissionais", profissionalBO.lista());
             model.addAttribute("especialidades", Especialidade.values());
             return "consulta/formulario";
         }
@@ -64,6 +72,12 @@ public class ConsultaController {
             consulta.getPaciente().getId()
         );
         consulta.setPaciente(paciente);
+        
+        Profissional profissional = profissionalBO.pesquisarPeloId(
+            consulta.getProfissional().getId()
+        );
+        consulta.setProfissional(profissional);
+
 
         if (consulta.getId() == null) {
             bo.create(consulta);
