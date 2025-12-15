@@ -60,7 +60,8 @@ public class Unidade {
 
     public List<Leito> getLeitos() {
          return leitos; 
-        }
+    }
+    
     public void setLeitos(List<Leito> leitos) { 
         this.leitos = leitos; 
     }

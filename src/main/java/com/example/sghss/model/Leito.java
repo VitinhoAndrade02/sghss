@@ -1,6 +1,15 @@
 package com.example.sghss.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 
@@ -24,7 +33,9 @@ public class Leito {
     private Unidade unidade;
 
     //status do leito
-
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Informe o status do leito")
+    private StatusLeito statusLeito;
 
     public Long getId() { 
         return id; 
@@ -52,5 +63,11 @@ public class Leito {
     }
     public void setUnidade(Unidade unidade) { 
         this.unidade = unidade; 
+    }
+     public StatusLeito getStatusLeito() { 
+        return statusLeito; 
+    }
+    public void setStatusLeito(StatusLeito statusLeito) { 
+        this.statusLeito = statusLeito; 
     }
 }
