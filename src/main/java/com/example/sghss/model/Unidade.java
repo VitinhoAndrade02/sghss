@@ -26,6 +26,10 @@ public class Unidade {
     @Column(length = 100)
     private String endereco;
 
+    private String telefone;
+    
+    private String numeroLeitos;
+
     @OneToMany(mappedBy = "unidade")
     private List<Leito> leitos;
 
@@ -56,6 +60,20 @@ public class Unidade {
     }
     public void setEndereco(String endereco) { 
         this.endereco = endereco;
+    }
+
+    public String getTelefone() { 
+        return telefone;
+    }
+    public void setTelefone(String telefone) { 
+        this.telefone = telefone;
+    }
+    
+    public String getNumeroLeitos() { 
+        return endereco;
+    }
+    public void setNumeroLeitos(String numeroLeitos) { 
+        this.numeroLeitos = numeroLeitos;
     }
 
     public List<Leito> getLeitos() {

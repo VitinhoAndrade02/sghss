@@ -9,6 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.sghss.bo.LeitoBO;
 import com.example.sghss.model.Leito;
+import com.example.sghss.model.StatusLeito;
+import com.example.sghss.model.TipoLeito;
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -21,6 +24,8 @@ public class LeitoController {
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("leito", new Leito());
+        model.addAttribute("statusLeito", StatusLeito.values());
+        model.addAttribute("tiposLeito", TipoLeito.values());
         return new ModelAndView("/leito/formulario", model);
     }
 
@@ -42,12 +47,14 @@ public class LeitoController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("leitos", bo.lista());
-        return new ModelAndView("/leito/lista", model);
+        return new ModelAndView("/leitos/lista", model);
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
     public ModelAndView edita(@PathVariable Long id, ModelMap model) {
         model.addAttribute("leito", bo.pesquisarPeloId(id));
+        model.addAttribute("statusLeito", StatusLeito.values());
+        model.addAttribute("tiposLeito", TipoLeito.values());
         return new ModelAndView("/leito/formulario", model);
     }
 
