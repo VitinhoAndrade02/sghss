@@ -55,8 +55,8 @@
                 </div>
                 <div class="row">
                     <div class="mt-3">
-                        <a th:href="@{/unidades/{id}/leitos(id=${unidade.id})}" class="btn btn-success">Gerenciar
-                            Leitos</a>
+                        <a th:href="@{/unidades/{id}/leitos(id=${unidade.id})}" class="btn btn-success">Gerenciar Leitos</a>
+                        <span th:text="${unidade.leitos != null ? #lists.size(#lists.select(unidade.leitos, 'statusLeito.name == ''LIVRE''')) : 0}"></span>
                     </div>
                     <br><br>
                     <br><br>
