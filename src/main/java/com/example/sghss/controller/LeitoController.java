@@ -47,7 +47,7 @@ public class LeitoController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("leitos", bo.lista());
-        return new ModelAndView("/leitos/lista", model);
+        return new ModelAndView("/leito/lista", model);
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
