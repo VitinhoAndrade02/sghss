@@ -86,7 +86,11 @@
                         <textarea class="form-control" id="historicoClinico" th:field="*{historicoClinico}"
                             placeholder="Digite o histórico"></textarea>
                     </div>
-
+                    <div class="mb-3 form-check form-switch">
+                        <input class="form-check-input" role="switch" id="receberNotificacao" type="checkbox" th:field="*{receberNotificacao}" checked/>
+                        <label class="form-check-label" for="receberNotificacao">Receber Notificação</label>
+                    </div>
+                    <br><br>
                     <div class="mb-3">
                         <input class="btn btn-primary" type="submit" value="Salvar" />
                     </div>

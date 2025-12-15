@@ -27,7 +27,7 @@ public class PacienteBOTest {
     public void create() {
         Paciente paciente = new Paciente();
         paciente.setNome("João da Silva ");
-        paciente.setCpf("12345678901");
+        paciente.setCpf("230.126.238-33");
         paciente.setTelefone("11987654321");
         paciente.setEmail("joao.silva@mail.com");
         paciente.setSexo(Sexo.MASCULINO);

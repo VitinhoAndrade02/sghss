@@ -58,6 +58,9 @@ public class Paciente {
     @Column(length = 500)
     private String historicoClinico;
 
+    @Column(name = "receber_notificacao")
+    private Boolean receberNotificacao;
+
     @OneToMany(mappedBy = "paciente")
     private java.util.List<Consulta> consultas;
 
@@ -121,6 +124,15 @@ public class Paciente {
     public void setHistoricoClinico(String historicoClinico) {
         this.historicoClinico = historicoClinico;
     }
+    
+    public Boolean getReceberNotificacao() {
+    return receberNotificacao;
+    }
+
+    public void setReceberNotificacao(Boolean receberNotificacao) {
+    this.receberNotificacao = receberNotificacao;
+    }
+
     public java.util.List<Consulta> getConsultas() {
         return consultas; 
     }
@@ -135,4 +147,5 @@ public class Paciente {
         this.prontuarios = prontuarios; 
     }
 
+    
 }
