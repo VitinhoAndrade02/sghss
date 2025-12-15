@@ -67,11 +67,8 @@
 
                     <div class="col-6 mb-3">
                         <label class="form-label" for="horaConsulta">Horário:</label>
-                        <select class="form-select" th:field="*{horaConsulta}">
-                            <option value="" disabled selected>Selecione</option>
-                            <option th:each="h : ${horariosDisponiveis}" th:value="${h}" th:text="${h}">
-                            </option>
-                        </select>
+                        <input class="form-control" type="time" th:field="*{horaConsulta}">
+
                         <span style="color:red;" th:if="${#fields.hasErrors('horaConsulta')}"
                             th:errors="*{horaConsulta}"></span>
                     </div>
