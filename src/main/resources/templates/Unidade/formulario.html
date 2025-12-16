@@ -48,6 +48,16 @@
                         <input class="form-control" id="telefone" type="text" th:field="*{telefone}" required>
                     </div>
 
+                    <div class="col-4 mb-3">
+                        <label class="form-label" for="numeroLeitos">Leitos livres:</label>
+                        <input class="form-control" id="numeroLeitos" type="number" th:field="*{numeroLeitos}" required>
+                    </div>
+                
+                   
+                    <div class="mt-3">
+                        <a th:href="@{/unidades/{id}/leitos(id=${unidade.id})}"
+                        class="btn btn-success">Gerenciar Leitos</a>
+                    </div>
                     <br><br>
                     <br><br>
                     <input class="btn btn-primary" type="submit" value="Salvar">
