@@ -41,7 +41,7 @@ public class LeitoBO implements CRUD<Leito, Long> {
     }
 
     public List<Leito> listaPorUnidade(Long unidadeId) {
-    return dao.findByUnidadeId(unidadeId); // ou seu método equivalente
+    return dao.findByUnidadeId(unidadeId); 
     }
 
 }   
