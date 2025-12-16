@@ -32,20 +32,22 @@ public class UnidadeController {
     public TipoUnidade[] tipoUnidades() {
         return TipoUnidade.values();
     }
+
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("unidade", new Unidade());
-        model.addAttribute("leitos", leitoBO.lista());
         return new ModelAndView("/unidade/formulario", model);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String salva(@Valid @ModelAttribute Unidade unidade,
-        BindingResult result,
-        RedirectAttributes attr) {
+    public String salva(
+            @Valid @ModelAttribute Unidade unidade,
+            BindingResult result,
+            RedirectAttributes attr) {
 
-        if (result.hasErrors())
+        if (result.hasErrors()) {
             return "unidade/formulario";
+        }
 
         if (unidade.getId() == null) {
             bo.create(unidade);
@@ -57,19 +59,6 @@ public class UnidadeController {
 
         return "redirect:/unidades";
     }
-    @RequestMapping(value = "/{id}/leitos", method = RequestMethod.GET)
-    public ModelAndView listaLeitos(@PathVariable("id") Long id, ModelMap model) {
-        try {
-            Unidade unidade = bo.pesquisarPeloId(id);
-            model.addAttribute("unidades", unidade);
-            model.addAttribute("leitos", leitoBO.listaPorUnidade(id)); 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ModelAndView("redirect:/unidades");
-        }
-        return new ModelAndView("/leito/lista", model); 
-    }
-
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
@@ -78,14 +67,20 @@ public class UnidadeController {
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
-    public ModelAndView edita(@PathVariable ("id") Long id, ModelMap model) {
-        try{
-        model.addAttribute("unidades", bo.pesquisarPeloId(id));
-        model.addAttribute("leitos", leitoBO.lista());
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+    public ModelAndView edita(@PathVariable Long id, ModelMap model) {
+        Unidade unidade = bo.pesquisarPeloId(id);
+
+        model.addAttribute("unidade", unidade); // 🔥 ESSENCIAL
         return new ModelAndView("/unidade/formulario", model);
+    }
+
+    @RequestMapping(value = "/{id}/leitos", method = RequestMethod.GET)
+    public ModelAndView listaLeitos(@PathVariable Long id, ModelMap model) {
+        Unidade unidade = bo.pesquisarPeloId(id);
+
+        model.addAttribute("unidade", unidade);
+        model.addAttribute("leitos", leitoBO.listaPorUnidade(id));
+        return new ModelAndView("/leito/lista", model);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

@@ -58,30 +58,7 @@ public class LeitoController {
         return "redirect:/unidades/" + unidadeId;
     }
 
-    // GET geral para criar leito sem unidade específica
-    @RequestMapping(value = "/novo", method = RequestMethod.GET)
-    public ModelAndView novo(ModelMap model) {
-        model.addAttribute("leito", new Leito());
-        model.addAttribute("statusLeito", StatusLeito.values());
-        model.addAttribute("tiposLeito", TipoLeito.values());
-        return new ModelAndView("/leito/formulario", model);
-    }
-
-    // POST geral para salvar leito sem unidade específica
-    @RequestMapping(value = "/novo", method = RequestMethod.POST)
-    public String salva(@Valid @ModelAttribute Leito leito, BindingResult result, RedirectAttributes attr) {
-        if (result.hasErrors()) return "leito/formulario";
-
-        if (leito.getId() == null) {
-            bo.create(leito);
-            attr.addFlashAttribute("feedback", "Leito cadastrado com sucesso");
-        } else {
-            bo.update(leito);
-            attr.addFlashAttribute("feedback", "Leito atualizado com sucesso");
-        }
-        return "redirect:/leitos";
-    }
-
+   
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("leitos", bo.lista());
@@ -90,7 +67,9 @@ public class LeitoController {
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
     public ModelAndView edita(@PathVariable Long id, ModelMap model) {
+         Leito leito = bo.pesquisarPeloId(id);
         model.addAttribute("leito", bo.pesquisarPeloId(id));
+        model.addAttribute("unidade", leito.getUnidade()); // 🔥 ESSENCIAL
         model.addAttribute("statusLeito", StatusLeito.values());
         model.addAttribute("tiposLeito", TipoLeito.values());
         return new ModelAndView("/leito/formulario", model);
