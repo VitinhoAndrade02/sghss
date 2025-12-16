@@ -16,7 +16,7 @@
         <div class="bg-light p-5 rounded">
             <h1>Relatórios Financeiros</h1>
             <hr>
-            <a class="btn btn-primary mb-3" th:href="@{/relfinanceiros/novo}">Novo Relatório</a>
+            <a class="btn btn-primary mb-3" th:href="@{/financeiro/novo}">Novo Relatório</a>
 
             <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success">
                 <span th:text="${feedback}"></span>
@@ -40,10 +40,13 @@
                         <td th:text="${#dates.format(r.dataTransacao, 'dd/MM/yyyy')}"></td>
                         <td th:text="${r.descricao}"></td>
                         <td th:text="${r.unidade.nome}"></td>
-                        <td>
-                            <a class="btn btn-sm btn-secondary" th:href="@{/relfinanceiros/edita/{id}(id=${r.id})}">Editar</a>
-                            <a class="btn btn-sm btn-secondary" th:href="@{/relfinanceiros/delete/{id}(id=${r.id})}">Deletar</a>
-                        </td>
+                        <tr th:each="r : ${relatorios}">
+                            <td>
+                                <a class="btn btn-sm btn-secondary" th:href="@{/financeiro/edita/{id}(id=${r.id})}">Editar</a>
+                            
+                                <a class="btn btn-sm btn-secondary" th:href="@{/financeiro/delete/{id}(id=${r.id})}">Deletar</a>
+                            </td>
+                        </tr>
                     </tr>
                 </tbody>
             </table>

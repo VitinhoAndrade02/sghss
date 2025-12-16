@@ -19,7 +19,6 @@
             <h1>Leitos da Unidade: <span th:text="${unidade?.nome ?: 'Não disponível'}"></span></h1>
             <hr>
 
-            <!-- Tabela de Leitos -->
             <table class="table table-striped mt-3" th:if="${leitos != null and !leitos.isEmpty()}">
                 <thead>
                     <tr>
@@ -33,11 +32,9 @@
                         <td th:text="${l.tipoLeito}"></td>
                         <td th:text="${l.statusLeito}"></td>
                         <td>
-                            <!-- Botão Editar -->
                             <a th:href="@{/leitos/{id}/editar(id=${l.id})}" 
                                class="btn btn-sm btn-warning">Editar</a>
 
-                            <!-- Botão Excluir -->
                             <a th:href="@{/leitos/{id}/deletar(id=${l.id})}" 
                                class="btn btn-sm btn-danger"
                                onclick="return confirm('Deseja realmente excluir este leito?')">Excluir</a>
@@ -46,10 +43,8 @@
                 </tbody>
             </table>
 
-            <!-- Mensagem caso não haja leitos -->
             <p th:if="${leitos == null || leitos.isEmpty()}">Nenhum leito disponível.</p>
 
-            <!-- Botão Adicionar Novo Leito -->
             <a th:if="${unidade != null}" 
                th:href="@{/unidades/{id}/leitos/novo(id=${unidade.id})}" 
                class="btn btn-success mt-3">Adicionar Novo Leito</a>
