@@ -1,8 +1,11 @@
 package com.example.sghss.dao;
 
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
 import com.example.sghss.model.Leito;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -22,8 +25,10 @@ public class LeitoDAO implements CRUD<Leito, Long> {
 
     @Override
     public List<Leito> lista() {
-        TypedQuery<Leito> query = entityManager.createQuery("SELECT l FROM Leito l", Leito.class);
+       TypedQuery<Leito> query = entityManager.createQuery(
+        "SELECT l FROM Leito l LEFT JOIN FETCH l.unidade", Leito.class);
         return query.getResultList();
+
     }
 
     @Override
@@ -43,4 +48,13 @@ public class LeitoDAO implements CRUD<Leito, Long> {
             entityManager.remove(leito);
         }
     }
+    public List<Leito> findByUnidadeId(Long unidadeId) {
+    TypedQuery<Leito> query = entityManager.createQuery(
+        "SELECT l FROM Leito l WHERE l.unidade.id = :unidadeId", Leito.class);
+    query.setParameter("unidadeId", unidadeId);
+    return query.getResultList();
+    }
+    
+
+    
 }

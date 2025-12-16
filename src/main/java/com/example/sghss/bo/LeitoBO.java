@@ -1,8 +1,10 @@
 package com.example.sghss.bo;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.sghss.dao.CRUD;
 import com.example.sghss.dao.LeitoDAO;
 import com.example.sghss.model.Leito;
@@ -37,4 +39,9 @@ public class LeitoBO implements CRUD<Leito, Long> {
     public void delete(Long id) { 
         dao.delete(id); 
     }
-}
+
+    public List<Leito> listaPorUnidade(Long unidadeId) {
+    return dao.findByUnidadeId(unidadeId); // ou seu método equivalente
+    }
+
+}   

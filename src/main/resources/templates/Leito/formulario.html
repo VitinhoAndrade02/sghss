@@ -19,7 +19,7 @@
             <h1>Adicionar Leito à Unidade: <span th:text="${unidade.nome}"></span></h1>
             <hr>
 
-            <form th:action="@{/unidades/{id}/leitos(id=${unidade.id})}" th:object="${leito}" method="POST">
+            <form th:action="@{/leitos/novo/{unidadeId}(unidadeId=${unidade.id})}" th:object="${leito}" method="POST">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <label class="form-label">Tipo de Leito:</label>

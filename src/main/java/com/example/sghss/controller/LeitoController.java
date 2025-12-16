@@ -12,9 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.LeitoBO;
+import com.example.sghss.bo.UnidadeBO;
 import com.example.sghss.model.Leito;
 import com.example.sghss.model.StatusLeito;
 import com.example.sghss.model.TipoLeito;
+import com.example.sghss.model.Unidade;
 
 import jakarta.validation.Valid;
 
@@ -25,6 +27,38 @@ public class LeitoController {
     @Autowired
     private LeitoBO bo;
 
+    @Autowired
+    private UnidadeBO unidadeBO;
+
+    // GET para criar leito de uma unidade específica
+    @RequestMapping(value = "/novo/{unidadeId}", method = RequestMethod.GET)
+    public ModelAndView novo(@PathVariable Long unidadeId, ModelMap model) {
+        Leito leito = new Leito();
+        Unidade unidade = unidadeBO.pesquisarPeloId(unidadeId);
+        leito.setUnidade(unidade);
+
+        model.addAttribute("leito", leito);
+        model.addAttribute("unidade", unidade);
+        model.addAttribute("statusLeito", StatusLeito.values());
+        model.addAttribute("tiposLeito", TipoLeito.values());
+        return new ModelAndView("/leito/formulario", model);
+    }
+
+    // POST para salvar leito de uma unidade específica
+    @RequestMapping(value = "/novo/{unidadeId}", method = RequestMethod.POST)
+    public String salva(@PathVariable Long unidadeId, @Valid @ModelAttribute Leito leito,
+                        BindingResult result, RedirectAttributes attr) {
+        if (result.hasErrors()) return "leito/formulario";
+
+        Unidade unidade = unidadeBO.pesquisarPeloId(unidadeId);
+        leito.setUnidade(unidade);
+
+        bo.create(leito);
+        attr.addFlashAttribute("feedback", "Leito cadastrado com sucesso");
+        return "redirect:/unidades/" + unidadeId;
+    }
+
+    // GET geral para criar leito sem unidade específica
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("leito", new Leito());
@@ -33,9 +67,9 @@ public class LeitoController {
         return new ModelAndView("/leito/formulario", model);
     }
 
-    @RequestMapping(value = "/novo", method = RequestMethod.POST)   
-    public String salva(@Valid @ModelAttribute Leito leito, 
-        BindingResult result, RedirectAttributes attr) {
+    // POST geral para salvar leito sem unidade específica
+    @RequestMapping(value = "/novo", method = RequestMethod.POST)
+    public String salva(@Valid @ModelAttribute Leito leito, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) return "leito/formulario";
 
         if (leito.getId() == null) {

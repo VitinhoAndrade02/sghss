@@ -16,12 +16,11 @@
 
     <div class="container">
         <div class="bg-light p-5 rounded">
-            <h1>Leitos da Unidade: <span th:text="${unidade?.nome}"></span></h1>
+            <h1>Leitos da Unidade: <span th:text="${unidade?.nome ?: 'Não disponível'}"></span></h1>
             <hr>
 
-           
-
-            <table class="table table-striped mt-3">
+            <!-- Tabela de Leitos -->
+            <table class="table table-striped mt-3" th:if="${leitos != null and !leitos.isEmpty()}">
                 <thead>
                     <tr>
                         <th>Tipo</th>
@@ -34,15 +33,26 @@
                         <td th:text="${l.tipoLeito}"></td>
                         <td th:text="${l.statusLeito}"></td>
                         <td>
-                            <a th:href="@{/leitos/{id}/editar(id=${l.id})}" class="btn btn-sm btn-warning">Editar</a>
-                            <a th:href="@{/leitos/{id}/deletar(id=${l.id})}" class="btn btn-sm btn-danger"
+                            <!-- Botão Editar -->
+                            <a th:href="@{/leitos/{id}/editar(id=${l.id})}" 
+                               class="btn btn-sm btn-warning">Editar</a>
+
+                            <!-- Botão Excluir -->
+                            <a th:href="@{/leitos/{id}/deletar(id=${l.id})}" 
+                               class="btn btn-sm btn-danger"
                                onclick="return confirm('Deseja realmente excluir este leito?')">Excluir</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <a th:href="@{/unidades/{id}/leitos/novo(id=${unidade.id})}" class="btn btn-success mt-3">Adicionar Novo Leito</a>
+            <!-- Mensagem caso não haja leitos -->
+            <p th:if="${leitos == null || leitos.isEmpty()}">Nenhum leito disponível.</p>
+
+            <!-- Botão Adicionar Novo Leito -->
+            <a th:if="${unidade != null}" 
+               th:href="@{/unidades/{id}/leitos/novo(id=${unidade.id})}" 
+               class="btn btn-success mt-3">Adicionar Novo Leito</a>
         </div>
     </div>
 </body>

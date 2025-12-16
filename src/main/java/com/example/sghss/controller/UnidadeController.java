@@ -57,6 +57,19 @@ public class UnidadeController {
 
         return "redirect:/unidades";
     }
+    @RequestMapping(value = "/{id}/leitos", method = RequestMethod.GET)
+    public ModelAndView listaLeitos(@PathVariable("id") Long id, ModelMap model) {
+        try {
+            Unidade unidade = bo.pesquisarPeloId(id);
+            model.addAttribute("unidade", unidade);
+            model.addAttribute("leitos", leitoBO.listaPorUnidade(id)); // método novo no BO
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("redirect:/unidades");
+        }
+        return new ModelAndView("/leito/lista", model); // página Thymeleaf de leitos
+    }
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
