@@ -27,7 +27,7 @@
                     <label class="form-label">Paciente:</label>
                     <select class="form-select" th:field="*{paciente}" required>
                         <option value="" disabled selected>Selecione</option>
-                        <option th:each="p : ${pacientes}" th:value="${p}" th:text="${p.nome}"></option>
+                        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
                     </select>
                     <span style="color:red;" th:if="${#fields.hasErrors('paciente')}" th:errors="*{paciente}"></span>
                 </div>

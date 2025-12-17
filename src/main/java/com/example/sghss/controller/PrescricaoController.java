@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.sghss.bo.PrescricaoBO;
 import com.example.sghss.bo.PacienteBO;
+import com.example.sghss.bo.PrescricaoBO;
 import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Prescricao;
 
@@ -61,7 +61,7 @@ public class PrescricaoController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("prescricoes", bo.lista());
-        return new ModelAndView("/prescricao/lista", model);
+        return new ModelAndView("prescricao/lista", model);
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
