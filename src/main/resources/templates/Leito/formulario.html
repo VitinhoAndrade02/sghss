@@ -57,7 +57,7 @@
 
     <!-- EDITAR LEITO -->
     <form th:if="${leito.id != null}"
-          th:action="@{/leitos/novo/{unidadeId}(unidadeId=${unidade.id})}"
+          th:action="@{/leitos/salvar}"
           th:object="${leito}"
           method="post">
 
