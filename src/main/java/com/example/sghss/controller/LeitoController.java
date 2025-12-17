@@ -77,9 +77,15 @@ public class LeitoController {
         return new ModelAndView("/leito/formulario", model);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
-        bo.delete(id);
-        return "redirect:/leitos";
-    }
+   @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable("id") Long id) {
+
+    Leito leito = bo.pesquisarPeloId(id);
+    Long unidadeId = leito.getUnidade().getId();
+
+    bo.delete(id);
+
+    return "redirect:/unidades/" + unidadeId + "/leitos";
+}
+
 }
