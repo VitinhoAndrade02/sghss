@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Prescrição</title>
+    <title>Prescrição</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -16,54 +15,125 @@
 <body>
     <div th:replace="~{fragments/menu :: menu}"></div>
 
+    <div class="container mt-4">
 
-    <div class="container">
-        <div class="bg-light p-5 rounded">
-            <h1>Dados da Prescrição</h1>
-            <hr>
-            <form th:action="@{/prescricoes/novo}" th:object="${prescricao}" method="POST">
+        <!-- TÍTULO -->
+        <h1 th:if="${prescricao.id == null}">
+            Adicionar Prescrição
+        </h1>
 
-                <div class="mb-3">
-                    <label class="form-label">Paciente:</label>
+        <h1 th:if="${prescricao.id != null}">
+            Editar Prescrição
+        </h1>
+
+        <!-- NOVA PRESCRIÇÃO -->
+        <form th:if="${prescricao.id == null}"
+              th:action="@{/prescricoes/novo}"
+              th:object="${prescricao}"
+              method="post">
+
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label class="form-label">Paciente</label>
                     <select class="form-select" th:field="*{paciente}" required>
                         <option value="" disabled selected>Selecione</option>
-                        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
+                        <option th:each="p : ${pacientes}"
+                                th:value="${p.id}"
+                                th:text="${p.nome}">
+                        </option>
                     </select>
-                    <span style="color:red;" th:if="${#fields.hasErrors('paciente')}" th:errors="*{paciente}"></span>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Profissional:</label>
+                <div class="col-6 mb-3">
+                    <label class="form-label">Profissional</label>
                     <select class="form-select" th:field="*{profissional}" required>
                         <option value="" disabled selected>Selecione</option>
-                        <option th:each="pr : ${profissionais}" th:value="${pr.id}" th:text="${pr.nome}"></option>
+                        <option th:each="pr : ${profissionais}"
+                                th:value="${pr.id}"
+                                th:text="${pr.nome}">
+                        </option>
                     </select>
-                    <span style="color:red;" th:if="${#fields.hasErrors('profissional')}"
-                        th:errors="*{profissional}"></span>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Tipo da Prescrição:</label>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label class="form-label">Tipo da Prescrição</label>
                     <select class="form-select" th:field="*{tipoPrescricao}" required>
                         <option value="" disabled selected>Selecione</option>
-                        <option th:each="tipo : ${tipoPrescricoes}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+                        <option th:each="tp : ${tipoPrescricoes}"
+                                th:value="${tp}"
+                                th:text="${tp.descricao}">
+                        </option>
                     </select>
-                    <span style="color:red;" th:if="${#fields.hasErrors('tipoPrescricao')}"
-                        th:errors="*{tipoPrescricao}"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Observação</label>
+                <textarea class="form-control"
+                          th:field="*{observacao}"
+                          rows="4"
+                          placeholder="Digite observações"></textarea>
+            </div>
+
+            <button class="btn btn-success">Salvar</button>
+            <a th:href="@{/prescricoes}" class="btn btn-secondary">Voltar</a>
+        </form>
+
+        <!-- EDITAR PRESCRIÇÃO -->
+        <form th:if="${prescricao.id != null}"
+              th:action="@{/prescricoes/salvar}"
+              th:object="${prescricao}"
+              method="post">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label class="form-label">Paciente</label>
+                    <select class="form-select" th:field="*{paciente}" required>
+                        <option th:each="p : ${pacientes}"
+                                th:value="${p.id}"
+                                th:text="${p.nome}">
+                        </option>
+                    </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Observação:</label>
-                    <textarea class="form-control" th:field="*{observacao}" placeholder="Digite observações"></textarea>
+                <div class="col-6 mb-3">
+                    <label class="form-label">Profissional</label>
+                    <select class="form-select" th:field="*{profissional}" required>
+                        <option th:each="pr : ${profissionais}"
+                                th:value="${pr.id}"
+                                th:text="${pr.nome}">
+                        </option>
+                    </select>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <input class="btn btn-primary" type="submit" value="Salvar"/>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label class="form-label">Tipo da Prescrição</label>
+                    <select class="form-select" th:field="*{tipoPrescricao}" required>
+                        <option th:each="tp : ${tipoPrescricoes}"
+                                th:value="${tp}"
+                                th:text="${tp.descricao}">
+                        </option>
+                    </select>
                 </div>
+            </div>
 
-            </form>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Observação</label>
+                <textarea class="form-control"
+                          th:field="*{observacao}"
+                          rows="4"></textarea>
+            </div>
+
+            <button class="btn btn-primary">Salvar alterações</button>
+            <a th:href="@{/prescricoes}" class="btn btn-secondary">Voltar</a>
+        </form>
+
     </div>
 </body>
-
 </html>

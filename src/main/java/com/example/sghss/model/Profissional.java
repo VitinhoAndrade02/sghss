@@ -1,6 +1,7 @@
 package com.example.sghss.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -56,7 +57,11 @@ public class Profissional {
     private String endereco;
      
     @OneToMany(mappedBy = "profissional")
-    private java.util.List<Consulta> consultas;
+    private List<Consulta> consultas;
+
+    @OneToMany(mappedBy = "profissional")
+    private List<Prescricao> prescricoes;
+
     
 
     public Long getId() {
@@ -113,11 +118,16 @@ public class Profissional {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-    public java.util.List<Consulta> getConsultas() {
+    public List<Consulta> getConsultas() {
         return consultas; 
     }
-    public void setConsultas(java.util.List<Consulta> consultas) {
+    public void setConsultas(List<Consulta> consultas) {
         this.consultas = consultas; 
     }
-
+    public List<Prescricao> getPrescricoes() {
+        return prescricoes; 
+    }
+    public void setPrescricoes(List<Prescricao> prescricoes) {
+        this.prescricoes = prescricoes; 
+    }
 }

@@ -47,8 +47,11 @@ public class LeitoController {
 
     @RequestMapping(value = "/novo/{unidadeId}", method = RequestMethod.POST)
     public String salva(@PathVariable Long unidadeId, @Valid @ModelAttribute Leito leito,
-                        BindingResult result, RedirectAttributes attr) {
-        if (result.hasErrors()) return "leito/formulario";
+        BindingResult result, 
+        RedirectAttributes attr) {
+        
+            if (result.hasErrors())
+            return "leito/formulario";
 
         Unidade unidade = unidadeBO.pesquisarPeloId(unidadeId);
         leito.setUnidade(unidade);
@@ -74,16 +77,16 @@ public class LeitoController {
         model.addAttribute("tiposLeito", TipoLeito.values());
         return new ModelAndView("/leito/formulario", model);
     }
+
     @RequestMapping(value = "/salvar", method = RequestMethod.POST)
     public String salvar(@ModelAttribute Leito leito) {
         Leito leitoBanco = bo.pesquisarPeloId(leito.getId());
         leito.setUnidade(leitoBanco.getUnidade()); 
         bo.update(leito); 
         return "redirect:/unidades/" + leito.getUnidade().getId() + "/leitos";
-}
+    }
 
-
-   @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id) {
 
     Leito leito = bo.pesquisarPeloId(id);

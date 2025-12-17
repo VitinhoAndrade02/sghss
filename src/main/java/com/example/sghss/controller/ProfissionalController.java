@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.sghss.bo.PrescricaoBO;
 import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Especialidade;
+import com.example.sghss.model.Prescricao;
 import com.example.sghss.model.Profissional;
 
 import jakarta.validation.Valid;
@@ -25,6 +27,9 @@ public class ProfissionalController {
 
     @Autowired
     private ProfissionalBO bo;
+
+    @Autowired
+    private PrescricaoBO prescricaoBO;
 
     @ModelAttribute("especialidades")
     public Especialidade[] especialidades() {
@@ -57,6 +62,19 @@ public class ProfissionalController {
         }
         return "redirect:/profissionais"; 
     }
+
+    @RequestMapping(value = "/{id}/prescricoes", method = RequestMethod.GET)
+    public ModelAndView prescricoes(@PathVariable Long id, ModelMap model) {
+
+    Profissional profissional = bo.pesquisarPeloId(id);
+
+    model.addAttribute("profissional", profissional);
+    model.addAttribute("prescricao", new Prescricao());
+            
+
+    return new ModelAndView("/prescricao/formulario", model);
+}
+
 
     @RequestMapping(value= "", method= RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {

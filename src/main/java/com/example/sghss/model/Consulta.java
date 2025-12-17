@@ -47,6 +47,7 @@ public class Consulta {
     @Column(name="hora_consulta", columnDefinition = "TIME")   
     private LocalTime horaConsulta;
 
+    //Tipo consulta
     @Column(name="descricao_consulta")
     private String descricaoConsulta;
     

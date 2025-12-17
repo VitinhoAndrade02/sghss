@@ -15,6 +15,7 @@ import com.example.sghss.bo.PacienteBO;
 import com.example.sghss.bo.PrescricaoBO;
 import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Prescricao;
+import com.example.sghss.model.Profissional;
 import com.example.sghss.model.TipoPrescricao;
 
 import jakarta.validation.Valid;
@@ -37,16 +38,22 @@ public class PrescricaoController {
         return TipoPrescricao.values();
     }    
 
-    @RequestMapping(value = "/novo", method = RequestMethod.GET)
-    public ModelAndView novo(ModelMap model) {
+    @RequestMapping(value = "/novo/{profissionalId}", method = RequestMethod.GET)
+    public ModelAndView novo(@PathVariable Long profissionalId, ModelMap model) {
+
+        Profissional profissional = profissionalBO.pesquisarPeloId(profissionalId);
+
+        Prescricao prescricao = new Prescricao();
+        prescricao.setProfissional(profissional);
+
         model.addAttribute("prescricao", new Prescricao());
         model.addAttribute("pacientes", pacienteBO.lista());
         model.addAttribute("profissionais", profissionalBO.lista());
         return new ModelAndView("/prescricao/formulario", model);
     }
 
-    @RequestMapping(value = "/novo", method = RequestMethod.POST)
-    public String salva(@Valid @ModelAttribute Prescricao prescricao,
+    @RequestMapping(value = "/novo/{unidadeId}", method = RequestMethod.POST)
+    public String salva(@PathVariable Long profissionalId, @Valid @ModelAttribute Prescricao prescricao,
         BindingResult result,
         RedirectAttributes attr) {
 
@@ -56,15 +63,12 @@ public class PrescricaoController {
         prescricao.setPaciente(pacienteBO.pesquisarPeloId(prescricao.getPaciente().getId()));
         prescricao.setProfissional(profissionalBO.pesquisarPeloId(prescricao.getProfissional().getId()));
 
-        if (prescricao.getId() == null) {
-            bo.create(prescricao);
-            attr.addFlashAttribute("feedback", "Prescrição cadastrada com sucesso");
-        } else {
-            bo.update(prescricao);
-            attr.addFlashAttribute("feedback", "Prescrição atualizada com sucesso");
-        }
+        Profissional profissional = profissionalBO.pesquisarPeloId(profissionalId);
+        prescricao.setProfissional(profissional);
 
-        return "redirect:/prescricoes/lista";
+        bo.create(prescricao);
+        attr.addFlashAttribute("feedback", "Prescrição cadastrado com sucesso");
+        return "redirect:/profissionais/" + profissionalId + "/prescricoes";
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -75,19 +79,31 @@ public class PrescricaoController {
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
     public ModelAndView edita(@PathVariable ("id") Long id, ModelMap model) {
-        try{
-            model.addAttribute("prescricao", bo.pesquisarPeloId(id));
-            model.addAttribute("pacientes", pacienteBO.lista());
-            model.addAttribute("profissionais", profissionalBO.lista());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        Prescricao prescricao = bo.pesquisarPeloId(id);
+        model.addAttribute("prescricao", bo.pesquisarPeloId(id));
+        model.addAttribute("profissional", prescricao.getProfissional()); 
+        model.addAttribute("pacientes", pacienteBO.lista());
+        model.addAttribute("profissionais", profissionalBO.lista());
+
         return new ModelAndView("/prescricao/formulario", model);
     }
 
+    @RequestMapping(value = "/salvar", method = RequestMethod.POST)
+    public String salvar(@ModelAttribute Prescricao prescricao) {
+        Prescricao prescricaoBanco = bo.pesquisarPeloId(prescricao.getId());
+        prescricao.setProfissional(prescricaoBanco.getProfissional()); 
+        bo.update(prescricao); 
+        return "redirect:/profissionais/" + prescricao.getProfissional().getId() + "/prescricoes";
+    }
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable ("id") Long id) {
+
+        Prescricao prescricao = bo.pesquisarPeloId(id);
+        Long profissionalId = prescricao.getProfissional().getId();
+
         bo.delete(id);
-        return "redirect:/prescricoes";
+        
+        return "redirect:/prescricoes" + profissionalId + "/prescricoes";
     }
 }
