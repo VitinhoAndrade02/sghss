@@ -11,6 +11,9 @@
     </style>
 </head>
 <body>
+    
+<div th:replace="~{fragments/menu :: menu}"></div>
+
 <div class="container mt-4">
     <h1>Prescrições</h1>
 
@@ -19,24 +22,24 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Paciente</th>
                 <th>Profissional</th>
                 <th>Tipo</th>
                 <th>Observação</th>
-                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="prescricao : ${prescricoes}">
-                <td th:text="${prescricao.id}"></td>
                 <td th:text="${prescricao.paciente.nome}"></td>
                 <td th:text="${prescricao.profissional.nome}"></td>
                 <td th:text="${prescricao.tipoPrescricao}"></td>
                 <td th:text="${prescricao.observacao}"></td>
                 <td>
-                    <a th:href="@{'/prescricoes/edita/' + ${prescricao.id}}" class="btn btn-sm btn-warning">Editar</a>
-                    <a th:href="@{'/prescricoes/delete/' + ${prescricao.id}}" class="btn btn-sm btn-danger">Excluir</a>
+                    <a th:href="@{/prescricoes/edita/{id}(id=${prescricao.id})}"
+                       class="btn btn-warning btn-sm">Editar</a>
+
+                    <a th:href="@{/prescricoes/delete/{id}(id=${prescricao.id})}" 
+                        class="btn btn-danger btn-sm">Excluir</a>
                 </td>
             </tr>
         </tbody>
