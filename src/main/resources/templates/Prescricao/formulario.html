@@ -21,7 +21,7 @@
         <div class="bg-light p-5 rounded">
             <h1>Dados da Prescrição</h1>
             <hr>
-            <form th:action="@{/prescricoes}" th:object="${prescricao}" method="POST">
+            <form th:action="@{/prescricoes/novo}" th:object="${prescricao}" method="POST">
 
                 <div class="mb-3">
                     <label class="form-label">Paciente:</label>
@@ -36,7 +36,7 @@
                     <label class="form-label">Profissional:</label>
                     <select class="form-select" th:field="*{profissional}" required>
                         <option value="" disabled selected>Selecione</option>
-                        <option th:each="pr : ${profissionais}" th:value="${pr}" th:text="${pr.nome}"></option>
+                        <option th:each="pr : ${profissionais}" th:value="${pr.id}" th:text="${pr.nome}"></option>
                     </select>
                     <span style="color:red;" th:if="${#fields.hasErrors('profissional')}"
                         th:errors="*{profissional}"></span>
@@ -46,7 +46,7 @@
                     <label class="form-label">Tipo da Prescrição:</label>
                     <select class="form-select" th:field="*{tipoPrescricao}" required>
                         <option value="" disabled selected>Selecione</option>
-                        <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
+                        <option th:each="tipo : ${tipoPrescricoes}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
                     </select>
                     <span style="color:red;" th:if="${#fields.hasErrors('tipoPrescricao')}"
                         th:errors="*{tipoPrescricao}"></span>
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <input class="btn btn-primary" type="submit" value="Salvar" />
+                    <input class="btn btn-primary" type="submit" value="Salvar"/>
                 </div>
 
             </form>

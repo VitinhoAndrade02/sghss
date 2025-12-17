@@ -15,6 +15,7 @@ import com.example.sghss.bo.PacienteBO;
 import com.example.sghss.bo.PrescricaoBO;
 import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Prescricao;
+import com.example.sghss.model.TipoPrescricao;
 
 import jakarta.validation.Valid;
 
@@ -31,6 +32,11 @@ public class PrescricaoController {
     @Autowired
     private ProfissionalBO profissionalBO;
 
+    @ModelAttribute("tipoPrescricoes")
+    public TipoPrescricao[] tipoPrescricoes() {
+        return TipoPrescricao.values();
+    }    
+
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("prescricao", new Prescricao());
@@ -46,6 +52,9 @@ public class PrescricaoController {
 
         if (result.hasErrors())
             return "prescricao/formulario";
+        
+        prescricao.setPaciente(pacienteBO.pesquisarPeloId(prescricao.getPaciente().getId()));
+        prescricao.setProfissional(profissionalBO.pesquisarPeloId(prescricao.getProfissional().getId()));
 
         if (prescricao.getId() == null) {
             bo.create(prescricao);
@@ -55,7 +64,7 @@ public class PrescricaoController {
             attr.addFlashAttribute("feedback", "Prescrição atualizada com sucesso");
         }
 
-        return "redirect:/prescricoes";
+        return "redirect:/prescricoes/lista";
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -65,12 +74,14 @@ public class PrescricaoController {
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
-    public ModelAndView edita(@PathVariable Long id, ModelMap model) {
-
-        model.addAttribute("prescricao", bo.pesquisarPeloId(id));
-        model.addAttribute("pacientes", pacienteBO.lista());
-        model.addAttribute("profissionais", profissionalBO.lista());
-
+    public ModelAndView edita(@PathVariable ("id") Long id, ModelMap model) {
+        try{
+            model.addAttribute("prescricao", bo.pesquisarPeloId(id));
+            model.addAttribute("pacientes", pacienteBO.lista());
+            model.addAttribute("profissionais", profissionalBO.lista());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return new ModelAndView("/prescricao/formulario", model);
     }
 
