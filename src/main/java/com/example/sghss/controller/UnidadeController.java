@@ -52,10 +52,12 @@ public class UnidadeController {
         if (unidade.getId() == null) {
             bo.create(unidade);
             attr.addFlashAttribute("feedback", "Unidade cadastrada com sucesso");
-        } else {
-            bo.update(unidade);
-            attr.addFlashAttribute("feedback", "Unidade atualizada com sucesso");
-        }
+            return "redirect:/unidades/" + unidade.getId() + "/leitos";
+        } 
+
+        bo.update(unidade);
+        attr.addFlashAttribute("feedback", "Unidade atualizada com sucesso");
+       
 
         return "redirect:/unidades";
     }

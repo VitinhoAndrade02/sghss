@@ -47,20 +47,27 @@
                         <label class="form-label" for="telefone">Telefone</label>
                         <input class="form-control" id="telefone" type="text" th:field="*{telefone}" required>
                     </div>
-
-                    <div class="col-4 mb-3">
-                        <label class="form-label" for="numeroLeitos">Leitos livres:</label>
-                        <input class="form-control" id="numeroLeitos" type="number" th:field="*{numeroLeitos}" required>
-                    </div>
-                
-                   
+                    <br><br>
+                    <br><br>
                     <div class="mt-3">
-                        <a th:href="@{/unidades/{id}/leitos(id=${unidade.id})}"
-                        class="btn btn-success">Gerenciar Leitos</a>
+                        <!-- NOVA UNIDADE -->
+                        <button type="submit"
+                                class="btn btn-success"
+                                th:if="${unidade.id == null}">
+                            Salvar e gerenciar leitos
+                        </button>
+
+                        <!-- EDIÇÃO -->
+                        <button type="submit"
+                                class="btn btn-primary"
+                                th:if="${unidade.id != null}">
+                            Salvar alterações
+                        </button>
+
+                        <a th:href="@{/unidades}" class="btn btn-secondary">
+                            Voltar
+                        </a>
                     </div>
-                    <br><br>
-                    <br><br>
-                    <input class="btn btn-primary" type="submit" value="Salvar">
                 </div>
             </form>
             <hr>

@@ -33,8 +33,10 @@ public class LeitoController {
     // GET para criar leito de uma unidade específica
     @RequestMapping(value = "/novo/{unidadeId}", method = RequestMethod.GET)
     public ModelAndView novo(@PathVariable Long unidadeId, ModelMap model) {
-        Leito leito = new Leito();
+
         Unidade unidade = unidadeBO.pesquisarPeloId(unidadeId);
+
+        Leito leito = new Leito();
         leito.setUnidade(unidade);
 
         model.addAttribute("leito", leito);
@@ -55,7 +57,7 @@ public class LeitoController {
 
         bo.create(leito);
         attr.addFlashAttribute("feedback", "Leito cadastrado com sucesso");
-        return "redirect:/unidades/" + unidadeId;
+        return "redirect:/unidades/" + unidadeId + "/leitos";
     }
 
    
