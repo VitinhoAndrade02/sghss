@@ -25,9 +25,6 @@ public class Leito {
     @NotNull(message = "Informe o tipo de leito")
     private TipoLeito tipoLeito;
 
-    @Column(length = 20)
-    private String codigo;
-
     @ManyToOne
     @JoinColumn(name="unidade_id", nullable=false)
     private Unidade unidade;
@@ -48,13 +45,6 @@ public class Leito {
     }
     public void setTipoLeito(TipoLeito tipoLeito) { 
         this.tipoLeito = tipoLeito; 
-    }
-
-    public String getCodigo() { 
-        return codigo; 
-    }
-    public void setCodigo(String codigo) { 
-        this.codigo = codigo; 
     }
 
     public Unidade getUnidade() { 
