@@ -33,14 +33,16 @@
                 <td th:text="${unidade.tipoUnidade}"></td>
                 <td>
                     <a th:href="@{/unidades/{id}/leitos(id=${unidade.id})}"
-                       class="btn btn-primary btn-sm">
-                        Gerenciar leitos
-                    </a>
-
+                       class="btn btn-primary btn-sm">Gerenciar leitos</a>
+        
                     <a th:href="@{/unidades/edita/{id}(id=${unidade.id})}"
-                       class="btn btn-warning btn-sm">
-                        Editar
-                    </a>
+                       class="btn btn-warning btn-sm">Editar</a>
+
+                    <a th:href="@{/unidades/delete/{id}(id=${unidade.id})}" 
+                        class="btn btn-danger btn-sm">Excluir</a>
+                        
+                        
+                        
                 </td>
             </tr>
         </tbody>
