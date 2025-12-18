@@ -11,82 +11,62 @@
 </head>
 
 <body>
-    <div th:replace="~{fragments/menu :: menu}"></div>
+<div th:replace="~{fragments/menu :: menu}"></div>
 
-    <div class="container mt-4">
+<div class="container mt-4">
 
-        <h1 th:if="${prescricao.id == null}">
-            Adicionar Prescrição
-        </h1>
+    <h1 th:text="${prescricao.id == null} ? 'Adicionar Prescrição' : 'Editar Prescrição'"></h1>
 
-        <h1 th:if="${prescricao.id != null}">
-            Editar Prescrição
-        </h1>
+    <form th:action="@{/prescricoes/salvar}" th:object="${prescricao}" method="post">
 
-        <!-- NOVA PRESCRIÇÃO -->
-        <form th:if="${prescricao.id == null}"
-              th:action="@{/prescricoes/novo/{profissionalId}(profissionalId=${profissional.id})}"
-              th:object="${prescricao}" method="post">
+        <!-- ids -->
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:if="${profissional != null}" th:field="*{profissional.id}" />
 
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <label class="form-label">Paciente</label>
-                    <select class="form-select" th:field="*{paciente}" required>
-                        <option value="" disabled selected>Selecione</option>
-                        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
-                    </select>
-                </div>
-
-                <div class="col-6 mb-3">
-                    <label class="form-label">Tipo da Prescrição</label>
-                    <select class="form-select" th:field="*{tipoPrescricao}" required>
-                        <option value="" disabled selected>Selecione</option>
-                        <option th:each="tp : ${tipoPrescricoes}" th:value="${tp}" th:text="${tp.descricao}"></option>
-                    </select>
-                </div>
+        <div class="row">
+            <div class="col-6 mb-3">
+                <label class="form-label">Paciente</label>
+                <select class="form-select" th:field="*{paciente.id}" required>
+                    <option value="" disabled>Selecione</option>
+                    <option th:each="p : ${pacientes}"
+                            th:value="${p.id}"
+                            th:text="${p.nome}">
+                    </option>
+                </select>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Observação</label>
-                <textarea class="form-control" th:field="*{observacao}" rows="4" placeholder="Digite observações"></textarea>
+            <div class="col-6 mb-3">
+                <label class="form-label">Tipo da Prescrição</label>
+                <select class="form-select" th:field="*{tipoPrescricao}" required>
+                    <option value="" disabled>Selecione</option>
+                    <option th:each="tp : ${tipoPrescricoes}"
+                            th:value="${tp}"
+                            th:text="${tp.descricao}">
+                    </option>
+                </select>
             </div>
+        </div>
 
-            <button class="btn btn-success">Salvar</button>
-            <a th:href="@{/prescricoes/profissional/{id}(id=${profissional.id})}"
-             class="btn btn-secondary">Cancelar</a>
-        </form>
+        <div class="mb-3">
+            <label class="form-label">Observação</label>
+            <textarea class="form-control"
+                      th:field="*{observacao}"
+                      rows="4"
+                      placeholder="Digite observações">
+            </textarea>
+        </div>
 
-        <!-- EDITAR PRESCRIÇÃO -->
-        <form th:if="${prescricao.id != null}"
-              th:action="@{/prescricoes/salvar}" th:object="${prescricao}" method="post">
+        <button type="submit"
+                class="btn btn-success"
+                th:text="${prescricao.id == null} ? 'Salvar' : 'Salvar alterações'">
+        </button>
 
-            <input type="hidden" th:field="*{id}" />
+        <a class="btn btn-secondary"
+           th:href="@{/prescricoes/profissional/{id}(id=${profissional.id})}">
+            Cancelar
+        </a>
+    </form>
 
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <label class="form-label">Paciente</label>
-                    <select class="form-select" th:field="*{paciente}" required>
-                        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
-                    </select>
-                </div>
-
-                <div class="col-6 mb-3">
-                    <label class="form-label">Tipo da Prescrição</label>
-                    <select class="form-select" th:field="*{tipoPrescricao}" required>
-                        <option th:each="tp : ${tipoPrescricoes}" th:value="${tp}" th:text="${tp.descricao}"></option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Observação</label>
-                <textarea class="form-control" th:field="*{observacao}" rows="4"></textarea>
-            </div>
-
-            <button class="btn btn-primary">Salvar alterações</button>
-            <a th:href="@{/prescricoes/profissional/{id}(id=${profissional.id})}" class="btn btn-secondary">Cancelar</a>
-        </form>
-
-    </div>
+</div>
 </body>
 </html>
