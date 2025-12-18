@@ -25,11 +25,10 @@ public class PrescricaoDAO implements CRUD<Prescricao, Long> {
 
     @Override
     public List<Prescricao> lista() {
-    TypedQuery<Prescricao> query = entityManager.createQuery(
-        "SELECT p FROM Prescricao p LEFT JOIN FETCH p.profissional", Prescricao.class);
-    return query.getResultList();
-}
-
+        TypedQuery<Prescricao> query = entityManager.createQuery(
+            "SELECT p FROM Prescricao p LEFT JOIN FETCH p.profissional", Prescricao.class);
+        return query.getResultList();
+    }
 
     @Override
     public void create(Prescricao prescricao) {
@@ -48,6 +47,7 @@ public class PrescricaoDAO implements CRUD<Prescricao, Long> {
             entityManager.remove(prescricao);
         }
     }
+    
     public List<Prescricao> findByProfissionalId(Long profissionalId) {
     TypedQuery<Prescricao> query = entityManager.createQuery(
         "SELECT p FROM Prescricao p WHERE p.profissional.id = :profissionalId", Prescricao.class);

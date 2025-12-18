@@ -45,6 +45,10 @@ public class ProfissionalBO implements CRUD<Profissional, Long> {
             !profissional.getPrescricoes().isEmpty()) {
             System.out.println("Profissional possui prescrições, apagando em cascata");
         }
+        if (profissional.getProntuarios() != null &&
+            !profissional.getProntuarios().isEmpty()) {
+            System.out.println("Profissional possui prontuarios, apagando em cascata");
+        }        
 
         dao.delete(id);
     }

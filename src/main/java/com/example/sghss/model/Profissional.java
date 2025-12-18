@@ -67,6 +67,8 @@ public class Profissional {
     @OneToMany(mappedBy = "profissional", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Prescricao> prescricoes;
 
+    @OneToMany(mappedBy = "profissional", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Prontuario> prontuarios;    
 
     
 
@@ -135,5 +137,11 @@ public class Profissional {
     }
     public void setPrescricoes(List<Prescricao> prescricoes) {
         this.prescricoes = prescricoes; 
+    }
+        public List<Prontuario> getProntuarios() {
+        return prontuarios; 
+    }
+    public void setProntuarios(List<Prontuario> prontuarios) {
+        this.prontuarios = prontuarios; 
     }
 }

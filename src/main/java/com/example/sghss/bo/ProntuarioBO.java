@@ -38,4 +38,8 @@ public class ProntuarioBO implements CRUD<Prontuario, Long> {
         prontuarioDAO.delete(id);
     }
 
+    public List<Prontuario> listaPorProfissional(Long profissionalId) {
+    return prontuarioDAO.findByProfissionalId(profissionalId); 
+    }
+
 }

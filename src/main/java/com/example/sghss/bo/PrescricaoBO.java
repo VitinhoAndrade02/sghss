@@ -39,6 +39,7 @@ public class PrescricaoBO implements CRUD<Prescricao, Long>{
     public void delete(Long id) {
         dao.delete(id);
     }
+    
     public List<Prescricao> listaPorProfissional(Long profissionalId) {
     return dao.findByProfissionalId(profissionalId); 
     }

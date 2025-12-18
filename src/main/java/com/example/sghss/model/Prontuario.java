@@ -26,6 +26,10 @@ public class Prontuario {
     @ManyToOne
     @JoinColumn(name="paciente_id", nullable=false)
     private Paciente paciente;
+   
+    @ManyToOne
+    @JoinColumn(name="profissional_id", nullable=false)
+    private Profissional profissional;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_registro", columnDefinition = "DATE")
@@ -52,6 +56,13 @@ public class Prontuario {
         this.paciente = paciente;
     }
 
+    public Profissional getProfissional() { 
+        return profissional; 
+    }
+    public void setProfissional(Profissional profissional) { 
+        this.profissional = profissional; 
+    }
+        
     public LocalDate getDataRegistro() { 
         return dataRegistro; 
     }
