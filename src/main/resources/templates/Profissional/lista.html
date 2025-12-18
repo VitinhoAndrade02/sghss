@@ -45,9 +45,7 @@
                         <td th:text="${profissional.crm}"></td>
                         <td th:text="${profissional.especialidade.descricao}"></td>
 
-                        <td>
-                            <a th:href="@{/profissionais/{id}/prescricoes(id=${profissional.id})}"
-                            class="btn btn-info btn-sm">
+                        <td><a th:href="@{/prescricoes/profissional/{id}(id=${profissional.id})}" class="btn btn-info btn-sm">
                             Prescrições
                             </a>
 

@@ -95,6 +95,13 @@ public class PrescricaoController {
         bo.update(prescricao); 
         return "redirect:/profissionais/" + prescricao.getProfissional().getId() + "/prescricoes";
     }
+    @RequestMapping(value = "/profissional/{profissionalId}", method = RequestMethod.GET)
+    public ModelAndView listaPorProfissional(@PathVariable Long profissionalId, ModelMap model) {
+        model.addAttribute("prescricoes", bo.listaPorProfissional(profissionalId));
+        model.addAttribute("profissional", profissionalBO.pesquisarPeloId(profissionalId));
+        return new ModelAndView("prescricao/lista", model);
+    }
+
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable ("id") Long id) {

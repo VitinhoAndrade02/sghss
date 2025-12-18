@@ -50,7 +50,7 @@ public class PrescricaoDAO implements CRUD<Prescricao, Long> {
     }
     public List<Prescricao> findByProfissionalId(Long profissionalId) {
     TypedQuery<Prescricao> query = entityManager.createQuery(
-        "SELECT l FROM Prescricao l WHERE l.profissional.id = :profissionalId", Prescricao.class);
+        "SELECT p FROM Prescricao p WHERE p.profissional.id = :profissionalId", Prescricao.class);
     query.setParameter("profissionalId", profissionalId);
     return query.getResultList();
     }
