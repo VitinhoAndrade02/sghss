@@ -40,77 +40,67 @@ public class PrescricaoController {
 
     @RequestMapping(value = "/novo/{profissionalId}", method = RequestMethod.GET)
     public ModelAndView novo(@PathVariable Long profissionalId, ModelMap model) {
-
         Profissional profissional = profissionalBO.pesquisarPeloId(profissionalId);
-
         Prescricao prescricao = new Prescricao();
         prescricao.setProfissional(profissional);
 
         model.addAttribute("prescricao", prescricao);
+        model.addAttribute("profissional", profissional);
         model.addAttribute("pacientes", pacienteBO.lista());
-        model.addAttribute("profissionais", profissionalBO.lista());
         return new ModelAndView("/prescricao/formulario", model);
     }
 
     @RequestMapping(value = "/novo/{profissionalId}", method = RequestMethod.POST)
-    public String salva(@PathVariable Long profissionalId, @Valid @ModelAttribute Prescricao prescricao,
-        BindingResult result,
-        RedirectAttributes attr) {
+    public String salva(@PathVariable Long profissionalId, 
+                        @Valid @ModelAttribute Prescricao prescricao,
+                        BindingResult result,
+                        RedirectAttributes attr) {
 
         if (result.hasErrors())
             return "prescricao/formulario";
-        
-        prescricao.setPaciente(pacienteBO.pesquisarPeloId(prescricao.getPaciente().getId()));
-        prescricao.setProfissional(profissionalBO.pesquisarPeloId(prescricao.getProfissional().getId()));
 
-        Profissional profissional = profissionalBO.pesquisarPeloId(profissionalId);
-        prescricao.setProfissional(profissional);
+        prescricao.setPaciente(pacienteBO.pesquisarPeloId(prescricao.getPaciente().getId()));
+        prescricao.setProfissional(profissionalBO.pesquisarPeloId(profissionalId));
 
         bo.create(prescricao);
-        attr.addFlashAttribute("feedback", "Prescrição cadastrado com sucesso");
-        return "redirect:/profissionais/" + profissionalId + "/prescricoes";
+        attr.addFlashAttribute("feedback", "Prescrição cadastrada com sucesso");
+        return "redirect:/prescricoes/profissional/" + profissionalId;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView lista(ModelMap model) {
-        model.addAttribute("prescricoes", bo.lista());
-        return new ModelAndView("prescricao/lista", model);
+    @RequestMapping(value = "/profissional/{profissionalId}", method = RequestMethod.GET)
+    public ModelAndView listaPorProfissional(@PathVariable Long profissionalId, ModelMap model) {
+        Profissional profissional = profissionalBO.pesquisarPeloId(profissionalId);
+        model.addAttribute("profissional", profissional);
+        model.addAttribute("prescricoes", bo.listaPorProfissional(profissionalId));
+        return new ModelAndView("/prescricao/lista", model);
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
-    public ModelAndView edita(@PathVariable ("id") Long id, ModelMap model) {
+    public ModelAndView edita(@PathVariable Long id, ModelMap model) {
         Prescricao prescricao = bo.pesquisarPeloId(id);
-        model.addAttribute("prescricao", bo.pesquisarPeloId(id));
-        model.addAttribute("profissional", prescricao.getProfissional()); 
+        model.addAttribute("prescricao", prescricao);
+        model.addAttribute("profissional", prescricao.getProfissional());
         model.addAttribute("pacientes", pacienteBO.lista());
-        model.addAttribute("profissionais", profissionalBO.lista());
-
         return new ModelAndView("/prescricao/formulario", model);
     }
 
     @RequestMapping(value = "/salvar", method = RequestMethod.POST)
-    public String salvar(@ModelAttribute Prescricao prescricao) {
+    public String salvar(@ModelAttribute Prescricao prescricao, RedirectAttributes attr) {
         Prescricao prescricaoBanco = bo.pesquisarPeloId(prescricao.getId());
-        prescricao.setProfissional(prescricaoBanco.getProfissional()); 
-        bo.update(prescricao); 
-        return "redirect:/profissionais/" + prescricao.getProfissional().getId() + "/prescricoes";
-    }
-    @RequestMapping(value = "/profissional/{profissionalId}", method = RequestMethod.GET)
-    public ModelAndView listaPorProfissional(@PathVariable Long profissionalId, ModelMap model) {
-        model.addAttribute("prescricoes", bo.listaPorProfissional(profissionalId));
-        model.addAttribute("profissional", profissionalBO.pesquisarPeloId(profissionalId));
-        return new ModelAndView("prescricao/lista", model);
-    }
+        prescricao.setProfissional(prescricaoBanco.getProfissional());
+        prescricao.setPaciente(pacienteBO.pesquisarPeloId(prescricao.getPaciente().getId()));
 
+        bo.update(prescricao);
+        attr.addFlashAttribute("feedback", "Prescrição atualizada com sucesso");
+        return "redirect:/prescricoes/profissional/" + prescricao.getProfissional().getId();
+    }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable ("id") Long id) {
-
+    public String delete(@PathVariable Long id, RedirectAttributes attr) {
         Prescricao prescricao = bo.pesquisarPeloId(id);
         Long profissionalId = prescricao.getProfissional().getId();
-
         bo.delete(id);
-        
-        return "redirect:/prescricoes" + profissionalId + "/prescricoes";
+        attr.addFlashAttribute("feedback", "Prescrição excluída com sucesso");
+        return "redirect:/prescricoes/profissional/" + profissionalId;
     }
 }
