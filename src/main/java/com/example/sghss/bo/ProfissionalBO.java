@@ -39,12 +39,19 @@ public class ProfissionalBO implements CRUD<Profissional, Long> {
     
     @Override
     public void delete(Long id) {
+        Profissional profissional = pesquisarPeloId(id);
+
+        if (profissional.getPrescricoes() != null &&
+            !profissional.getPrescricoes().isEmpty()) {
+            System.out.println("Profissional possui prescrições, apagando em cascata");
+        }
+
         dao.delete(id);
     }
-    
+
     public List<Profissional> buscarPorEspecialidade(Especialidade especialidade) {
     return dao.buscarPorEspecialidade(especialidade);
-}
+    }   
 
     
 }

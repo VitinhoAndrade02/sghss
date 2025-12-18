@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,7 +17,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "profissionais")
@@ -35,7 +38,9 @@ public class Profissional {
     @NotNull(message = "Informe a especialidade")
     private Especialidade especialidade;
 
-    @Column(length = 20)
+    @Column(length = 6)
+    @NotBlank
+    @Pattern(regexp = "\\d{4,6}")
     private String crm;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -59,8 +64,9 @@ public class Profissional {
     @OneToMany(mappedBy = "profissional")
     private List<Consulta> consultas;
 
-    @OneToMany(mappedBy = "profissional")
+    @OneToMany(mappedBy = "profissional", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Prescricao> prescricoes;
+
 
     
 

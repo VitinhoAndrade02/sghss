@@ -92,11 +92,15 @@ public class ProfissionalController {
         return new ModelAndView("/profissional/formulario", model);
     }
 
-    @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable Long id, RedirectAttributes attr) {
         bo.delete(id);
+        attr.addFlashAttribute("feedback",
+            "Profissional e prescrições excluídos com sucesso");
         return "redirect:/profissionais";
     }
+
+
     
     @RequestMapping(value = "/por-especialidade/{especialidade}", method = RequestMethod.GET)
     @ResponseBody
