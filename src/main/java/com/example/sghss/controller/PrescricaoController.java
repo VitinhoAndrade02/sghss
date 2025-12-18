@@ -46,13 +46,13 @@ public class PrescricaoController {
         Prescricao prescricao = new Prescricao();
         prescricao.setProfissional(profissional);
 
-        model.addAttribute("prescricao", new Prescricao());
+        model.addAttribute("prescricao", prescricao);
         model.addAttribute("pacientes", pacienteBO.lista());
         model.addAttribute("profissionais", profissionalBO.lista());
         return new ModelAndView("/prescricao/formulario", model);
     }
 
-    @RequestMapping(value = "/novo/{unidadeId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/novo/{profissionalId}", method = RequestMethod.POST)
     public String salva(@PathVariable Long profissionalId, @Valid @ModelAttribute Prescricao prescricao,
         BindingResult result,
         RedirectAttributes attr) {

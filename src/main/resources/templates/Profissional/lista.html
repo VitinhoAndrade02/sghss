@@ -43,7 +43,7 @@
                     <tr th:each="profissional : ${profissionais}">
                         <td th:text="${profissional.nome}"></td>
                         <td th:text="${profissional.crm}"></td>
-                        <td th:text="${profissional.especialidade}"></td>
+                        <td th:text="${profissional.especialidade.descricao}"></td>
 
                         <td>
                             <a th:href="@{/profissionais/{id}/prescricoes(id=${profissional.id})}"
