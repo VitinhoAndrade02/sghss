@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teleconsultas</title>
+    <title>Médicos Disponíveis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>body { padding-top: 4.5rem; }</style>
 </head>
-
 <body>
-    <div th:replace="~{fragments/menu :: menu}"></div>
+<div th:replace="~{fragments/menu :: menu}"></div>
 
-    <div class="container">
-        <div class="bg-light p-5 rounded">
-            <h1>Teleconsultas</h1>
-            <hr>
-            <a class="btn btn-primary mb-3" th:href="@{/teleconsultas/novo}">Nova Teleconsulta</a>
+<div class="container">
+    <div class="bg-light p-5 rounded">
+        <h1>Profissionais Disponíveis</h1>
+        <p class="lead">
+            Especialidade: <strong th:text="${teleconsulta.profissional.especialidade.descricao}"></strong><br>
+            Horário: <strong th:text="${#temporals.format(teleconsulta.data, 'dd/MM/yyyy HH:mm')}"></strong>
+        </p>
+        <hr>
 
-            <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success">
-                <span th:text="${feedback}"></span>
-            </div>
+        <div th:if="${#lists.isEmpty(lista)}" class="alert alert-danger">
+            Não há profissionais disponíveis para esta especialidade neste horário.
+        </div>
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Paciente</th>
-                        <th>Profissional</th>
-                        <th>Data e Hora</th>
-                        <th>Status</th>
-                        <th>Descrição</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="t : ${teleconsultas}">
-                        <td th:text="${t.paciente.nome}"></td>
-                        <td th:text="${t.profissional.nome}"></td>
-                        <td th:text="${#dates.format(t.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
-                        <td th:text="${t.status}"></td>
-                        <td th:text="${t.descricao}"></td>
-                        <td>
-                            <a class="btn btn-sm btn-secondary" th:href="@{/teleconsultas/edita/{id}(id=${t.id})}">Editar</a>
-                            <a class="btn btn-sm btn-secondary" th:href="@{/teleconsultas/delete/{id}(id=${t.id})}">Deletar</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
+        <table class="table table-hover" th:if="${not #lists.isEmpty(lista)}">
+            <thead>
+                <tr>
+                    <td><b>Nome</b></td>
+                    <td><b>CRM</b></td>
+                    <td><b>Ação</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="medico : ${lista}">
+                    <td th:text="${medico.nome}"></td>
+                    <td th:text="${medico.crm}"></td>
+                    <td>
+                        <form th:action="@{/teleconsulta/salvar}" method="POST">
+                            <input type="hidden" name="paciente.id" th:value="${teleconsulta.paciente.id}">
+                            <input type="hidden" name="profissional.id" th:value="${medico.id}">
+                            <input type="hidden" name="data" th:value="${teleconsulta.data}">
+                            
+                            <button type="submit" class="btn btn-success btn-sm">Confirmar Agendamento</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="mt-3">
+            <a th:href="@{/teleconsulta/novo}" class="btn btn-secondary">Nova Busca</a>
         </div>
     </div>
+</div>
 </body>
 </html>

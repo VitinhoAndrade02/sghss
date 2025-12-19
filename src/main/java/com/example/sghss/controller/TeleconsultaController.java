@@ -1,110 +1,77 @@
 package com.example.sghss.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sghss.bo.PacienteBO;
-import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.bo.TeleconsultaBO;
-import com.example.sghss.model.StatusConsulta;
+import com.example.sghss.model.Especialidade;
+import com.example.sghss.model.Profissional;
 import com.example.sghss.model.Teleconsulta;
 
-import jakarta.validation.Valid;
-
 @Controller
-@RequestMapping("/teleconsultas")
+@RequestMapping("/teleconsulta")
 public class TeleconsultaController {
 
     @Autowired
     private TeleconsultaBO bo;
 
     @Autowired
-    private PacienteBO pacienteBO;
-
-    @Autowired
-    private ProfissionalBO profissionalBO;
+    private PacienteBO pacienteBo; // Injetar para listar no select
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
-    public ModelAndView novo(ModelMap model) {
+    public String formulario(Model model) {
         model.addAttribute("teleconsulta", new Teleconsulta());
-        model.addAttribute("pacientes", pacienteBO.lista());
-        model.addAttribute("profissionais", profissionalBO.lista());
-        return new ModelAndView("/teleconsulta/formulario", model);
+        model.addAttribute("especialidades", Especialidade.values());
+        model.addAttribute("pacientes", pacienteBo.lista());
+        return "teleconsulta/formulario"; 
     }
 
-    @RequestMapping(value = "/novo", method = RequestMethod.POST)
-    public String salva(@Valid @ModelAttribute Teleconsulta teleconsulta,
-        BindingResult result,
-        RedirectAttributes attr) {
-
-        if (result.hasErrors())
-            return "teleconsulta/formulario";
-
-        if (teleconsulta.getId() == null) {
-            bo.create(teleconsulta);
-            attr.addFlashAttribute("feedback", "Teleconsulta cadastrada com sucesso");
-        } else {
-            bo.update(teleconsulta);
-            attr.addFlashAttribute("feedback", "Teleconsulta atualizada com sucesso");
-        }
-
-        return "redirect:/teleconsultas";
+    @RequestMapping(value = "", method = RequestMethod.GET) // Rota: /teleconsulta
+    public String listarTodas(Model model) {
+        model.addAttribute("consultas", bo.lista());
+        return "teleconsulta/lista_geral"; 
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView lista(ModelMap model) {
-        model.addAttribute("teleconsultas", bo.lista());
-        model.addAttribute("todosStatus", StatusConsulta.values());
-        return new ModelAndView("/teleconsulta/lista", model);
+    @RequestMapping(value = "/disponibilidade", method = RequestMethod.POST)
+    public String buscarDisponibilidade(Teleconsulta teleconsulta, Model model) {
+        List<Profissional> disponiveis = bo.buscarMedicosDisponiveis(
+            teleconsulta.getProfissional().getEspecialidade(), 
+            teleconsulta.getData()
+        );
+        
+        model.addAttribute("lista", disponiveis);
+        model.addAttribute("teleconsulta", teleconsulta); // Mantém dados de data e paciente
+        return "teleconsulta/lista";
     }
-    
-    @RequestMapping(value="/atualizarStatus", method=RequestMethod.POST)
-    @ResponseBody
-    public String atualizarStatus(@RequestParam("id") Long id, @RequestParam("status") String novoStatus) {
+
+    @RequestMapping(value = "/salvar", method = RequestMethod.POST)
+    public String salvar(Teleconsulta teleconsulta, RedirectAttributes attr) {
         try {
-            Teleconsulta teleconsulta = bo.pesquisarPeloId(id);
-
-            if (teleconsulta == null) {
-                throw new Exception("Teleconsulta não encontrada para o ID: " + id);
-            }
-
-            StatusConsulta status = StatusConsulta.valueOf(novoStatus);
-            teleconsulta.setStatus(status);
-            bo.update(teleconsulta);
-
-            return "Status atualizado com sucesso";
-        } catch (IllegalArgumentException e) {
-            System.err.println("Erro de conversão do Status: " + e.getMessage());
-            return "Erro: Status inválido fornecido.";
-        } catch (Exception e) {
-            System.err.println("Erro ao atualizar o status: " + e.getMessage());
-            return "Erro ao atualizar o status: " + e.getMessage();
+            bo.create(teleconsulta);
+            attr.addFlashAttribute("feedback", "Teleconsulta agendada com sucesso!");
+            return "redirect:/teleconsulta"; 
+        } catch (RuntimeException e) {
+            // Aqui pegamos a mensagem "Não é possível agendar..." que definimos no BO
+            attr.addFlashAttribute("erro", e.getMessage());
+            return "redirect:/teleconsulta/novo";
         }
     }
-
-    @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
-    public ModelAndView edita(@PathVariable Long id, ModelMap model) {
-
-        model.addAttribute("teleconsulta", bo.pesquisarPeloId(id));
-        model.addAttribute("pacientes", pacienteBO.lista());
-        model.addAttribute("profissionais", profissionalBO.lista());
-
-        return new ModelAndView("/teleconsulta/formulario", model);
-    }
-
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
-        bo.delete(id);
-        return "redirect:/teleconsultas";
+    public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+        try {
+            bo.delete(id);
+            attr.addFlashAttribute("feedback", "Teleconsulta cancelada com sucesso!");
+        } catch (Exception e) {
+            attr.addFlashAttribute("erro", "Não foi possível cancelar a consulta.");
+        }
+        return "redirect:/teleconsulta";
     }
 }
