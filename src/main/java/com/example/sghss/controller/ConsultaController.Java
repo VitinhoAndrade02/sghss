@@ -17,6 +17,9 @@ import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Consulta;
 import com.example.sghss.model.Especialidade;
 import com.example.sghss.model.TipoConsulta;
+import com.example.sghss.model.Paciente;
+import com.example.sghss.model.Profissional;
+import com.example.sghss.model.StatusConsulta; 
 
 import jakarta.validation.Valid;
 
@@ -33,11 +36,20 @@ public class ConsultaController {
     @Autowired
     private ProfissionalBO profissionalBO;
 
+    // LISTAGEM: Agora com a barra correta
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String lista(ModelMap model) {
+        System.out.println(">>>> O CONTROLLER ESTA FUNCIONANDO!");
+        model.addAttribute("consultas", bo.lista());
+        return "/consulta/lista"; 
+    }
+
+    // FORMULÁRIO NOVO
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public String novo(ModelMap model) {
         model.addAttribute("consulta", new Consulta());
         carregarCombos(model);
-        return "consulta/formulario";
+        return "/consulta/formulario";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -47,80 +59,30 @@ public class ConsultaController {
             RedirectAttributes attr,
             ModelMap model) {
 
-        // Valida paciente
-        if (consulta.getPaciente() != null && consulta.getPaciente().getId() != null) {
-            Paciente paciente = pacienteBO.pesquisarPeloId(consulta.getPaciente().getId());
-            if (paciente == null) {
-                result.rejectValue("paciente", "notfound", "Paciente não encontrado");
-            } else {
-                consulta.setPaciente(paciente);
-            }
-        } else {
-            result.rejectValue("paciente", "required", "Escolha um paciente");
-        }
-
-        // Valida profissional
-        if (consulta.getProfissional() != null && consulta.getProfissional().getId() != null) {
-            Profissional profissional = profissionalBO.pesquisarPeloId(consulta.getProfissional().getId());
-            if (profissional == null) {
-                result.rejectValue("profissional", "notfound", "Profissional não encontrado");
-            } else {
-                consulta.setProfissional(profissional);
-            }
-        } else {
-            result.rejectValue("profissional", "required", "Escolha um profissional");
-        }
-
-        // Valida tipo de consulta
-        if (consulta.getTipoConsulta() == null) {
-            consulta.setTipoConsulta(TipoConsulta.PRESENCIAL); // default
-        }
-
-        // Valida status
-        if (consulta.getStatusConsulta() == null) {
-            consulta.setStatusConsulta(StatusConsulta.AGENDADA); // default
-        }
-
-        // Valida especialidade
-        if (consulta.getEspecialidade() == null) {
-            result.rejectValue("especialidade", "required", "Informe a especialidade");
-        }
-
+        // Se o Spring encontrar erros de validação (ex: campos vazios)
         if (result.hasErrors()) {
             carregarCombos(model);
-            return "consulta/formulario";
+            return "/consulta/formulario"; // Ajustado com "/"
         }
 
+        // Lógica de Salvar/Update
         if (consulta.getId() == null) {
             bo.create(consulta);
-            attr.addFlashAttribute("feedback", "Consulta agendada!");
+            attr.addFlashAttribute("feedback", "Consulta agendada com sucesso!");
         } else {
             bo.update(consulta);
-            attr.addFlashAttribute("feedback", "Consulta atualizada!");
+            attr.addFlashAttribute("feedback", "Consulta atualizada com sucesso!");
         }
 
         return "redirect:/consultas";
-    }
-
-
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String lista(ModelMap model) {
-        model.addAttribute("consultas", bo.lista());
-        return "consulta/lista";
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
     public ModelAndView edita(@PathVariable Long id, ModelMap model) {
-        model.addAttribute("consulta", bo.pesquisarPeloId(id));
+        Consulta consulta = bo.pesquisarPeloId(id);
+        model.addAttribute("consulta", consulta);
         carregarCombos(model);
-        return new ModelAndView("consulta/formulario", model);
-    }
-
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id, RedirectAttributes attr) {
-        bo.delete(id);
-        attr.addFlashAttribute("feedback", "Consulta removida!");
-        return "redirect:/consultas";
+        return new ModelAndView("/consulta/formulario", model);
     }
 
     private void carregarCombos(ModelMap model) {
@@ -128,5 +90,7 @@ public class ConsultaController {
         model.addAttribute("profissionais", profissionalBO.lista());
         model.addAttribute("especialidades", Especialidade.values());
         model.addAttribute("tiposConsulta", TipoConsulta.values());
+        // Se você tiver um Enum de Status, adicione aqui também:
+        model.addAttribute("statusConsulta", StatusConsulta.values());
     }
 }

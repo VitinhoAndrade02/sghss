@@ -41,34 +41,39 @@ public class SecurityConfiguration  {
 				UserDetails admin = User.builder()
 					.username("admin")
 					.password(passwordEncoder().encode("12345"))
-					.roles("USUARIO", "ADMININISTRADOR")
+					.roles("USUARIO", "ADMINISTRADOR")
 					.build();
 				return new InMemoryUserDetailsManager(user, admin);
 	
 	}
 			
 		 @Bean
-		    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		        http
-		            .authorizeHttpRequests(authorizeRequests ->
-		                authorizeRequests
-		                    .requestMatchers("/nota-entrada", "/nota-saida", "/estoque").hasRole("ADMINISTRADOR")
-		                    .anyRequest().authenticated()
-		            )
-		            .formLogin(formLogin ->
-		                formLogin
-		                    .loginPage("/login")
-		                    .permitAll()
-		            )
-		            .logout(logout ->
-		                logout
-		                    .logoutUrl("/logout")
-		                    .logoutSuccessUrl("/login")
-		                    .permitAll()
-		            );
-		        
-		        return http.build();
-		    }
+		public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+			http
+				.authorizeHttpRequests(authorizeRequests ->
+					authorizeRequests
+						// LIBERE OS ARQUIVOS DE ESTILO E SCRIPTS
+						.requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+						
+						// REGRAS DE ACESSO
+						.requestMatchers("/profissionais/**", "/unidades/**", "/logs/**", "/relFinanceiros/**").hasRole("ADMINISTRADOR")
+						.anyRequest().authenticated()
+				)
+				.formLogin(formLogin ->
+					formLogin
+						.loginPage("/login")
+						.defaultSuccessUrl("/", true) // Redireciona para o index após logar
+						.permitAll()
+				)
+				.logout(logout ->
+					logout
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/login")
+						.permitAll()
+				);
+			
+			return http.build();
+}
 
 
 }
