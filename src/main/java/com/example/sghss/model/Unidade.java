@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import jakarta.validation.constraints.Size;
 
 
 @Entity
+@EntityListeners(AuditoriaListener.class)
 @Table(name = "unidades")
 public class Unidade {
 

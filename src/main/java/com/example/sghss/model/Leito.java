@@ -1,6 +1,7 @@
 package com.example.sghss.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import jakarta.validation.constraints.NotNull;
 
 
 @Entity
+@EntityListeners(AuditoriaListener.class)
 @Table(name = "leitos")
 public class Leito {
 

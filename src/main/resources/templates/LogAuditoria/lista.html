@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log de Auditoria</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body { padding-top: 4.5rem; }</style>
+    <style>
+        body { padding-top: 4.5rem; }
+        .badge-insert { background-color: #28a745; color: white; }
+        .badge-update { background-color: #ffc107; color: black; }
+        .badge-delete { background-color: #dc3545; color: white; }
+    </style>
 </head>
 
 <body>
     <div th:replace="~{fragments/menu :: menu}"></div>
-
 
     <div class="container">
         <div class="bg-light p-5 rounded">
@@ -23,25 +27,34 @@
             </div>
 
             <table class="table table-hover">
-                <thead>
+                <thead class="table-dark">
                     <tr>
                         <th>Usuário</th>
                         <th>Ação</th>
                         <th>Data e Hora</th>
-                        <th>Paciente</th>
-                        <th>Profissional</th>
+                        <th>Entidade (Tabela)</th>
+                        <th>ID do Registro</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="log : ${logs}">
                         <td th:text="${log.usuario}"></td>
-                        <td th:text="${log.acao}"></td>
-                        <td th:text="${#dates.format(log.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
-                        <td th:text="${log.paciente != null ? log.paciente.nome : '-'}"></td>
-                        <td th:text="${log.profissional != null ? log.profissional.nome : '-'}"></td>
+                        <td>
+                            <span class="badge" 
+                                  th:classappend="${log.acao == 'INSERT' ? 'badge-insert' : (log.acao == 'UPDATE' ? 'badge-update' : 'badge-delete')}"
+                                  th:text="${log.acao}">
+                            </span>
+                        </td>
+                        <td th:text="${#temporals.format(log.dataHora, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${log.entidade}"></td>
+                        <td th:text="${log.entidadeId}"></td>
                     </tr>
                 </tbody>
             </table>
+            
+            <div th:if="${#lists.isEmpty(logs)}" class="text-center p-3">
+                <p>Nenhum log registrado até o momento.</p>
+            </div>
         </div>
     </div>
 </body>

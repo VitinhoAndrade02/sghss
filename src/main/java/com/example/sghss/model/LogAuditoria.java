@@ -1,77 +1,37 @@
 package com.example.sghss.model;
 
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "log_auditoria")
+@Table(name = "logs_auditoria")
 public class LogAuditoria {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100)
-    @NotBlank(message = "Informe o usuário")
-    private String usuario;
-
-    @Column(length = 500)
-    @NotBlank(message = "Informe a ação")
-    private String acao;
-
-    @Column(name="data_hora", nullable=false)
-    @NotNull(message = "Informe a data e hora")
+    private String usuario;   // "Sistema" por enquanto
+    private String acao;      // INSERT, UPDATE, DELETE
+    private String entidade;  // Nome da classe (Ex: Unidade)
+    private Long entidadeId;  // ID do registro afetado
     private LocalDateTime dataHora;
 
-    @ManyToOne
-    @JoinColumn(name="paciente_id")
-    private Paciente paciente;
-
-    @ManyToOne
-    @JoinColumn(name="profissional_id")
-    private Profissional profissional;
-
-    public Long getId() { 
-        return id; 
-    }
-    public void setId(Long id) { 
-        this.id = id; 
+    public LogAuditoria() {
+        this.dataHora = LocalDateTime.now();
     }
 
-    public String getUsuario() { 
-        return usuario; 
-    }
-    public void setUsuario(String usuario) { 
-        this.usuario = usuario; 
-    }
-
-    public String getAcao() { 
-        return acao; 
-    }
-    public void setAcao(String acao) {
-        this.acao = acao; 
-    }
-
-    public LocalDateTime getDataHora() { 
-        return dataHora; 
-    }
-    public void setDataHora(LocalDateTime dataHora) { 
-        this.dataHora = dataHora; 
-    }
-
-    public Paciente getPaciente() { 
-        return paciente; 
-    }
-    public void setPaciente(Paciente paciente) { 
-        this.paciente = paciente; 
-    }
-
-    public Profissional getProfissional() { 
-        return profissional; 
-    }
-    public void setProfissional(Profissional profissional) {
-        this.profissional = profissional; 
-        }
+    // Getters e Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getUsuario() { return usuario; }
+    public void setUsuario(String usuario) { this.usuario = usuario; }
+    public String getAcao() { return acao; }
+    public void setAcao(String acao) { this.acao = acao; }
+    public String getEntidade() { return entidade; }
+    public void setEntidade(String entidade) { this.entidade = entidade; }
+    public Long getEntidadeId() { return entidadeId; }
+    public void setEntidadeId(Long entidadeId) { this.entidadeId = entidadeId; }
+    public LocalDateTime getDataHora() { return dataHora; }
+    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
 }
