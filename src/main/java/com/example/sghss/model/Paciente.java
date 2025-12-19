@@ -29,32 +29,35 @@ public class Paciente {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length =50)
-    @NotBlank(message = "Informe o nome")
-    @Size(min = 3, max = 50)
+    @Column(nullable = false, length =50)    
+    @NotBlank(message = "O Nome é obrigatório.")
+    @Size(min = 3, max = 50, message = "O Nome deve ter entre 3 e 50 caracteres.")
     private String nome;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_nascimento", columnDefinition = "DATE")
-    @NotNull(message = "Informe a data de nascimento")
+    @NotNull(message = "Informe a data de nascimento.")
     private LocalDate dataNascimento;
     
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Informe o sexo")
+    @NotNull(message = "Informe o sexo.")
     private Sexo sexo;
 
     @Column(length = 14)
-    @CPF(message="CPF inválido")
+    @CPF(message="CPF inválido.")
     private String cpf;
 
     @Column(length = 15)
+    @NotBlank(message = "Informe o celular.")
     private String telefone;
 
     @Column(length = 50)
+    @NotBlank(message = "Informe o Email.")
     @Email
     private String email;
 
     @Column(length = 100)
+    @NotBlank(message = "Informe o endereço.")
     private String endereco;
 
     @Column(length = 500)

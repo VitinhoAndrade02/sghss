@@ -32,8 +32,8 @@ public class Profissional {
     private Long id;
 
     @Column(nullable = false, length =50)    
-    @NotBlank(message = "Informe o nome")
-    @Size(min = 3, max = 50)
+    @NotBlank(message = "O Nome é obrigatório.")
+    @Size(min = 3, max = 50, message = "O Nome deve ter entre 3 e 50 caracteres.")
     private String nome;
 
     @Enumerated(EnumType.STRING)
@@ -41,26 +41,30 @@ public class Profissional {
     private Especialidade especialidade;
 
     @Column(length = 6)
-    @NotBlank
-    @Pattern(regexp = "\\d{4,6}")
+    @NotBlank(message = "O CRM é obrigatório.")
+    @Pattern(regexp = "\\d{4,6}", 
+            message = "O CRM deve conter apenas números, entre 4 e 6 dígitos.")
     private String crm;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_nascimento", columnDefinition = "DATE")
-    @NotNull(message = "Informe a data de nascimento")
+    @NotNull(message = "Informe a data de nascimento.")
     private LocalDate dataNascimento;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Informe o sexo")
+    @NotNull(message = "Informe o sexo.")
     private Sexo sexo;
 
     @Column(length = 15)
+    @NotBlank(message = "Informe o celular.")
     private String telefone;
 
     @Column(length = 50)
+    @NotBlank(message = "Informe o Email.")
     private String email;
 
     @Column(length = 100)
+    @NotBlank(message = "Informe o endereço.")
     private String endereco;
      
     @OneToMany(mappedBy = "profissional")

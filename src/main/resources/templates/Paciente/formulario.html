@@ -56,8 +56,8 @@
                                 <option value="Selecione" disabled selected>Selecione</option>
                                 <option value="MASCULINO">Masculino</option>
                                 <option value="FEMININO">Feminino</option>
+                                <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
                             </select>
-                            <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
                         </div>
                     </div>
 
@@ -65,7 +65,8 @@
                     <div class="row">
                         <div class="col-4 mb-3">
                             <label class="form-label" for="telefone">Celular:</label>
-                            <input class="form-control" id="telefone" type="text" th:field="*{telefone}" />
+                            <input class="form-control" id="telefone" type="text" th:field="*{telefone}"/>
+                             <span style="color:red;" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></span>
                         </div>
 
                         <div class="col-8 mb-3">
@@ -79,6 +80,7 @@
                         <label class="form-label" for="endereco">Endereço:</label>
                         <input class="form-control" id="endereco" type="text" th:field="*{endereco}"
                             placeholder="Digite o endereço" />
+                             <span style="color:red;" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></span>
                     </div>
 
                     <div class="mb-3">

@@ -28,12 +28,15 @@
             <div class="row">
                 <div class="col-8 mb-3">
                     <label class="form-label">Nome</label>
-                    <input class="form-control" type="text" th:field="*{nome}" required>
+                    <input class="form-control" type="text" th:field="*{nome}"/>
+                    <span style="color:red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+
                 </div>
 
                 <div class="col-4 mb-3">
                     <label class="form-label">CRM</label>
                     <input class="form-control" type="text" th:field="*{crm}">
+                    <span style="color:red;" th:if="${#fields.hasErrors('crm')}" th:errors="*{crm}"></span>
                 </div>
             </div>
 
@@ -41,6 +44,7 @@
                 <div class="col-4 mb-3">
                     <label class="form-label">Data de Nascimento</label>
                     <input class="form-control" type="date" th:field="*{dataNascimento}">
+                    <span style="color:red;" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
                 </div>
 
                 <div class="col-4 mb-3">
@@ -49,6 +53,7 @@
                         <option value="" disabled selected>Selecione</option>
                         <option value="MASCULINO">Masculino</option>
                         <option value="FEMININO">Feminino</option>
+                        <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
                     </select>
                 </div>
 
@@ -60,30 +65,35 @@
                                 th:value="${esp}"
                                 th:text="${esp.descricao}">
                         </option>
+                        <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}"></span>
                     </select>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-4 mb-3">
-                    <label class="form-label">Telefone</label>
+                    <label class="form-label">Celular</label>
                     <input class="form-control" type="text" th:field="*{telefone}">
+                    <span style="color:red;" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></span>
                 </div>
 
                 <div class="col-4 mb-3">
                     <label class="form-label">Email</label>
                     <input class="form-control" type="email" th:field="*{email}">
+                    <span style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>
 
                 <div class="col-4 mb-3">
                     <label class="form-label">Endereço</label>
                     <input class="form-control" type="text" th:field="*{endereco}">
+                    <span style="color:red;" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></span>
                 </div>
                 
                 <div class="row">
                 <div class="col-4 mb-3">
                     <label class="form-label">Salário</label>
-                    <input class="form-control" type="number" th:field="*{salario}" step="0.01" required>
+                    <input class="form-control" type="number" th:field="*{salario}" step="0.01" />
+                    <span style="color:red;" th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}"></span>
                 </div>
                 </div>
 
