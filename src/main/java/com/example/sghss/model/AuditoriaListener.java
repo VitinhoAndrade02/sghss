@@ -1,6 +1,8 @@
 package com.example.sghss.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.example.sghss.bo.LogAuditoriaBO;
@@ -40,7 +42,17 @@ public class AuditoriaListener {
                 LogAuditoria log = new LogAuditoria();
                 log.setAcao(acao);
                 log.setEntidade(obj.getClass().getSimpleName());
-                log.setUsuario("Sistema");
+
+                // --- ALTERAÇÃO AQUI ---
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                if (auth != null && auth.isAuthenticated()) {
+                    // Pega o nome do usuário logado (admin ou user)
+                    log.setUsuario(auth.getName()); 
+                } else {
+                    // Caso ocorra uma alteração sem login (ex: tarefa agendada)
+                    log.setUsuario("Sistema");
+                }
+                // -----------------------
 
                 java.lang.reflect.Method method = obj.getClass().getMethod("getId");
                 log.setEntidadeId((Long) method.invoke(obj));
