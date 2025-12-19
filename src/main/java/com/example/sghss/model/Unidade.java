@@ -37,13 +37,12 @@ public class Unidade {
     @Column(length = 100)
     private String endereco;
 
-    private String telefone;
-    
-    private String numeroLeitos;
+    private String telefone;    
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Leito> leitos;
-
+    
+    private double receita;
 
     public Long getId() { 
         return id; 
@@ -78,14 +77,7 @@ public class Unidade {
     }
     public void setTelefone(String telefone) { 
         this.telefone = telefone;
-    }
-    
-    public String getNumeroLeitos() { 
-        return numeroLeitos;
-    }
-    public void setNumeroLeitos(String numeroLeitos) { 
-        this.numeroLeitos = numeroLeitos;
-    }
+    }   
 
     public List<Leito> getLeitos() {
          return leitos; 
@@ -93,5 +85,13 @@ public class Unidade {
     
     public void setLeitos(List<Leito> leitos) { 
         this.leitos = leitos; 
+    }
+
+    public double getReceita() {
+        return receita;
+    }
+
+    public void setReceita(double receita) {
+        this.receita = receita;
     }
 }

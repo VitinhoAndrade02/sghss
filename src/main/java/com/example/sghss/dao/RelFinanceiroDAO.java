@@ -42,9 +42,6 @@ public class RelFinanceiroDAO implements CRUD<RelFinanceiro, Long> {
 
     @Override
     public void delete(Long id) {
-        RelFinanceiro relatorio = entityManager.find(RelFinanceiro.class, id);
-        if (relatorio != null) {
-            entityManager.remove(relatorio);
-        }
+       entityManager.remove(id);
     }
 }

@@ -70,7 +70,7 @@ public class Profissional {
     @OneToMany(mappedBy = "profissional", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Prontuario> prontuarios;    
 
-    
+    private double salario;
 
     public Long getId() {
         return id;
@@ -143,5 +143,13 @@ public class Profissional {
     }
     public void setProntuarios(List<Prontuario> prontuarios) {
         this.prontuarios = prontuarios; 
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 }

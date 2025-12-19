@@ -1,4 +1,5 @@
 package com.example.sghss.dao;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -26,8 +27,9 @@ public class ConsultaDAO implements CRUD<Consulta, Long> {
 
     @Override
     public List<Consulta> lista() {
-        TypedQuery<Consulta> query = entityManager.createQuery("SELECT c FROM Consulta c", Consulta.class);
-        return query.getResultList();
+        return entityManager
+                .createQuery("SELECT c FROM Consulta c ORDER BY c.dataConsulta, c.horaConsulta", Consulta.class)
+                .getResultList();
     }
 
     @Override
@@ -47,13 +49,13 @@ public class ConsultaDAO implements CRUD<Consulta, Long> {
             entityManager.remove(consulta);
         }
     }
-    
+
+    // horários ocupados por data
     public List<LocalTime> horariosOcupados(LocalDate data) {
         TypedQuery<LocalTime> query = entityManager.createQuery(
-            "SELECT c.horaConsulta FROM Consulta c WHERE c.dataConsulta = :data",
-            LocalTime.class);
-
+                "SELECT c.horaConsulta FROM Consulta c WHERE c.dataConsulta = :data",
+                LocalTime.class);
         query.setParameter("data", data);
-        return query.getResultList();//posso apagar
+        return query.getResultList();
     }
 }
