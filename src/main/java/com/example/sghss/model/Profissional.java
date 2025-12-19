@@ -78,6 +78,8 @@ public class Profissional {
 
     private double salario;
 
+    private String consultorioPadrao;
+
     public Long getId() {
         return id;
     }
@@ -157,5 +159,13 @@ public class Profissional {
 
     public void setSalario(double salario) {
         this.salario = salario;
+    }
+
+    public String getConsultorioPadrao() {
+        return consultorioPadrao;
+    }
+
+    public void setConsultorioPadrao(String consultorioPadrao) {
+        this.consultorioPadrao = consultorioPadrao;
     }
 }

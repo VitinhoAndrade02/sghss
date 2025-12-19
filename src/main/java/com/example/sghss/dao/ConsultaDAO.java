@@ -1,61 +1,43 @@
 package com.example.sghss.dao;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.sghss.model.Consulta;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public class ConsultaDAO implements CRUD<Consulta, Long> {
+public class ConsultaDAO {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
-    @Override
-    public Consulta pesquisarPeloId(Long id) {
-        return entityManager.find(Consulta.class, id);
-    }
-
-    @Override
+    public void create(Consulta c) { em.persist(c); }
+    
     public List<Consulta> lista() {
-        return entityManager
-                .createQuery("SELECT c FROM Consulta c ORDER BY c.dataConsulta, c.horaConsulta", Consulta.class)
-                .getResultList();
+        // Corrigido: data -> dataHora
+        return em.createQuery("SELECT c FROM Consulta c ORDER BY c.dataHora DESC", Consulta.class)
+                 .getResultList();
     }
 
-    @Override
-    public void create(Consulta consulta) {
-        entityManager.persist(consulta);
+    public boolean existsPorMedicoEHorario(Long profissionalId, LocalDateTime data) {
+        // Corrigido: data -> dataHora
+        String jpql = "SELECT COUNT(c) FROM Consulta c WHERE c.profissional.id = :pId AND c.dataHora = :data";
+        Long count = em.createQuery(jpql, Long.class)
+                .setParameter("pId", profissionalId)
+                .setParameter("data", data)
+                .getSingleResult();
+        return count > 0;
     }
 
-    @Override
-    public void update(Consulta consulta) {
-        entityManager.merge(consulta);
-    }
-
-    @Override
     public void delete(Long id) {
-        Consulta consulta = pesquisarPeloId(id);
-        if (consulta != null) {
-            entityManager.remove(consulta);
-        }
-    }
-
-    // horários ocupados por data
-    public List<LocalTime> horariosOcupados(LocalDate data) {
-        TypedQuery<LocalTime> query = entityManager.createQuery(
-                "SELECT c.horaConsulta FROM Consulta c WHERE c.dataConsulta = :data",
-                LocalTime.class);
-        query.setParameter("data", data);
-        return query.getResultList();
+        Consulta c = em.find(Consulta.class, id);
+        if (c != null) em.remove(c);
     }
 }

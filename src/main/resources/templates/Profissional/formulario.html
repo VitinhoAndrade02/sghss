@@ -30,7 +30,6 @@
                     <label class="form-label">Nome</label>
                     <input class="form-control" type="text" th:field="*{nome}"/>
                     <span style="color:red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-
                 </div>
 
                 <div class="col-4 mb-3">
@@ -53,8 +52,8 @@
                         <option value="" disabled selected>Selecione</option>
                         <option value="MASCULINO">Masculino</option>
                         <option value="FEMININO">Feminino</option>
-                        <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
                     </select>
+                    <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
                 </div>
 
                 <div class="col-4 mb-3">
@@ -65,8 +64,8 @@
                                 th:value="${esp}"
                                 th:text="${esp.descricao}">
                         </option>
-                        <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}"></span>
                     </select>
+                    <span style="color:red;" th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}"></span>
                 </div>
             </div>
 
@@ -88,29 +87,28 @@
                     <input class="form-control" type="text" th:field="*{endereco}">
                     <span style="color:red;" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></span>
                 </div>
-                
-                <div class="row">
+            </div>
+
+            <div class="row">
                 <div class="col-4 mb-3">
                     <label class="form-label">Salário</label>
                     <input class="form-control" type="number" th:field="*{salario}" step="0.01" />
                     <span style="color:red;" th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}"></span>
                 </div>
-                </div>
 
+                <div class="col-4 mb-3">
+                    <label class="form-label">Consultório/Sala Padrão</label>
+                    <input class="form-control" type="text" th:field="*{consultorioPadrao}" placeholder="Ex: Sala 101" />
+                    <span style="color:red;" th:if="${#fields.hasErrors('consultorioPadrao')}" th:errors="*{consultorioPadrao}"></span>
+                </div>
             </div>
 
             <div class="mt-3">
-                <!-- NOVO -->
-                <button type="submit"
-                        class="btn btn-success"
-                        th:if="${profissional.id == null}">
+                <button type="submit" class="btn btn-success" th:if="${profissional.id == null}">
                     Salvar
                 </button>
 
-                <!-- EDITAR -->
-                <button type="submit"
-                        class="btn btn-primary"
-                        th:if="${profissional.id != null}">
+                <button type="submit" class="btn btn-primary" th:if="${profissional.id != null}">
                     Salvar alterações
                 </button>
 
