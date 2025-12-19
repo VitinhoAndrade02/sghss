@@ -67,10 +67,16 @@ public class PacienteController {
     }
 
    @RequestMapping(value= "/delete/{id}", method= RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
-        bo.delete(id);
-        return "redirect:/pacientes";
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            bo.delete(id);
+            redirectAttributes.addFlashAttribute("feedback", "Paciente removido com sucesso!");
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("error", "Não é possível excluir o paciente pois ele possui consultas ou registros vinculados.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Erro ao tentar excluir o paciente.");
+        }
+        return "redirect:/pacientes"; 
     }
-
-
+    
 }

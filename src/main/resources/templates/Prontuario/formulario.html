@@ -3,67 +3,59 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Prontuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGHSS - Prontuário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { padding-top: 4.5rem; }
+        .btn-success { background-color: #28a745; border-color: #28a745; }
     </style>
 </head>
 
 <body>
-<div th:replace="~{fragments/menu :: menu}"></div>
+    <div th:replace="~{fragments/menu :: menu}"></div>
 
-<div class="container mt-4">
+    <div class="container">
+        <div class="bg-light p-5 rounded shadow-sm">
+            <h1 th:text="${prontuario.id == null} ? 'Adicionar Prontuário' : 'Editar Prontuário'"></h1>
+            <hr>
 
-    <h1 th:text="${prontuario.id == null} ? 'Adicionar Prontuário' : 'Editar Prontuário'"></h1>
+            <form th:action="@{/prontuarios/salvar}" th:object="${prontuario}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:if="${profissional != null}" th:field="*{profissional.id}" />
 
-    <form th:action="@{/prontuarios/salvar}" th:object="${prontuario}" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Paciente</label>
+                        <select class="form-select" th:field="*{paciente.id}" required>
+                            <option value="" disabled selected>Selecione o paciente</option>
+                            <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
+                        </select>
+                    </div>
 
-        <!-- ids -->
-        <input type="hidden" th:field="*{id}" />
-        <input type="hidden" th:if="${profissional != null}" th:field="*{profissional.id}" />
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Data do Registro</label>
+                        <input type="date" class="form-control" th:field="*{dataRegistro}" required />
+                    </div>
+                </div>
 
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label class="form-label">Paciente</label>
-                <select class="form-select" th:field="*{paciente.id}" required>
-                    <option value="" disabled>Selecione</option>
-                    <option th:each="p : ${pacientes}"
-                            th:value="${p.id}"
-                            th:text="${p.nome}">
-                    </option>
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Descrição Clínica</label>
+                    <textarea class="form-control" th:field="*{descricao}" rows="5" 
+                              placeholder="Descreva detalhadamente a evolução ou atendimento..."></textarea>
+                </div>
 
-            <div class="col-6 mb-3">
-                <label class="form-label">Data do Registro</label>
-                <input type="date"
-                       class="form-control"
-                       th:field="*{dataRegistro}"
-                       required />
-            </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success px-4" 
+                            th:text="${prontuario.id == null} ? 'Salvar Prontuário' : 'Salvar Alterações'">
+                    </button>
+                    <a class="btn btn-secondary px-4" th:href="@{/prontuarios/profissional/{id}(id=${profissional.id})}">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Descrição</label>
-            <textarea class="form-control"
-                      th:field="*{descricao}"
-                      rows="4"
-                      placeholder="Digite a descrição do prontuário">
-            </textarea>
-        </div>
-
-        <button type="submit"
-                class="btn btn-success"
-                th:text="${prontuario.id == null} ? 'Salvar' : 'Salvar alterações'">
-        </button>
-
-        <a class="btn btn-secondary"
-           th:href="@{/prontuarios/profissional/{id}(id=${profissional.id})}">
-            Cancelar
-        </a>
-    </form>
-
-</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

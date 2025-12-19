@@ -16,9 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.sghss.bo.ProfissionalBO;
 import com.example.sghss.model.Especialidade;
 import com.example.sghss.model.Prescricao;
-import com.example.sghss.model.Prontuario;
-
 import com.example.sghss.model.Profissional;
+import com.example.sghss.model.Prontuario;
 
 import jakarta.validation.Valid;
 
@@ -102,13 +101,18 @@ public class ProfissionalController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id, RedirectAttributes attr) {
-        bo.delete(id);
-        attr.addFlashAttribute("feedback",
-            "Profissional excluído com sucesso");
-        return "redirect:/profissionais";
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            bo.delete(id);
+            redirectAttributes.addFlashAttribute("feedback", "Profissional removido com sucesso!");
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            // Este erro acontece quando o profissional tem consultas, prontuários ou prescrições vinculadas
+            redirectAttributes.addFlashAttribute("error", "Não é possível excluir o profissional pois ele possui registros (consultas/prontuários) vinculados.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Erro inesperado ao tentar excluir o profissional.");
+        }
+            return "redirect:/profissionais"; 
     }
-
 
     
     @RequestMapping(value = "/por-especialidade/{especialidade}", method = RequestMethod.GET)
@@ -116,6 +120,6 @@ public class ProfissionalController {
     public List<Profissional> porEspecialidade(
         @PathVariable Especialidade especialidade) {
         return bo.buscarPorEspecialidade(especialidade);
-}
+    }
 
 }

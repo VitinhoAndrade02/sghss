@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "consultas_presenciais")
+@Table(name = "consultas")
 public class Consulta {
 
     @Id

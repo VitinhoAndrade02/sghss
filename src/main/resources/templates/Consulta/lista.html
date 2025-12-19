@@ -1,45 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGHSS - Consultas Presenciais</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body { padding-top: 4.5rem; }</style>
+    <style>
+        body { padding-top: 4.5rem; }
+        .btn-insert { background-color: #28a745; color: white; border: none; }
+        .btn-insert:hover { background-color: #218838; color: white; }
+        .badge-delete { background-color: #dc3545; color: white; text-decoration: none; }
+        .table-vcenter td { vertical-align: middle; }
+    </style>
 </head>
+
 <body>
-<div th:replace="~{fragments/menu :: menu}"></div>
+    <div th:replace="~{fragments/menu :: menu}"></div>
 
-<div class="container">
-    <div class="bg-light p-5 rounded">
-        <h1>Consultas Presenciais Agendadas</h1>
-        <hr>
-        <a th:href="@{/consultas/novo}" class="btn btn-primary mb-3">Novo Agendamento</a>
+    <div class="container">
+        <div class="bg-light p-5 rounded shadow-sm">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>Consultas Presenciais Agendadas</h1>
+                <a th:href="@{/consultas/novo}" class="btn btn-insert">Novo Agendamento</a>
+            </div>
+            <hr>
 
-        <div th:if="${feedback}" class="alert alert-success" th:text="${feedback}"></div>
+            <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${feedback}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Paciente</th>
-                    <th>Médico</th>
-                    <th>Local</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="c : ${consultas}">
-                    <td th:text="${#temporals.format(c.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
-                    <td th:text="${c.paciente.nome}"></td>
-                    <td th:text="${c.profissional.nome}"></td>
-                    <td th:text="${c.consultorio}"></td>
-                    <td>
-                        <a th:href="@{/consulta/delete/{id}(id=${c.id})}" class="btn btn-danger btn-sm">Cancelar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="table-responsive">
+                <table class="table table-hover table-vcenter">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Data e Horário</th>
+                            <th>Paciente</th>
+                            <th>Médico/Profissional</th>
+                            <th>Local/Consultório</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${#lists.isEmpty(consultas)}">
+                            <td colspan="5" class="text-center text-muted p-4">
+                                Nenhum agendamento encontrado para os próximos dias.
+                            </td>
+                        </tr>
+                        
+                        <tr th:each="c : ${consultas}">
+                            <td class="fw-bold" th:text="${#temporals.format(c.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${c.paciente.nome}"></td>
+                            <td th:text="${c.profissional.nome}"></td>
+                            <td>
+                                <span class="text-secondary" th:text="${c.consultorio}"></span>
+                            </td>
+                            <td class="text-center">
+                                <a th:href="@{/consultas/delete/{id}(id=${c.id})}" 
+                                   class="badge badge-delete p-2"
+                                   onclick="return confirm('Tem certeza que deseja cancelar este agendamento?')">
+                                    Cancelar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

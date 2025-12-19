@@ -1,123 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro do Paciente</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
+    <title>SGHSS - Cadastro do Paciente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            padding-top: 4.5rem;
-        }
+        body { padding-top: 4.5rem; }
+        .error-message { color: #dc3545; font-size: 0.875rem; margin-top: 0.25rem; }
     </style>
 </head>
 
 <body>
-
     <div th:replace="~{fragments/menu :: menu}"></div>
 
     <div class="container">
-        <div class="bg-light p-5 rounded">
+        <div class="bg-light p-5 rounded shadow-sm">
             <h1>Dados do Paciente</h1>
             <hr>
-            <div>
-                <form th:action="@{/pacientes}" th:object="${paciente}" method="POST">
-                    <input type="hidden" th:field="*{id}" />
 
+            <form th:action="@{/pacientes}" th:object="${paciente}" method="POST">
+                <input type="hidden" th:field="*{id}" />
 
-                    <div class="mb-6">
-                        <label class="form-label" for="nome">Nome:</label>
-                        <input class="form-control" id="nome" type="text" th:field="*{nome}" />
-                        <span style="color:red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="nome">Nome Completo:</label>
+                    <input class="form-control" id="nome" type="text" th:field="*{nome}" />
+                    <div class="error-message" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                </div>
 
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold" for="cpf">CPF:</label>
+                        <input class="form-control" id="cpf" type="text" th:field="*{cpf}" />
+                        <div class="error-message" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-4 mb-3">
-                            <label class="form-label" for="cpf">CPF:</label>
-                            <input class="form-control" id="cpf" type="text" th:field="*{cpf}" />
-                            <span style="color:red;" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
-                        </div>
-
-                        <div class="col-4 mb-3">
-                            <label class="form-label" for="dataNascimento">Data de Nascimento:</label>
-                            <input class="form-control" id="dataNascimento" type="date" th:field="*{dataNascimento}" />
-                            <span style="color:red;" th:if="${#fields.hasErrors('dataNascimento')}"
-                                th:errors="*{dataNascimento}"></span>
-
-                        </div>
-
-                        <div class="col-4 mb-3">
-                            <label class="form-label" for="sexo">Sexo:</label>
-                            <select class="form-select" id="sexo" th:field="*{sexo}">
-                                <option value="Selecione" disabled selected>Selecione</option>
-                                <option value="MASCULINO">Masculino</option>
-                                <option value="FEMININO">Feminino</option>
-                                <span style="color:red;" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
-                            </select>
-                        </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold" for="dataNascimento">Data de Nascimento:</label>
+                        <input class="form-control" id="dataNascimento" type="date" th:field="*{dataNascimento}" />
+                        <div class="error-message" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></div>
                     </div>
 
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold" for="sexo">Sexo:</label>
+                        <select class="form-select" id="sexo" th:field="*{sexo}">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="MASCULINO">Masculino</option>
+                            <option value="FEMININO">Feminino</option>
+                        </select>
+                        <div class="error-message" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></div>
+                    </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-4 mb-3">
-                            <label class="form-label" for="telefone">Celular:</label>
-                            <input class="form-control" id="telefone" type="text" th:field="*{telefone}"/>
-                             <span style="color:red;" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></span>
-                        </div>
-
-                        <div class="col-8 mb-3">
-                            <label class="form-label" for="email">Email:</label>
-                            <input class="form-control" id="email" type="email" th:field="*{email}" />
-                            <span style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                        </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold" for="telefone">Celular:</label>
+                        <input class="form-control" id="telefone" type="text" th:field="*{telefone}" />
+                        <div class="error-message" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="endereco">Endereço:</label>
-                        <input class="form-control" id="endereco" type="text" th:field="*{endereco}"
-                            placeholder="Digite o endereço" />
-                             <span style="color:red;" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></span>
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label fw-bold" for="email">E-mail:</label>
+                        <input class="form-control" id="email" type="email" th:field="*{email}" />
+                        <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
+                </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="historicoClinico">Histórico Clínico:</label>
-                        <textarea class="form-control" id="historicoClinico" th:field="*{historicoClinico}"
-                            placeholder="Digite o histórico"></textarea>
-                    </div>
-                    <div class="mb-3 form-check form-switch">
-                        <input class="form-check-input" role="switch" id="receberNotificacao" type="checkbox" th:field="*{receberNotificacao}" checked/>
-                        <label class="form-check-label" for="receberNotificacao">Receber Notificação</label>
-                    </div>
-                    <br><br>
-                    <div class="mb-3">
-                        <input class="btn btn-primary" type="submit" value="Salvar" />
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="endereco">Endereço Residencial:</label>
+                    <input class="form-control" id="endereco" type="text" th:field="*{endereco}" placeholder="Rua, Número, Bairro, Cidade" />
+                    <div class="error-message" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></div>
+                </div>
 
-                </form>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="historicoClinico">Histórico Clínico:</label>
+                    <textarea class="form-control" id="historicoClinico" th:field="*{historicoClinico}" rows="3" placeholder="Observações médicas relevantes..."></textarea>
+                </div>
+
+                <div class="mb-4 form-check form-switch">
+                    <input class="form-check-input" role="switch" id="receberNotificacao" type="checkbox" th:field="*{receberNotificacao}" />
+                    <label class="form-check-label" for="receberNotificacao">Receber notificações por e-mail/SMS</label>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success px-4">Salvar Paciente</button>
+                    <a th:href="@{/pacientes}" class="btn btn-secondary px-4">Voltar</a>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-            crossorigin="anonymous"></script>
-
-        <script crossorigin="anonymous" referrerpolicy="no-referrer"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
-        <script crossorigin="anonymous" referrerpolicy="no-referrer"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"
-            integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw=="></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#cpf').mask('999.999.999-99');
-                $('#telefone').mask('(99)9999-9999');
-            }); 
-        </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#cpf').mask('999.999.999-99');
+            $('#telefone').mask('(99) 99999-9999');
+        }); 
+    </script>
 </body>
-
 </html>
