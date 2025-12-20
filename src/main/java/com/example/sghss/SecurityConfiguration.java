@@ -52,17 +52,17 @@ public class SecurityConfiguration  {
 			http
 				.authorizeHttpRequests(authorizeRequests ->
 					authorizeRequests
-						// LIBERE OS ARQUIVOS DE ESTILO E SCRIPTS
+						
 						.requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
 						
-						// REGRAS DE ACESSO
-						.requestMatchers("/profissionais/**", "/unidades/**", "/logs/**", "/relFinanceiros/**").hasRole("ADMINISTRADOR")
+						
+						.requestMatchers("/pacientes**","/profissionais/**", "/unidades/**", "/logs/**", "/relFinanceiros/**").hasRole("ADMINISTRADOR")
 						.anyRequest().authenticated()
 				)
 				.formLogin(formLogin ->
 					formLogin
 						.loginPage("/login")
-						.defaultSuccessUrl("/", true) // Redireciona para o index após logar
+						.defaultSuccessUrl("/", true) 
 						.permitAll()
 				)
 				.logout(logout ->

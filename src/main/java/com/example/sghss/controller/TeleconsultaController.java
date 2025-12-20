@@ -24,7 +24,7 @@ public class TeleconsultaController {
     private TeleconsultaBO bo;
 
     @Autowired
-    private PacienteBO pacienteBo; // Injetar para listar no select
+    private PacienteBO pacienteBo; 
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public String formulario(Model model) {
@@ -34,7 +34,7 @@ public class TeleconsultaController {
         return "teleconsulta/formulario"; 
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET) // Rota: /teleconsulta
+    @RequestMapping(value = "", method = RequestMethod.GET) 
     public String listarTodas(Model model) {
         model.addAttribute("consultas", bo.lista());
         return "teleconsulta/lista_geral"; 
@@ -48,7 +48,7 @@ public class TeleconsultaController {
         );
         
         model.addAttribute("lista", disponiveis);
-        model.addAttribute("teleconsulta", teleconsulta); // Mantém dados de data e paciente
+        model.addAttribute("teleconsulta", teleconsulta); 
         return "teleconsulta/lista";
     }
 
@@ -59,7 +59,6 @@ public class TeleconsultaController {
             attr.addFlashAttribute("feedback", "Teleconsulta agendada com sucesso!");
             return "redirect:/teleconsulta"; 
         } catch (RuntimeException e) {
-            // Aqui pegamos a mensagem "Não é possível agendar..." que definimos no BO
             attr.addFlashAttribute("erro", e.getMessage());
             return "redirect:/teleconsulta/novo";
         }

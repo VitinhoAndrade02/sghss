@@ -16,10 +16,10 @@ public class LogAuditoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String usuario;   // "Sistema" por enquanto
-    private String acao;      // INSERT, UPDATE, DELETE
-    private String entidade;  // Nome da classe (Ex: Unidade)
-    private Long entidadeId;  // ID do registro afetado
+    private String usuario;   
+    private String acao;      
+    private String entidade;  
+    private Long entidadeId;  
     private LocalDateTime dataHora;
 
     public LogAuditoria() {

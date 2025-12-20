@@ -106,7 +106,6 @@ public class ProfissionalController {
             bo.delete(id);
             redirectAttributes.addFlashAttribute("feedback", "Profissional removido com sucesso!");
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
-            // Este erro acontece quando o profissional tem consultas, prontuários ou prescrições vinculadas
             redirectAttributes.addFlashAttribute("error", "Não é possível excluir o profissional pois ele possui registros (consultas/prontuários) vinculados.");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro inesperado ao tentar excluir o profissional.");

@@ -43,16 +43,12 @@ public class AuditoriaListener {
                 log.setAcao(acao);
                 log.setEntidade(obj.getClass().getSimpleName());
 
-                // --- ALTERAÇÃO AQUI ---
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 if (auth != null && auth.isAuthenticated()) {
-                    // Pega o nome do usuário logado (admin ou user)
                     log.setUsuario(auth.getName()); 
                 } else {
-                    // Caso ocorra uma alteração sem login (ex: tarefa agendada)
                     log.setUsuario("Sistema");
                 }
-                // -----------------------
 
                 java.lang.reflect.Method method = obj.getClass().getMethod("getId");
                 log.setEntidadeId((Long) method.invoke(obj));

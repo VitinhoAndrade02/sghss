@@ -21,13 +21,11 @@ public class ConsultaDAO {
     public void create(Consulta c) { em.persist(c); }
     
     public List<Consulta> lista() {
-        // Corrigido: data -> dataHora
         return em.createQuery("SELECT c FROM Consulta c ORDER BY c.dataHora DESC", Consulta.class)
                  .getResultList();
     }
 
     public boolean existsPorMedicoEHorario(Long profissionalId, LocalDateTime data) {
-        // Corrigido: data -> dataHora
         String jpql = "SELECT COUNT(c) FROM Consulta c WHERE c.profissional.id = :pId AND c.dataHora = :data";
         Long count = em.createQuery(jpql, Long.class)
                 .setParameter("pId", profissionalId)

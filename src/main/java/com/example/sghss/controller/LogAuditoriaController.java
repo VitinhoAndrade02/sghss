@@ -19,7 +19,6 @@ public class LogAuditoriaController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("logs", bo.lista());
-        // Certifique-se de que o arquivo HTML estará em: src/main/resources/templates/log/lista.html
         return new ModelAndView("/logAuditoria/lista", model);
     }
 }

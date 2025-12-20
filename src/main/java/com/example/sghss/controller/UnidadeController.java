@@ -72,7 +72,7 @@ public class UnidadeController {
     public ModelAndView edita(@PathVariable Long id, ModelMap model) {
         Unidade unidade = bo.pesquisarPeloId(id);
 
-        model.addAttribute("unidade", unidade); // 🔥 ESSENCIAL
+        model.addAttribute("unidade", unidade); 
         return new ModelAndView("/unidade/formulario", model);
     }
 

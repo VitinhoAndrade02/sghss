@@ -26,15 +26,12 @@ public class TeleconsultaDAO implements CRUD<Teleconsulta, Long> {
     
     public void salvar(Teleconsulta teleconsulta) {
         try {
-            // O persist transforma o objeto em uma linha na tabela
             entityManager.persist(teleconsulta);
         } catch (Exception e) {
-            // Aqui você pode tratar erros de banco (ex: violação de constraint)
             throw new RuntimeException("Erro ao salvar a teleconsulta", e);
         }
     }
 
-    // Método para verificar se o médico já tem consulta nesse horário
     public boolean existsPorMedicoEHorario(Long profissionalId, LocalDateTime data) {
         String jpql = "SELECT COUNT(t) FROM Teleconsulta t " +
                       "WHERE t.profissional.id = :idProf " +
